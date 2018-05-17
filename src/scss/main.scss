@@ -1,0 +1,1344 @@
+@import "utils";
+
+*,
+*:before,
+*:after {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+html, body, h1, h2, h3, h4, h5, h6, p, dl, dt, dd, ul, ol, li, form, fieldset, button, input, textarea { margin: 0; padding: 0; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; vertical-align: top; }
+ul { list-style: none; }
+button, input { font-family: inherit; }
+button { border: none; color: inherit; text-transform: none; font: inherit; -webkit-appearance: button; }
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button { margin: 0; -webkit-appearance: none; }
+input::-webkit-search-decoration, input::-webkit-search-cancel-button { display: none; }
+html { width: 100%; height: 100%; }
+body { min-height: 100%; outline: 0; font: 13px/1.5 "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Arial, "Hiragino Sans GB", STHeiti, 'Microsoft Yahei', sans-serif; cursor: default; -webkit-tap-highlight-color: transparent; -webkit-text-size-adjust: 100% !important; }
+body, img, a { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+input { -webkit-touch-callout: none; touch-callout: none; -webkit-appearance: none; }
+table {
+	width: 100%;
+	border-spacing: 0;
+	border-collapse: collapse;
+}
+html, body, .g-doc {
+	position: relative;
+	height: 100%;
+	width: 100%;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	background-color: $bg-color;
+	color: $black;
+	-webkit-tap-highlight-color: transparent;
+	transform-style: preserve-3d;
+	backface-visibility: hidden;
+}
+.vhide {
+	visibility: hidden;
+}
+.clearfix {
+	@include clearfix();
+}
+a {
+	color: $black;
+}
+em, i {
+	font-style: normal;
+}
+.m5 {
+	margin-left: $space-sm;
+	margin-right: $space-sm;
+}
+// color
+.text-primary {
+	color: $primary-color;
+}
+.text-info {
+	color: $info-color;
+}
+.text-success {
+	color: $success-color;
+}
+.text-warning {
+	color: $warning-color;
+}
+.text-error {
+	color: $error-color;
+}
+.text-gray {
+	color: $gray-light;
+}
+.text-center {
+	text-align: center;
+}
+.text-right {
+	text-align: right;
+}
+.text-left {
+	text-align: left;
+}
+.text-xs {
+	@include font-dpr(9);
+}
+.text-sm {
+	@include font-dpr(11);
+}
+input[disabled="disabled"] {
+	color: #999;
+}
+
+// 圆形图片
+.img-circle {
+	border-radius: 50%;
+	overflow: hidden;
+}
+// 列表动画
+.flip-list-move {
+	transition: transform 1s;
+}
+// tab-icon
+@font-face {
+	font-family: "iconfont";
+	src: url('../assets/iconfont.ttf?t=1524123129681') format('truetype'),
+/* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+	url('../assets/iconfont.svg?t=1524123129681#iconfont') format('svg');
+/* iOS 4.1- */
+}
+
+.iconfont {
+	font-family:"iconfont" !important;
+	@include font-dpr(16);
+	font-style:normal;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-trophy:before { content: "\e600"; }
+
+.icon-outMoney:before { content: "\e60e"; }
+
+.icon-access:before { content: "\e604"; }
+
+.icon-setting:before { content: "\e615"; }
+
+.icon-inMoney:before { content: "\e61c"; }
+
+.icon-more:before { content: "\e682"; }
+
+.icon-empty:before { content: "\e621"; }
+
+.icon-service:before { content: "\e60b"; }
+
+.icon-waiting:before { content: "\e65a"; }
+
+.icon-notice:before { content: "\e609"; }
+
+.icon-profile:before { content: "\e620"; }
+
+.icon-shake:before { content: "\e827"; }
+
+.icon-eye:before { content: "\e650"; }
+
+.icon-lipin:before { content: "\e71d"; }
+
+.icon-itemSelected:before { content: "\e6d5"; }
+
+.icon-all:before { content: "\e613"; }
+
+.icon-winning:before { content: "\e60c"; }
+
+.icon-buy:before { content: "\e683"; }
+
+.icon-isWin:before { content: "\e612"; }
+
+.icon-noWin:before { content: "\e614"; }
+
+.icon-arrowdropdown:before { content: "\e60d"; }
+
+.icon-chart:before { content: "\e6ab"; }
+
+.icon-home:before { content: "\e627"; }
+
+.icon-success:before { content: "\e6f1"; }
+
+.icon-record:before { content: "\e61b"; }
+
+.icon-focus:before { content: "\e677"; }
+
+.icon-cart:before { content: "\e601"; }
+
+// app hack
+.form-body .weui-label {
+	width: px2rem(140);
+}
+.weui-tab__panel {
+	padding-bottom: px2rem(200);
+}
+.focus-detail .weui-tab__panel {
+	padding-bottom: px2rem(220);
+}
+.game-wrap,
+.game-center {
+	.weui-tab__panel {
+		// 倒计时的高度 72.48
+		// 顶部 90+40
+		// 底部高度100
+		padding-bottom: px2rem(73*2 + 130 + 100);
+	}
+	// for: gameCenter-chart
+	.yo-scroll {
+		top: px2rem(73*2 + 130) !important;
+	}
+	.load-more {
+		display: none !important;
+	}
+	// 投注按钮
+	.weui-btn_warn {
+		width: px2rem(180);
+	}
+}
+.service-wrap {
+	.weui-tab__panel {
+		padding-bottom: px2rem(90+40)
+	}
+}
+// 走势图
+.chart-view header {
+	position: relative;
+	z-index: 2;
+}
+.chart-view .weui-tab__panel {
+	position: relative;
+	padding-bottom: px2rem(88 + 130 + 50);
+}
+
+.vux-header {
+	padding: px2rem(40) 0 0;
+	display: flex;
+	align-items: center;
+	@extend .clearfix;
+	$size: px2rem(90);
+	.vux-header-title {
+		flex: 1;
+		margin: 0 $size;
+		height: $size;
+		line-height: $size;
+	}
+	.vux-header-left,
+	.vux-header-right {
+		position: relative;
+		top: 0;
+	}
+	.vux-header-title,
+	h1 {
+		@include font-dpr(18);
+	}
+	.profile .iconfont {
+		@include font-dpr(24);
+	}
+}
+.home {
+	.vux-header-left {
+		position: absolute;
+		top: px2rem(40 + 45);
+		margin-top: -12px;
+		line-height: 1;
+	}
+	.weui-tab__panel {
+		-webkit-overflow-scrolling: auto;
+	}
+}
+.vux-header,
+.buy-tool,
+.ui-footer {
+	z-index: 500;
+}
+// tabbar
+.weui-tabbar {
+	background-color: #fff;
+	.iconfont {
+		@include font-dpr(26);
+		line-height: 1;
+	}
+}
+.weui-tabbar__icon {
+	height: auto;
+	width: auto;
+}
+.weui-tabbar__label {
+	margin-top: $space-xs;
+	@include font-dpr(13);
+}
+.vux-tab {
+	$height: px2rem(88);
+	height: $height !important;
+	.vux-tab-item {
+		line-height: $height !important;
+	}
+}
+// dialog hack
+.app-hack {
+	$size: px2rem(100);
+	// transform-style: preserve-3d;
+	backface-visibility: hidden;
+	.weui-dialog {
+		max-width: px2rem(590);
+	}
+	.weui-dialog__hd {
+		padding: 0;
+		height: $size;
+		line-height: $size;
+		border-bottom: border1px();
+	}
+	.weui-dialog__bd {
+		color: #333;
+		padding: px2rem(40);
+		text-align: left;
+		@include font-dpr(14);
+	}
+	.weui-dialog__title {
+		@include font-dpr(16);
+	}
+	.weui-dialog__ft {
+		line-height: $size;
+		@include font-dpr(16);
+	}
+	.weui-cells {
+		@include font-dpr(13);
+	}
+
+	// .weui-switch {
+	// 	top: 50%;
+	// 	width: px2rem(100);
+	// 	height: px2rem(60);
+	// }
+/* 	.weui-dialog__btn {
+		height: $size;
+		line-height: $size;
+		padding: 0;
+		@include font-dpr(14);
+	} */
+}
+
+.weui-cells {
+	margin-top: 0 !important;
+	margin-bottom: $space;
+	@include font-dpr(14);
+}
+.weui-cell {
+	padding: px2rem(32) $space-lg !important;
+	@include font-dpr(14);
+	&:before {
+		left: 0!important;
+	}
+}
+.weui-toast {
+	width: auto !important;
+	min-width: px2rem(200);
+	max-width: 80%;
+	padding: 0 $space;
+}
+.vux-x-switch.weui-cell_switch {
+	$size: px2rem(15);
+	padding-top: $size;
+	padding-bottom: $size;
+}
+// CellBox
+.weui-cell_access.vux-cell-box:after {
+	content: " ";
+	display: inline-block;
+	@include square(20);
+	border-width: px2rem(2) px2rem(2) 0 0;
+	border-color: #C8C8CD;
+	border-style: solid;
+	-webkit-transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+	transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+	position: absolute;
+	top: 50%;
+	margin-top: -4px;
+	right: $space;
+}
+// header
+.vux-header-title {
+	& > span {
+		@include font-dpr(18);
+	}
+	.icon-profile {
+		display: block;
+		@include font-dpr(100);
+		margin-top: -$space-sm;
+	}
+	.icon-arrowdropdown {
+		display: inline-block;
+		@include font-dpr(28);
+		vertical-align: middle;
+		transition: transform .3s linear;
+		transform-origin: 50% 50%;
+	}
+	.active .icon-arrowdropdown {
+		transform: rotate(180deg);
+	}
+}
+.cell-header {
+	$size: px2rem(80);
+	height: $size;
+	line-height: $size;
+	background-color: $bg-color;
+	color: $gray;
+	@include font-dpr(14);
+	&:before {
+		content: "";
+		margin: 0 $space;
+		display: inline-block;
+		vertical-align: middle;
+		width: px2rem(8);
+		height: px2rem(28);
+		background: $primary-color;
+	}
+}
+.vux-cell-box > div {
+	width: 100%;
+}
+// 彩票球
+.gameball {
+	display: inline-block;
+	border-radius: 50%;
+	font-weight: 700;
+	text-align: center;
+}
+.gameball-lg {
+	@include square(80);
+	line-height: px2rem(80);
+	background: #fff;
+	@include font-dpr(14);
+	color: $primary-color;
+	border: $width1 solid $border-color;
+	&:active,
+	&.active {
+		background: $primary-color;
+		color: #fff;
+	}
+}
+.gameball-sm {
+	@include square(55);
+	line-height: px2rem(55);
+	background-color: $primary-color;
+	@include font-dpr(10);
+	color: #fff;
+}
+.gameball-gray {
+	@include square(55);
+	line-height: px2rem(55);
+	background-color: $gray-dark;
+	@include font-dpr(10);
+	color: #fff;
+}
+.ui-footer,
+.buy-tool {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+}
+.buy-tool {
+	&-head,
+	&-footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	&-footer {
+		height: px2rem(100);
+		padding: 0 $space-lg;
+		background-color: #666;
+		color: #fff;
+		@include font-dpr(15);
+		.icon-empty {
+			display: block;
+			@include font-dpr(25);
+		}
+		.result {
+			font-weight: 700;
+		}
+		.space {
+			display: inline-block;
+		}
+		.weui-btn {
+			@include font-dpr(14);
+		}
+	}
+	&-head {
+		height: px2rem(86);
+		border-top: border1px();
+		background: #fff;
+		padding: 0 px2rem(40);
+		.stop-checkbox {
+			input {
+				margin-right: $space-sm;
+				vertical-align: middle;
+				-webkit-appearance: checkbox;
+			}
+		}
+		.weui-cell {
+			margin: 0 $space-sm;
+			display: inline-block;
+			vertical-align: middle;
+			padding: 0!important;
+			border: none!important;
+		}
+		$height: px2rem(66);
+		$width: px2rem(60);
+		.vux-number-selector-sub,
+		.vux-number-selector-plus,
+		.vux-number-input {
+			padding: 0;
+			height: $height;
+			width: $width;
+			line-height: px2rem(80);
+			border: border1px();
+			@include font-dpr(14);
+			font-weight: 700;
+			text-align: center;
+		}
+		.vux-number-input {
+			line-height: 1;
+			padding: $space-sm;
+		}
+		.vux-number-selector-sub {
+			border-right: none;
+			border-radius: $space-sm 0 0 $space-sm;
+		}
+		.vux-number-selector-plus {
+			margin-right: 0;
+			border-left: none;
+			border-radius: 0 $space-sm $space-sm 0;
+		}
+	}
+}
+// 顶部下拉菜单
+.ui-mask {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.6);
+	&-transparent {
+		background: transparent;
+	}
+	&.active {
+		display: block;
+		opacity: 1;
+	}
+}
+.ui-dropdown,
+.helper-menu {
+	top: px2rem(40+90);
+ }
+// 助手菜单
+.helper-menu {
+	border: border1px();
+	position: absolute;
+	right: 0;
+	width: px2rem(200);
+	z-index: 1;
+	li {
+		background: #000;
+		color: #fff;
+		padding: $space-lg 0;
+		text-align: center;
+	}
+	li + li {
+		border-top: border1px();
+	}
+}
+.ui-dropdown {
+	z-index: 1;
+	position: fixed;
+	left: 0;
+	right: 0;
+	width: 100%;
+	padding-top: $space;
+	background: $bg-color;
+	box-shadow: 0 3px 5px rgba(0, 0, 0, .1);
+	transition: transform .3s ease-in-out;
+	transform: translate3d(0, -200%, 0);
+	&.active {
+		transform: translate3d(0, 0, 0);
+	}
+	.vux-checker-box {
+		display: flex;
+		justify-content: space-around;
+		flex-wrap: wrap;
+	}
+}
+.type-radio {
+	$border-radius: $space-sm;
+	overflow: hidden;
+	position: relative;
+	width: px2rem(214);
+	padding: px2rem(16) 0;
+	margin-bottom: $space;
+	border: border1px();
+	background: #fff;
+	border-radius: $border-radius;
+	text-align: center;
+	@include font-dpr(14);
+	line-height: 1;
+	// 选中
+	&:before {
+		@extend .iconfont;
+		color: $primary-color;
+		position: absolute;
+		right: px2rem(-1);
+		bottom: 0;
+		line-height: 1;
+	}
+	&-selected {
+		border-color: $primary-color;
+		color: $primary-color;
+		&:before {
+			content: "\e6d5";
+		}
+	}
+	// 禁用
+	&:after {
+		width: 200%;
+		height: 200%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		-webkit-transform: scale(0.5);
+		-webkit-transform-origin: 0 0;
+		box-sizing: border-box;
+		border-radius: $border-radius;
+	}
+}
+.sm-radio {
+	@include font-dpr(12);
+}
+.ui-dropdown .vux-divider {
+	padding-top: 0;
+	padding-bottom: $space;
+}
+
+// login
+.login {
+	.vux-x-icon {
+		fill: #fff;
+	}
+	.helper {
+		display: flex;
+		justify-content: space-between;
+		margin: px2rem(40) $space-lg;
+	}
+	.form-group-right {
+		display: inline-block;
+		padding: 0 $space-sm 0 $space;
+		height: 100%;
+	}
+}
+.form-footer {
+	margin: 0 $space;
+}
+.weui-btn {
+	padding: $space-sm;
+	@include font-dpr(14);
+}
+.custom-default {
+	color: $primary-color !important;
+	&:after {
+		border-color: $primary-color !important;
+	}
+}
+
+.countdown-btn {
+	display: inline-block;
+	padding: 0 1.32em;
+	line-height: 2.3;
+	font-size: 13px;
+	color: #333;
+	background-color: #EC8B89;
+	border-radius: 5px;
+	&:after {
+		content: " ";
+		width: 200%;
+		height: 200%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		border: 1px solid rgba(0, 0, 0, 0.2);
+		-webkit-transform: scale(0.5);
+		transform: scale(0.5);
+		-webkit-transform-origin: 0 0;
+		transform-origin: 0 0;
+		box-sizing: border-box;
+		border-radius: 10px;
+	}
+}
+// 银行密码
+.bank-password {
+	width: 70%;
+	display: flex;
+	justify-content: space-around;
+	background: #fff;
+	border-radius: $space-xs;
+	border: border1px();
+	text-align: center;
+	span {
+		@include square(80);
+		line-height: px2rem(80);
+		flex-basis: (1/6)*1%;
+		flex: 1;
+		@include font-dpr(15);
+		font-weight: 700;
+		& + span {
+			border-left: border1px();
+		}
+	}
+}
+// toast hack
+.weui-toast_text .weui-toast__content {
+	padding-top: $space;
+	padding-bottom: $space;
+	border-radius: $space;
+}
+.weui-toast__content {
+	@include font-dpr(14);
+}
+// withdraw-view
+// 取款
+.withdraw-view .weui-cell_select .weui-select {
+	padding-left: 0;
+}
+.withdraw-view .weui-select {
+	height: auto;
+	line-height: 1;
+}
+
+// 投注详情
+.focusdetail,
+.betdetail {
+	overflow: hidden;
+	margin-bottom: $space;
+	background: #fff;
+	border-top: border1px();
+	border-bottom: border1px();
+}
+.focusdetail-title,
+.betdetail-title {
+	position: relative;
+	z-index: 1;
+	border-left: px2rem(4) solid $primary-color;
+	color: $gray-light;
+	line-height: 1;
+	margin-bottom: $space-lg;
+	h3 {
+		display: inline-block;
+		padding: 0 $space 0 $space-sm;
+		background: #fff;
+		font-weight: normal;
+		@include font-dpr(15);
+	}
+}
+.betdetail {
+	padding: 0 $space;
+}
+.betdetail-title {
+	&:after {
+		content: "";
+		position: absolute;
+		z-index: -1;
+		width: 100%;
+		height: px2rem(1);
+		background: $border-color;
+		top: 50%;
+		left: 0;
+		right: 0;
+	}
+}
+.betdetail-head {
+	display: flex;
+	align-items: baseline;
+	margin: px2rem(40) 0;
+	h2 {
+		@include font-dpr(16);
+		margin-right: $space;
+	}
+	span {
+		display: block;
+	}
+}
+.betdetail-body {
+	.result {
+		margin-bottom: px2rem(40);
+	}
+	.gameball {
+		margin-right: $space;
+	}
+}
+.betdetail-foot {
+	position: relative;
+	dl {
+		@include font-dpr(14);
+    word-wrap: break-word;
+    word-break: break-all;
+	}
+	dd {
+		margin-bottom: $space-lg;
+	}
+	.iconfont {
+		position: absolute;
+		top: px2rem(50);
+		right: px2rem(60);
+		@include font-dpr(100);
+	}
+}
+// button
+.ui-footer .custom-default {
+	&,
+	&:after {
+		padding: $space;
+		border-radius: 0 !important;
+		border-left: 0;
+		border-right: 0;
+		border-color: $border-color !important;
+	}
+}
+// 追号
+.focusdetail {
+	padding-top: $space;
+	&-title {
+		margin: $space;
+	}
+	.weui-cells {
+		margin-bottom: 0;
+	}
+}
+
+// 公告
+.notice .weui-tab__panel {
+	&:before {
+		content: "";
+		position: absolute;
+		left: $space-lg;
+		top: 0;
+		bottom: 0;
+		height: 100%;
+		width: 1px;
+		background: $border-color;
+	}
+}
+// 活动
+.event-view .weui-tab__panel {
+	$size: px2rem(20);
+	padding-top: $size;
+	padding-left: $size;
+	padding-right: $size;
+}
+// 首页
+.vux-swiper-desc {
+	display: none;
+}
+
+// hack
+.android-hack {
+	.vux-header {
+		padding-top: 0;
+	}
+	.home .vux-header-left {
+		top: 50%;
+	}
+	.ui-dropdown, .helper-menu {
+		top: px2rem(90);
+	}
+}
+
+.play-chart {
+	position: absolute;
+	// position: relative;
+	width: 100%;
+	left: 0;
+	right: 0;
+	margin-bottom: $space;
+	color: $gray;
+	visibility: hidden;
+	&.active {
+		visibility: visible;
+	}
+	th,td {
+		padding: $space-sm 0;
+	}
+	th {
+		font-weight: normal;
+		border-bottom: border1px();
+	}
+	td {
+		text-align: center;
+	}
+	td.form {
+		& > span {
+			display: inline-block;
+			width: 50%;
+		}
+		span+span {
+			text-align: left;
+		}
+	}
+}
+
+// 验证码图片
+.weui-vcode-img {
+	height: px2rem(44);
+}
+
+// 充值
+.pay-view {
+	.vux-label-desc {
+		display: block;
+		margin-top: $space-sm;
+		color: $gray;
+		@include font-dpr(13);
+	}
+}
+
+.game-center .vux-header .vux-header-title,
+.game-center .vux-header h1 {
+	@include font-dpr(16);
+}
+
+// gameCenter
+.game-center-head {
+	background: #fff;
+	text-align: center;
+	line-height: 1;
+	.weui-grid {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		padding: px2rem(30) 0 px2rem(30);
+		height: px2rem(145);
+		&:active {
+			background: none !important;
+		}
+	}
+	.result,
+	.count-down {
+		@include font-dpr(14);
+	}
+	.result em {
+		display: inline-block;
+	}
+	.result em + em {
+		margin-left: $space-sm;
+	}
+	.count-down {
+		display: inline-block;
+	}
+}
+.game-center-body {
+	position: relative;
+	padding: $space;
+	overflow: hidden;
+	background: $bg-color;
+	min-height: 100%;
+	transform: translate3d(0, 0, 0);
+	transition: transform .38s ease-in-out;
+	&.active {
+		transform: translate3d(0, px2rem(620), 0);
+	}
+	&:before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		border-top: border1px();
+	}
+	.toggle-chart {
+		position: absolute;
+		top: -1px;
+		left: 50%;
+		transform: translateX(-50%);
+		border: border1px();
+		border-top: none;
+		width: px2rem(100);
+		height: px2rem(40);
+		text-align: center;
+		background: $bg-color;
+		svg {
+			fill: $gray;
+		}
+	}
+	.tip {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.icon-shake {
+		@include font-dpr(25);
+	}
+	.gocart {
+		position: relative;
+		padding: $space-xs $space;
+		border: border1px();
+		border-radius: $space-lg;
+		background: #fff;
+	}
+	.vux-badge {
+		position: absolute;
+		top: px2rem(-15);
+		right: px2rem(-10);
+		background: $warning-color;
+	}
+	.icon-cart {
+		margin-right: $space-sm;
+		color: $primary-color;
+	}
+}
+.numbers {
+	line-height: 1;
+	&-title {
+		border-bottom: border1px();
+		text-align: center;
+		padding-bottom: $space;
+		h3 {
+			margin-right: $space-lg;
+			display: inline-block;
+			font-weight: normal;
+			@include font-dpr(15);
+		}
+	}
+	&-cell {
+		padding-top: $space;
+		@include clearfix();
+	}
+	&-cell + &-cell {
+		padding-top: px2rem(40);
+		border-top: border1px();
+	}
+	.side {
+		float: left;
+		width: px2rem(110);
+	}
+	.main {
+		margin-left: px2rem(110);
+	}
+	.label {
+		margin: px2rem(15) 0 $space;
+		display: inline-block;
+		min-width: 35px;
+		height: 22px;
+		line-height: 22px;
+		padding-left: 5px;
+		text-align: center;
+		position: relative;
+		background: #e4e4e4;
+		color: $gray-light;
+	}
+	.label::before,
+	.label::after {
+		content: '';
+		position: absolute;
+		left: 100%;
+		top: 0;
+		$size: 11px;
+		border-bottom: $size solid transparent;
+		border-left: 10px solid #e4e4e4;
+		border-top: $size solid transparent;
+	}
+	.number,
+	.rectangle {
+		display: inline-block;
+		margin-right: $space;
+		text-align: center;
+		vertical-align: top;
+	}
+	.number-value,
+	.rectangle-value {
+		position: relative;
+		display: block;
+		margin: 0 auto $space-sm;
+		background: #fff;
+		text-align: center;
+		font-weight: 700;
+	}
+	.number-value {
+		@include square(80);
+		line-height: px2rem(80);
+		border: $width1 solid $border-color;
+		border-radius: 50%;
+		@include font-dpr(14);
+		color: $primary-color;
+	}
+	.number-value-lg {
+		@include square(100);
+		line-height: px2rem(100);
+		@include font-dpr(20);
+	}
+	.number-active {
+		.number-value,
+		.number-red {
+			background: $primary-color;
+			color: #fff;
+		}
+		.number-green {
+			background: $success-color;
+			color: #fff;
+		}
+		.number-blue {
+			background: $info-color;
+			color: #fff;
+		}
+	}
+	.number-omit {
+		display: block;
+		width: px2rem(80);
+		margin-bottom: $space;
+		color: $gray-light;
+	}
+	.number-value,
+	.number-omit {
+		margin-left: auto;
+		margin-right: auto;
+	}
+	// rectangle
+	.rectangle-value {
+		padding: $space 0;
+		width: 85%;
+		border: border1px();
+		border-radius: $space-sm;
+		@include font-dpr(20);
+		overflow: hidden;
+	}
+	.rectangle-active .rectangle-value {
+		border-color: $primary-color;
+		color: $primary-color;
+		&:before {
+			content: "\e6d5";
+			@extend .iconfont;
+			color: $primary-color;
+			position: absolute;
+			right: px2rem(-1);
+			bottom: 0;
+			line-height: 1;
+		}
+	}
+}
+.hideOmit {
+	.side .label:nth-child(2),
+	.number-omit {
+		visibility: hidden;
+	}
+	.number-omit {
+		margin-bottom: 0;
+	}
+}
+.dwd {
+	.top,
+	.top-digits {
+		margin-left: px2rem(100);
+		display: flex;
+	}
+	.top {
+		$size: 60;
+		justify-content: space-around;
+		background: #e4e4e4;
+		padding: 2px 0;
+		border-radius: px2rem($size);
+		.filter {
+			display: block;
+			@include square($size);
+			line-height: px2rem($size);
+			background: #fff;
+			border: border1px();
+			border-radius: 50%;
+			text-align: center;
+		}
+		.filter-active {
+			background: $primary-color;
+			color: #fff;
+		}
+	}
+	.top-digits {
+		justify-content: space-between;
+		.filter-digits {
+			position: relative;
+			display: block;
+			padding: $space;
+			border-radius: $space-sm;
+			border: border1px();
+			overflow: hidden;
+		}
+		.filter-digits-active {
+			border-color: $primary-color;
+			// 选中
+			&:before {
+				content: "\e6d5";
+				font-family:"iconfont";
+				color: $primary-color;
+				position: absolute;
+				right: px2rem(-1);
+				bottom: px2rem(-1);
+				line-height: 1;
+			}
+		}
+	}
+	.main {
+		clear: both;
+		margin-left: 0;
+	}
+	.number {
+		width: 20%;
+		margin-right: 0;
+	}
+	.rectangle {
+		width: 33.3%;
+		margin-right: 0;
+	}
+}
+// 弹窗
+.setpice-head {
+	display: flex;
+	justify-content: space-between;
+	item-align: center;
+	$height: px2rem(56);
+	line-height: $height;
+	overflow: hidden;
+	& > * {
+		display: block;
+		white-space: nowrap;
+	}
+	input {
+		margin-right: $space-sm;
+		flex: 1;
+		width: 100%;
+		padding: 0 $space;
+		height: $height;
+		border: border1px();
+		border-radius: 0;
+		box-shadow: none;
+		outline: none;
+		background: #fff;
+		text-align: right;
+		@include font-dpr(14);
+		-webkit-touch-callout: none;
+	}
+}
+.setpice-body {
+	margin: $space-lg 0 px2rem(40);
+	display: flex;
+	justify-content: space-between;
+	.price-radio {
+		display: block;
+		width: px2rem(90);
+		height: px2rem(60);
+		line-height: px2rem(60);
+		text-align: center;
+		background: #999;
+		border-radius: px2rem(10);
+		color: #fff;
+		@include font-dpr(11);
+	}
+	.price-radio-selected {
+		background: $primary-color;
+	}
+}
+.setpice-foot {
+	p + p {
+		margin-top: $space;
+	}
+	span {
+		margin-right: px2rem(80);
+	}
+	em {
+		margin: 0 $space-sm;
+	}
+}
+
+// game-cart
+.game-cart-head {
+	margin: 0 $space;
+	padding: $space 0;
+	border-bottom: $width1 solid $border-color;
+}
+.game-cart-body {
+	margin: 0 $space;
+	padding-bottom: px2rem(60);
+	.weui-cell {
+		b {
+			display: block;
+			margin-right: $space;
+			margin-bottom: $space;
+			@include font-dpr(14);
+			word-break: break-all;
+		}
+		span + span {
+			margin-left: $space-lg;
+		}
+	}
+	.remove {
+		position: absolute;
+		right: $space-lg;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+}
+
+// 色波
+.sb-num {
+	display: inline-block;
+	@include square(36);
+	line-height: px2rem(36);
+	text-align: center;
+	border: border1px();
+	border-radius: 50%;
+	color: #fff;
+	@include font-dpr(9);
+	& + .sb-num {
+		margin-left: $space-sm;
+	}
+}
+.sb-red {
+	border-color: #b31819;
+	background-color: #c91b1c;
+}
+.sb-green {
+	border-color: #59af24;
+	background-color: #5cb624;
+}
+.sb-blue {
+	border-color: #4087b5;
+	background-color: #1c85c9;
+}
+
+
+// hack
+.tool-fixed {
+	.game-center .weui-tab__panel {
+		padding-bottom: px2rem(73*2 + 130 + 100 + 200);
+	}
+	.buy-tool {
+		position: fixed;
+		z-index: 99999;
+	}
+}
+// promotionDetail
+.artile-content {
+	img {
+		max-width: 100% !important;
+		height: auto !important;
+	}
+}
+
+// fix 2018.04.10
+.chart-head .left span {
+	display: inline-block;
+	width: auto;
+}
