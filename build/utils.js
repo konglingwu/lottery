@@ -24,43 +24,44 @@ exports.cssLoaders = function (options) {
   const px2remLoader = {
     loader: 'px2rem-loader',
     options: {
-    remUnit: 37.5
+      remUnit: 37.5,
+      baseDpr: 1
     }
-    }
-    
-    function generateLoaders (loader, loaderOptions) {
+  }
+
+  function generateLoaders(loader, loaderOptions) {
     const loaders = [cssLoader, px2remLoader]
     if (loader) {
-    loaders.push({
-    loader: loader + '-loader',
-    options: Object.assign({}, loaderOptions, {
-    sourceMap: options.sourceMap
-    })
-    })
+      loaders.push({
+        loader: loader + '-loader',
+        options: Object.assign({}, loaderOptions, {
+          sourceMap: options.sourceMap
+        })
+      })
     }
 
-  // Extract CSS when that option is specified
-  // (which is the case during production build)
-  if (options.extract) {
-    return ExtractTextPlugin.extract({
-      use: loaders,
-      fallback: 'vue-style-loader'
-    })
-  } else {
-    return ['vue-style-loader'].concat(loaders)
+    // Extract CSS when that option is specified
+    // (which is the case during production build)
+    if (options.extract) {
+      return ExtractTextPlugin.extract({
+        use: loaders,
+        fallback: 'vue-style-loader'
+      })
+    } else {
+      return ['vue-style-loader'].concat(loaders)
+    }
   }
-}
 
-// https://vue-loader.vuejs.org/en/configurations/extract-css.html
-return {
-  css: generateLoaders(),
-  postcss: generateLoaders(),
-  less: generateLoaders('less'),
-  sass: generateLoaders('sass', { indentedSyntax: true }),
-  scss: generateLoaders('sass'),
-  stylus: generateLoaders('stylus'),
-  styl: generateLoaders('stylus')
-}
+  // https://vue-loader.vuejs.org/en/configurations/extract-css.html
+  return {
+    css: generateLoaders(),
+    postcss: generateLoaders(),
+    less: generateLoaders('less'),
+    sass: generateLoaders('sass', { indentedSyntax: true }),
+    scss: generateLoaders('sass'),
+    stylus: generateLoaders('stylus'),
+    styl: generateLoaders('stylus')
+  }
 }
 
 // Generate loaders for standalone style files (outside of .vue)

@@ -12,7 +12,7 @@ import {
 } from 'vux'
 import App from './App'
 import '@/scss/main.scss'
-
+import '@/styles/font/iconfont.scss'
 Vue.config.productionTip = false
 
 Vue.use(AjaxPlugin)

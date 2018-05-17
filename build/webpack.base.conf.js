@@ -67,6 +67,13 @@ let webpackConfig = {
 			test: /\.vue$/,
 			loader: 'vue-loader',
 			options: vueLoaderConfig
+		},
+		{
+			test: /\.css$/,
+			loader: 'style-loader!css-loader'
+		}, {
+			test: /\.(eot|svg|ttf|woff|woff2)$/,
+			loader: 'file-loader'
 		}, {
 			test: /\.js$/,
 			loader: 'babel-loader',
@@ -83,7 +90,7 @@ let webpackConfig = {
 			loader: 'url-loader',
 			options: {
 				limit: 10000,
-				name: function() {
+				name: function () {
 					let pre = isDev ? '' : '/'
 					return pre + utils.assetsPath('fonts/[name].[hash:7].[ext]')
 				}
@@ -96,15 +103,19 @@ let webpackConfig = {
 module.exports = vuxLoader.merge(webpackConfig, {
 	plugins: ['vux-ui', 'progress-bar', 'duplicate-style', {
 		name: 'style-parser',
-		fn: function(source) {
+		fn: function (source) {
 			// 根据this.resourcePath 来确定是否要引入以及引入的相对路径
 			if (/views/.test(this.resourcePath)) {
-				return "@import '../scss/utils.scss';\n" + source
+				// return "@import '../scss/utils.scss';\n" + source
 			}
 			return source
 		}
 	}, {
-		name: 'less-theme',
-		path: 'src/styles/theme.less'
-	}]
+			name: 'less-theme',
+			path: 'src/styles/theme.less'
+		},
+		{
+			name: 'iconfont',
+			path: 'src/styles/font/iconfont.css'
+		}]
 })
