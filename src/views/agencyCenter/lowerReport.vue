@@ -2,6 +2,11 @@
   <view-box ref="viewBox">
     <x-header slot="header" style="width:100%;position:absolute;left:0;top:0;z-index:100;" v-bind:title="$route.meta.pageTitle"></x-header>
     <div class="main main-padding-top">
+        <!-- 日期选择 -->
+        <group class="group-select-data">
+        <popup-picker :data="dataList" v-model="selectDate" @on-change="onChange"></popup-picker>
+        </group>
+        <!-- 日期选择 -->
         <x-table :cell-bordered="false" style="background-color:#fff;">
         <thead>
           <tr style="background-color: rgb(247, 247, 247);">
@@ -31,6 +36,8 @@
 </template>
 
 <script>
+// common 通用模版
+import common from '../mixin/common.mixin.js'
 import {
   ViewBox,
   XHeader,
@@ -39,11 +46,13 @@ import {
   XSwitch,
   XButton,
   Confirm,
-  XTable
+  XTable,
+  PopupPicker
 } from "vux";
 
 export default {
   name: "agencyCenter",
+  mixins: [common],  
   components: {
     ViewBox,
     XHeader,
@@ -52,14 +61,20 @@ export default {
     XSwitch,
     XButton,
     Confirm,
-    XTable
+    XTable,
+    PopupPicker
   },
   data() {
     return {};
   },
   computed: {},
   created() {},
-  methods: {}
+  methods: {
+    /* 数据请求 */
+    
+
+    /* 事件操作 */
+  }
 };
 </script>
 

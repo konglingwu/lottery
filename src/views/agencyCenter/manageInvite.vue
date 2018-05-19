@@ -33,7 +33,10 @@ export default {
   },
   computed: {},
   created() {},
-  methods: {}
+  methods: {
+    /* 数据请求 */
+    /* 事件操作 */
+  }
 };
 </script>
 
