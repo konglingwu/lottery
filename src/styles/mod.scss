@@ -147,3 +147,13 @@
     overflow: scroll;
   }
 }
+//
+.switching-bottom{
+  .weui-cells{
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+  .weui-cells:after{
+    border-bottom: none;
+  }
+}
