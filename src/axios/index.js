@@ -246,7 +246,7 @@ export function custom(config) {
 
     responseType: 'arraybuffer',
 
-    baseURL: '/be/', // api的base_url  //需要修改的
+    baseURL: '/api/', // api的base_url  //需要修改的
 
     timeout: 30000,
 
@@ -292,9 +292,9 @@ export function fetch(config) {
 
     data: params,
 
-  // baseURL: '/be/', // api的base_url //需要修改的
+    baseURL: '/api/', // api的base_url //需要修改的
 
-  baseURL: process.env.BASE_API, // api的  base_url //需要修改的
+    //baseURL: process.env.BASE_API, // api的  base_url //需要修改的
 
     timeout: config.timeout ? config.timeout : 30000,
 

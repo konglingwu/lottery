@@ -92,7 +92,17 @@ export default new Router({
 			},
 			component: resolve => require(['@/views/agencyCenter/agentBillRecord'], resolve)
 		},	
-		// 交易明细结束												
+		// 返点赔率表开始
+		{
+			path: '/rebateTabel',
+			name: 'rebateTabel',
+			meta: {
+				keepAlive: true,
+				pageTitle: '返点赔率表'
+			},
+			component: resolve => require(['@/views/agencyCenter/rebateTabel'], resolve)
+		},			
+		// 返点赔率表结束												
 		 {
 			path: '*',
 			redirect: '/demo'

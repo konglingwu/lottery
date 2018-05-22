@@ -1,12 +1,14 @@
 <template>
-  <view-box ref="viewBox">
-    <x-header slot="header" style="width:100%;position:absolute;left:0;top:0;z-index:100;" v-bind:title="$route.meta.pageTitle"></x-header>
-    <div class="main main-padding-top">
-        <!-- 日期选择 -->
+  <view-box ref="viewBox" class="weui-panel-bottom">
+    <x-header slot="header" style="width:100%;position:absolute;left:0;top:0;z-index:100;">
+      <span>{{$route.meta.pageTitle}}</span>
+      <!-- 日期选择 -->
         <group class="group-select-data">
-        <popup-picker :data="dataList" v-model="selectDate" @on-change="onChange"></popup-picker>
+          <popup-picker :data="dataList" v-model="selectDate" @on-change="onChange"></popup-picker>
         </group>
-        <!-- 日期选择 -->
+      <!-- 日期选择 -->      
+    </x-header>
+    <div class="main main-padding-top">
         <x-table :cell-bordered="false" style="background-color:#fff;">
         <thead>
           <tr style="background-color: rgb(247, 247, 247);">
@@ -51,7 +53,7 @@ import {
 } from "vux";
 
 export default {
-  name: "agencyCenter",
+  name: "lowerReport",
   mixins: [common],  
   components: {
     ViewBox,

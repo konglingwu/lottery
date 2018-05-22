@@ -1,12 +1,14 @@
 <template>
-  <view-box ref="viewBox">
-    <x-header slot="header" style="width:100%;position:absolute;left:0;top:0;z-index:100;" v-bind:title="$route.meta.pageTitle"></x-header>
-    <div class="main main-padding-top">
-        <!-- 日期选择 -->
+  <view-box ref="viewBox" class="weui-panel-bottom">
+    <x-header slot="header" style="width:100%;position:absolute;left:0;top:0;z-index:100;">
+      <span>{{$route.meta.pageTitle}}</span>
+      <!-- 日期选择 -->
         <group class="group-select-data">
-        <popup-picker :data="dataList" v-model="selectDate" @on-change="onChange"></popup-picker>
+          <popup-picker :data="dataList" v-model="selectDate" @on-change="onChange"></popup-picker>
         </group>
-        <!-- 日期选择 -->
+      <!-- 日期选择 -->
+    </x-header>
+    <div class="main main-padding-top">
         <!-- 搜索input -->
          <group class="group-search">
             <x-input v-model="search" placeholder="下级报表查询">
@@ -116,7 +118,7 @@
 // common 通用模版
 import common from '../mixin/common.mixin.js'
 // 接口请求
-import {agentReport} from '@/api'
+import {agentReport} from '@/api/index.js'
 import {
   ViewBox,
   XHeader,
@@ -132,7 +134,7 @@ import {
 } from "vux";
 
 export default {
-  name: "agencyCenter",
+  name: "agentReport",
   mixins: [common],
   components: {
     ViewBox,

@@ -1,3 +1,9 @@
+// 设置没有底部栏
+.weui-panel-bottom{
+  .weui-tab__panel{
+    padding-bottom: 0;
+  }
+}
 // 代理中心
 .main-padding-top {
   padding-top: 42px;
@@ -38,6 +44,12 @@
    .weui-cell_access .weui-cell__ft:after{
     border-color: white;
    }
+   .weui-cell_access:visited{
+    background: #cd0006;
+   }
+   .weui-cell_access:active {
+     background-color:#cd0006;
+    }
   }
   .weui-cells:after{
     border:none;
@@ -69,4 +81,69 @@
     }
   }
 }
+}
+// 下级用户-彩票列表
+.rebate-tabel{
+  .title{
+    position: fixed;
+    z-index: 2;
+    width: 100%;
+    font-size: 12px;/*px*/
+    color: #999;
+    font-weight: normal;
+    background: white;
+    padding: 5px;
+  }
+}
+.lottery-items{
+  .weui-cell__hd{
+    width: 70px;
+  }
+}
+// 返点赔率表
+.rebate-items{
+  height: 100%;/*px*/
+  overflow: scroll; 
+  padding-top: 30px;
+  .rebate-title{
+    position: relative;
+    z-index: 1;
+    box-shadow: 0.5em 0 0.5em #d5d5d5;
+  }
+  // 左侧标题和右侧内容 
+  .rebate-title,.rebate-content-item{
+    background: white;
+    width: 120px;
+    float: left;
+    li:nth-child(2n+1){
+     background: #eee;
+    }
+    li{
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      position: relative;
+      color: #333;
+      font-size: 14px;/*px*/
+      label{
+        position: absolute;
+        left: 15px;
+        bottom: -6px;
+        z-index: 2;
+      }
+      span{
+        position: absolute;
+        right: 15px;
+        top: -6px;
+        z-index: 2;        
+      }
+    }
+    
+  }
+  // 右侧内容
+  .rebate-content{
+    width: 255px;
+    float: left;
+    overflow: scroll;
+  }
 }

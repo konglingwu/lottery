@@ -24,15 +24,16 @@ module.exports = {
 	dev: {
 		env: require('./dev.env'),
 		port: 8110,
+		host:'0.0.0.0',
 		autoOpenBrowser: true,
 		assetsSubDirectory: 'static',
 		assetsPublicPath: '/',
 		proxyTable: {
 			'/api': {
-				target: 'http://localhost:8111',
+				target: 'https://www.easy-mock.com/mock/5afea1e76ba6060f61c231fd/lottery',
 				changeOrigin: true,
 				pathRewrite: {
-					'^/api': '/api'
+					'^/api': ''
 				}
 			}
 		},

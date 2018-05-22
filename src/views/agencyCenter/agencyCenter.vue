@@ -1,5 +1,5 @@
 <template>
-  <view-box ref="viewBox">
+  <view-box ref="viewBox" class="weui-panel-bottom">
     <x-header slot="header" style="width:100%;position:absolute;left:0;top:0;z-index:100;" v-bind:title="$route.meta.pageTitle"></x-header>
     <div class="main main-padding-top">
         <div class="top-slide">
