@@ -151,7 +151,7 @@ export default {
   },
   data() {
     return {
-    
+      agentReportList:[]  // 代理列表
     };
   },
   computed: {},
@@ -161,6 +161,7 @@ export default {
   methods: {
     /* 数据请求 */
     getData(){
+      
     agentReport().then(response => {
         console.log(response)
       })

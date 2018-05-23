@@ -25,7 +25,7 @@
         <!-- 弹出层 -->
         <actionsheet v-model="popup" :menus="popupOption" @on-click-menu="hanleSelect" show-cancel>
           <p slot="header" class="popup-blue">
-            <i class="iconfont icon-yonghu"></i>
+            <i class="iconfont icon-user"></i>
             <span v-text="account"></span>
           </p>
         </actionsheet>
@@ -34,7 +34,7 @@
         <div v-transfer-dom>
           <popup v-model="showRebate" position="bottom" max-height="69%" style="overflow: hidden;">
             <group>
-              <cell class="popup-title"><label>查看详情</label><i class="iconfont icon-guanbi" @click="hanleCloseRebate"></i></cell>
+              <cell class="popup-title"><label>查看详情</label><i class="iconfont icon-close" @click="hanleCloseRebate"></i></cell>
               <group v-for="item in rebateList" :key="item.id">
                 <cell title="时时彩">{{item.whilstLottery}}</cell>
                 <cell title="快3">{{item.fastThree}}</cell>

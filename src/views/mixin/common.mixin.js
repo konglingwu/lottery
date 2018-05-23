@@ -8,7 +8,7 @@ export default{
 	},
 	methods:{
     /* 数据请求 */
-    
+    // 获取
 
     /* 事件操作 */
 

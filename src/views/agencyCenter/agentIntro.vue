@@ -9,7 +9,7 @@
             <em>当您能看到这个页面，说明您的账号即是玩家账号也是代理账号，即可以自己投注，也可以发展下级玩家，赚取返点佣金。</em>
 				    <!-- 如何赚取返点 -->
 						<h3>
-							<i class="iconfont icon-qiandai"></i>如何赚取返点？
+							<i class="iconfont icon-money-bag"></i>如何赚取返点？
 						</h3>
 						<div class="agent-intro-list">
                  <p class="item">
@@ -22,7 +22,7 @@
 						<!-- 如何赚取返点 -->
 						<!-- 如何为下级开户 -->
 						<h3>
-							<i class="iconfont icon-yonghu"></i>如何为下级开户？
+							<i class="iconfont icon-user"></i>如何为下级开户？
 						</h3>
 						<div class="agent-intro-list">
                  <p class="item">
@@ -35,7 +35,7 @@
 						<!-- 如何为下级开户 -->	
 						<!-- 温馨提示 -->
 						<h3>
-							<i class="iconfont icon-icon4"></i>温馨提示：
+							<i class="iconfont icon-love"></i>温馨提示：
 						</h3>
 						<div class="agent-intro-list">
                  <p class="item">
