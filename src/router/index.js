@@ -102,7 +102,18 @@ export default new Router({
 			},
 			component: resolve => require(['@/views/agencyCenter/rebateTabel'], resolve)
 		},			
-		// 返点赔率表结束														
+		// 返点赔率表结束
+		// 注单详情开始
+		{
+			path: '/bettingDetails',
+			name: 'bettingDetails',
+			meta: {
+				keepAlive: true,
+				pageTitle: '注单详情'
+			},
+			component: resolve => require(['@/views/agencyCenter/bettingDetails'], resolve)
+		},			
+		// 注单详情结束																	
 		 {
 			path: '*',
 			redirect: '/demo'

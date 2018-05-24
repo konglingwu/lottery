@@ -4,28 +4,43 @@
       <span>{{$route.meta.pageTitle}}</span>
       <!-- 日期选择 -->
         <group class="group-select-data">
-          <popup-picker :data="dataList" v-model="selectDate" @on-change="onChange"></popup-picker>
+          <popup-picker :data="dataList" v-model="selectDate" @on-change="hanleChangeDate"></popup-picker>
         </group>
       <!-- 日期选择 -->      
     </x-header>
     <div class="main main-padding-top">
         <!-- 搜索input -->
         <group class="group-search">
-            <x-input v-model="search" placeholder="下级报表查询">
+            <x-input v-model="req.search" placeholder="下级投注查询">
               <x-button slot="right" type="warn" mini>搜索</x-button>
             </x-input>
        </group>
        <!-- 搜索input -->
        <!-- 搜索列表 -->
        <div class="group-bill">
-        <tab :line-width=2 active-color='#fc378c' v-model="prizeState">
-          <tab-item class="vux-center" :selected="select === item" v-for="(item, index) in list" @on-item-click="hanleSelect(index)" :key="index">{{item}}</tab-item>
-        </tab>
-        <swiper v-model="prizeState" height="100px" :show-dots="false">
-        <swiper-item v-for="(item, index) in list" :key="index">
-          <div class="tab-swiper vux-center">{{item}}{{index}} Container</div>
-        </swiper-item>
-       </swiper>
+          <tab :line-width=2 active-color='#fc378c' v-model="req.prizeState">
+            <tab-item class="vux-center" :selected="select === item" v-for="(item, index) in list" @on-item-click="hanleSelect(index)" :key="index">{{item}}</tab-item>
+          </tab>
+          <!-- 列表 -->
+          <div class="scroller" v-infinite-scroll="pullup" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
+            <group>
+              <cell-box class="betting-items" v-for="item in this.bettingList" :key="item.id" @click.native="hanleClickBetting(item)">
+                <div class="item-left">
+                     <label>{{item.account}}<span>￥{{item.investment}}</span></label>
+                     <p>{{item.timeOfBetting}}</p>
+                </div>
+                <div class="item-right">
+                     <span>{{item.bettingResults}}</span>
+                </div>
+              </cell-box>
+            </group>
+          </div>
+          <!-- 没有数据显示 -->
+          <div class="tips-table" v-if="!(0 in this.bettingList)">
+            <i class="iconfont icon-wry-smile"></i>
+          <label>暂无数据</label>
+        </div>
+        <!-- 列表 -->
        </div>
        <!-- 搜索列表 -->
     </div>
@@ -34,7 +49,11 @@
 
 <script>
 // common 通用模版
-import common from '../mixin/common.mixin.js'
+import common from "../mixin/common.mixin.js";
+// 接口请求
+import { agentBetRecord } from "@/api/index.js";
+// 滚动加载插件
+import infiniteScroll from 'vue-infinite-scroll'
 import {
   ViewBox,
   XHeader,
@@ -46,14 +65,16 @@ import {
   XInput,
   Tab,
   TabItem,
-  Swiper,
-  SwiperItem,
-  PopupPicker
+  PopupPicker,
+  XTable
 } from "vux";
 
 export default {
   name: "agentBetRecord",
-  mixins: [common],    
+  mixins: [common],
+  directives: {
+    infiniteScroll
+  },    
   components: {
     ViewBox,
     XHeader,
@@ -65,35 +86,92 @@ export default {
     XInput,
     Tab,
     TabItem,
-    Swiper,
-    SwiperItem,
-    PopupPicker
+    PopupPicker,
+    XTable
   },
   data() {
     return {
-      search: "", // 搜索内容
       select: "", // 选中
       prizeState: 0, // 状态
       list: ["全部", "已中奖", "未中奖", "等待开奖"], // 列表选项
+      bettingList: [], // 投注明细
+      busy: false,      // 是否滚动加载 
+      req: {
+        switchingDate: "today", // 日期
+        pageNo: 0, // 分页
+        pageSize: 10, // 条数
+        hasLoading: 1, // 控制是否有loading
+        search: "", // 搜索内容
+        prizeState: 0 // 状态
+      }
     };
   },
   computed: {},
-  created() {},
+  created() {
+    // 投注明细
+    this.getData();
+  },
   methods: {
     /* 数据请求 */
-    
-    
 
-    /* 事件操作 */    
+    // 投注明细
+    getData() {
+      this.busy = true
+      this.req.pageNo = ++this.req.pageNo          
+      agentBetRecord(this.req).then(response => {
+        this.busy = false
+        this.bettingList = this.bettingList.concat(response)
+        // response 空时候不请求
+        console.log(response);
+        if (!(0 in response)) {
+          this.busy = true
+        }
+      });
+    },
 
+    /* 事件操作 */
+
+    // 滚动加载
+    pullup() {
+      console.log('滚动加载')
+      if (!this.busy) {
+        this.getData()
+      }
+    },
+
+    // 日期切换
+    hanleChangeDate() {
+      // 日期匹配
+      this.dateMatching();
+      // 初始化数据
+      this.bettingList = [];
+      this.req.pageNo = 0;
+      // 获取列表数据
+      this.getData();
+    },
     // 切换奖项状态
     hanleSelect(index) {
-      index = this.prizeState;
-      console.log(index);
+      this.bettingList = [];
+      this.req.pageNo = 0;
+      // 获取列表数据
+      this.getData();
+    },
+    // 跳转到详情
+    hanleClickBetting(item){
+     console.log(item.account)
+     this.$router.push(
+       {path:'./bettingDetails'}
+     )
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+.vux-cell-box:not(:first-child):before{
+  border-top:none;
+}
+.vux-cell-box{
+  border-bottom: 1px solid #D9D9D9;
+}
 </style>

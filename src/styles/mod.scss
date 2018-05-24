@@ -169,14 +169,46 @@
 
 // 表格空数据提示
 .tips-table{
-  margin: 80px auto;
+  margin: auto;
   text-align: center;
   color: #ccc;
+  height: 200px;
   label{
     font-size: 20px;
     display:block; 
   }
   .icon-wry-smile{
+    padding-top:80px;
     font-size: 40px;
   }
+}
+
+// 投注列表
+.betting-items{
+  overflow: hidden;
+  img{
+    width: 55px;
+    height: 55px;
+    margin-right: 20px;
+  }
+  .item-left{
+    label{
+			display: block;
+      font-size: 16px;/*px*/
+      span{
+        color: #989898;
+        font-size: 12px;/*px*/
+      }  
+    }
+    p{
+      color: #989898;
+    }
+  }
+  .item-right{
+   text-align: right;
+  } 
+}
+// 设置白色背景
+.bg-wite{
+  background: white;
 }

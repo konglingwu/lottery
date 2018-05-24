@@ -4,7 +4,7 @@
       <span>{{$route.meta.pageTitle}}</span>
       <!-- 日期选择 -->
         <group class="group-select-data">
-          <popup-picker :data="dataList" v-model="selectDate" @on-change="onChange"></popup-picker>
+          <popup-picker :data="dataList" v-model="selectDate" @on-change="hanleChangeDate"></popup-picker>
         </group>
       <!-- 日期选择 -->      
     </x-header>
