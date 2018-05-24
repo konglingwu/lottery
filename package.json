@@ -20,6 +20,7 @@
     "vue": "^2.2.2",
     "vue-clipboards": "^1.1.0",
     "vue-file-upload": "^0.1.2",
+    "vue-infinite-scroll": "^2.0.2",
     "vue-router": "^2.2.0",
     "vue-touch": "^2.0.0-beta.4",
     "vuex": "^2.1.1",

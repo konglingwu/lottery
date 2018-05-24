@@ -4,107 +4,107 @@
       <span>{{$route.meta.pageTitle}}</span>
       <!-- 日期选择 -->
         <group class="group-select-data">
-          <popup-picker :data="dataList" v-model="selectDate" @on-change="onChange"></popup-picker>
+          <popup-picker :data="dataList" v-model="selectDate" @on-change="hanleChangeDate"></popup-picker>
         </group>
       <!-- 日期选择 -->
     </x-header>
     <div class="main main-padding-top">
         <!-- 搜索input -->
          <group class="group-search">
-            <x-input v-model="search" placeholder="下级报表查询">
-              <x-button slot="right" type="warn" mini>搜索</x-button>
+            <x-input v-model="req.search" placeholder="下级报表查询">
+              <x-button slot="right" type="warn" mini @click.native="hanleSearch">搜索</x-button>
             </x-input>
          </group>
          <!-- 搜索input -->
          <!-- 搜索列表 -->
-        <flexbox :gutter="0" wrap="wrap" class="group-flexbox">
+        <flexbox :gutter="0" wrap="wrap" class="group-flexbox" v-for="item in agentReportList" :key="item.id">
           <flexbox-item :span="1/3">
           <div class="flex-item">
-            <h3>0.00</h3>
+            <h3>{{item.bettingAmount}}</h3>
             <span>投注金额</span>
             </div>
           </flexbox-item>
           <flexbox-item :span="1/3">
           <div class="flex-item">
-            <h3>0.00</h3>
+            <h3>{{item.winningAmount}}</h3>
             <span>中奖金额</span>
             </div>
           </flexbox-item>
           <flexbox-item :span="1/3">
           <div class="flex-item">
-            <h3>0.00</h3>
+            <h3>{{item.giftsActivities}}</h3>
             <span>活动礼金</span>
             </div>
           </flexbox-item>
           <flexbox-item :span="1/3">
           <div class="flex-item">
-            <h3>0.00</h3>
+            <h3>{{item.teamRebate}}</h3>
             <span>团队返点</span>
             </div>
           </flexbox-item>
           <flexbox-item :span="1/3">
           <div class="flex-item">
-            <h3>0.00</h3>
+            <h3>{{item.teamProfit}}</h3>
             <span>团队盈利</span>
             </div>
           </flexbox-item>
           <flexbox-item :span="1/3">
           <div class="flex-item">
-            <h3>0.00</h3>
+            <h3>{{item.rechargeAmount}}</h3>
             <span>充值金额</span>
             </div>
           </flexbox-item>    
           <flexbox-item :span="1/3">
           <div class="flex-item">
-            <h3>0.00</h3>
+            <h3>{{item.putForwardAmount}}</h3>
             <span>提现金额</span>
             </div>
           </flexbox-item> 
           <flexbox-item :span="1/3">
           <div class="flex-item">
-            <h3>0.00</h3>
+            <h3>{{item.firstPeople}}</h3>
             <span>首冲人数</span>
             </div>
           </flexbox-item>  
           <flexbox-item :span="1/3">
           <div class="flex-item">
-            <h3>0.00</h3>
+            <h3>{{item.registerPeople}}</h3>
             <span>注册人数</span>
             </div>
           </flexbox-item>  
           <flexbox-item :span="1/3">
           <div class="flex-item">
-            <h3>0.00</h3>
+            <h3>{{item.bettingPeople}}</h3>
             <span>投注人数</span>
             </div>
           </flexbox-item>
           <flexbox-item :span="1/3">
           <div class="flex-item">
-            <h3>0.00</h3>
+            <h3>{{item.lowerPeople}}</h3>
             <span>下级人数</span>
             </div>
           </flexbox-item>  
           <flexbox-item :span="1/3">
           <div class="flex-item">
-            <h3>0.00</h3>
+            <h3>{{item.teamBalance}}</h3>
             <span>团队余额</span>
             </div>
           </flexbox-item>  
            <flexbox-item :span="1/3">
           <div class="flex-item">
-            <h3>0.00</h3>
+            <h3>{{item.agentRebate}}</h3>
             <span>代理返点</span>
             </div>
           </flexbox-item>  
           <flexbox-item :span="1/3">
           <div class="flex-item">
-            <h3>0.00</h3>
+            <h3>{{item.agencyWages}}</h3>
             <span>代理工资</span>
             </div>
           </flexbox-item>  
           <flexbox-item :span="1/3">
           <div class="flex-item">
-            <h3>0.00</h3>
+            <h3>{{item.proxyBonus}}</h3>
             <span>代理分红</span>
             </div>
           </flexbox-item>                                                                                                                                                    
@@ -151,7 +151,12 @@ export default {
   },
   data() {
     return {
-      agentReportList:[]  // 代理列表
+      agentReportList:[],  // 代理列表
+      req:{
+        switchingDate:'today', // 日期 
+        search:'',             // 搜索内容
+        hasLoading: 1          // 控制是否有loading
+      }
     };
   },
   computed: {},
@@ -160,14 +165,18 @@ export default {
   },
   methods: {
     /* 数据请求 */
+    // 获取列表数据
     getData(){
-      
-    agentReport().then(response => {
+    agentReport(this.req).then(response => {
         console.log(response)
+        this.agentReportList.push(response) 
       })
-    }
+    },
 
     /* 事件操作 */
+    hanleSearch(){
+      this.getData();
+    }
 
   }
 };

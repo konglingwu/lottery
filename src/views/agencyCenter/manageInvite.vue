@@ -76,7 +76,7 @@
           </tbody>
         </x-table> 
         <!-- 邀请码列表 -->
-                <!-- 弹出层 -->
+        <!-- 弹出层 -->
         <actionsheet v-model="popup" :menus="popupOption" @on-click-menu="hanleSelect" show-cancel>
         </actionsheet>
         <!-- 弹出层 -->

@@ -102,7 +102,7 @@ export default new Router({
 			},
 			component: resolve => require(['@/views/agencyCenter/rebateTabel'], resolve)
 		},			
-		// 返点赔率表结束												
+		// 返点赔率表结束														
 		 {
 			path: '*',
 			redirect: '/demo'

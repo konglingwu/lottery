@@ -9,7 +9,8 @@ import 'lib-flexible'
 import 'babel-polyfill'
 import {
 	AjaxPlugin,
-	AlertPlugin
+	AlertPlugin,
+	LoadingPlugin 
 } from 'vux'
 import App from './App'
 import '@/scss/main.scss'
@@ -18,6 +19,7 @@ Vue.config.productionTip = false
 
 Vue.use(AjaxPlugin)
 Vue.use(AlertPlugin)
+Vue.use(LoadingPlugin)
 import VueClipboards from 'vue-clipboards'
 Vue.use(VueClipboards)
 
@@ -99,9 +101,9 @@ router.beforeEach(function(to, from, next) {
 		}
 	} catch (error) {}
 
-	store.commit('updateLoadingStatus', {
-		isLoading: true
-	})
+	// store.commit('updateLoadingStatus', {
+	// 	isLoading: true
+	// })
 	next()
 })
 router.afterEach(function(to) {
