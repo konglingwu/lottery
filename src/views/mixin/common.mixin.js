@@ -2,8 +2,8 @@ export default{
 	data() {
 		return {
       search: "", // 搜索内容
-      dataList: [["今天", "昨天", "本月", "上月"]], // 日期选项列表
-      selectDate: ["今天"], // 日期选项
+      dataList: [['今天', '昨天', '本月', '上月']], // 日期选项列表
+      selectDate: ['今天'], // 日期选项
 		}
 	},
 	methods:{
@@ -12,10 +12,10 @@ export default{
 
     /* 事件操作 */
 
-    // 日期切换
-    hanleChangeDate(val) {
-      console.log("val change", val[0]);
-      switch(val[0]){
+    // 日期匹配
+    dateMatching(){
+      console.log("val change",this.selectDate[0]);
+      switch(this.selectDate[0]){
         case "今天":
           this.req.switchingDate = "today"
         break;
@@ -30,7 +30,6 @@ export default{
         break;                         
       }
       console.log('date',this.req.switchingDate);
-      this.getData()
     }   
 	}
 }

@@ -166,3 +166,17 @@
     color:#cd0006;
   }
 }
+
+// 表格空数据提示
+.tips-table{
+  margin: 80px auto;
+  text-align: center;
+  color: #ccc;
+  label{
+    font-size: 20px;
+    display:block; 
+  }
+  .icon-wry-smile{
+    font-size: 40px;
+  }
+}
