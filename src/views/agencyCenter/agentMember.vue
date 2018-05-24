@@ -3,6 +3,7 @@
     <x-header slot="header" style="width:100%;position:absolute;left:0;top:0;z-index:100;" v-bind:title="$route.meta.pageTitle"></x-header>
     <div class="main main-padding-top">
         <!-- 列表 -->
+        <div class="scroller" v-infinite-scroll="pullup" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
         <x-table :cell-bordered="false" style="background-color:#fff;">
         <thead>
           <tr style="background-color: rgb(247, 247, 247);">
@@ -13,20 +14,26 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in memberList" :key="item.id" @click="hanleCheck(item)">
-            <td>{{item.account}}</td>
+          <tr v-for="item in memberList" :key="item.id" @click="hanleCheck(item)" class="table-color">
+            <td class="blue">{{item.account}}</td>
             <td>{{item.typeView}}</td>
             <td>{{item.loginTime}}</td>
-            <td>{{item.people}}</td>
+            <td class="red">{{item.lowerPeople}}</td>
           </tr>
         </tbody>
         </x-table>
+        </div>
+        <!-- 没有数据显示 -->
+        <div class="tips-table" v-if="!(0 in this.memberList)">
+          <i class="iconfont icon-wry-smile"></i>
+          <label>暂无数据</label>
+        </div>
         <!-- 列表 -->
         <!-- 弹出层 -->
         <actionsheet v-model="popup" :menus="popupOption" @on-click-menu="hanleSelect" show-cancel>
           <p slot="header" class="popup-blue">
             <i class="iconfont icon-user"></i>
-            <span v-text="account"></span>
+            <span v-text="req.account"></span>
           </p>
         </actionsheet>
         <!-- 弹出层 -->
@@ -54,6 +61,10 @@
 </template>
 
 <script>
+// 接口请求
+import {agentMember} from '@/api/index.js'
+// 滚动加载插件
+import infiniteScroll from 'vue-infinite-scroll'
 import {
   ViewBox,
   XHeader,
@@ -72,7 +83,8 @@ import {
 export default {
   name: "agentMember",
   directives: {
-    TransferDom
+    TransferDom,
+    infiniteScroll
   },  
   components: {
     ViewBox,
@@ -89,51 +101,16 @@ export default {
   },
   data() {
     return {
-      popup:false,           // 控制弹出层
-      memberList:[           // 会员列表
-        {
-          id:1,
-          account:'cws',
-          typeView:'一级玩家',
-          type:'playerOne',          
-          loginTime:'2014-05-14',
-          people:0
-        },
-        {
-          id:2,
-          account:'sas',
-          typeView:'二级玩家',
-          type:'playerTow',             
-          loginTime:'2018-01-12',
-          people:2
-        },
-        {
-          id:3,          
-          account:'wwe',
-          typeView:'一级代理',
-          type:'agentOne',              
-          loginTime:'2013-01-15',
-          people:2
-        },
-        {
-          id:4,         
-          account:'wws',
-          typeView:'一级代理',
-          type:'agentOne',    
-          loginTime:'2018-06-14',
-          people:0
-        },
-        {
-          id:5,         
-          account:'klw',
-          typeView:'一级代理',
-          type:'agentOne',    
-          loginTime:'2018-05-14',
-          people:2
-        }                                
-      ],
+      popup:false,      // 控制弹出层
+      memberList:[],    // 会员列表                              
       popupOption: {},  // 弹出选项
-      account: '',      // 会员名称 
+      busy: false,      // 是否滚动加载 
+      req:{
+        pageNo: 0,             // 分页
+        pageSize:10,           // 条数
+        hasLoading: 1,         // 控制是否有loading
+        account: ''            // 会员名称
+      },              
       showRebate:false, // 返点详情是否显示
       rebateList:[      // 返点详情
        {
@@ -151,20 +128,45 @@ export default {
     }
   },
   computed: {},
-  created() {},
+  created() {
+    // 获取会员管理
+    this.getData()    
+  },
   methods: {
     /* 数据请求 */
     
+    // 获取会员管理
+    getData(){
+    this.busy = true
+    this.req.pageNo = ++this.req.pageNo      
+    agentMember(this.req).then(response => {
+        this.busy = false
+        this.memberList = this.memberList.concat(response)
+        // response 空时候不请求
+        console.log(response);
+        if (!(0 in response)) {
+          this.busy = true
+        }
+      })      
+    },
 
-    /* 事件操作 */    
+    /* 事件操作 */  
+    // 滚动加载
+    pullup() {
+      console.log('滚动加载')
+      if (!this.busy) {
+        this.getData()
+      }
+    },
+
     // 弹出层
     hanleCheck(item){
      this.popupOption ={}; // 每次进入清空 
      this.popup = true;   // 弹出框显示
-     this.account = item.account;  // 赋值会员名称
+     this.req.account = item.account;  // 赋值会员名称
      this.popupOption.rebate = '查看返点';     // 赋值查看返点
-     if(item.people > 0){
-      this.popupOption.people = '查看下级';     // 赋值查看下级 
+     if(item.type && item.lowerPeople){
+      this.popupOption.lower = '查看下级';     // 赋值查看下级 
      }
      console.log(this.popupOption);
     },
@@ -173,6 +175,15 @@ export default {
       console.log(key);
       if(key == 'rebate'){
         this.showRebate = true;
+      }else if(key == 'lower') {
+        console.log('lower',this.req.account);
+        // 初始化数据
+        this.memberList = []
+        this.req.pageNo = 0        
+        // 获取列表数据
+        this.getData()        
+      }else if(key == 'higher'){
+        
       }
     },  
     // 关闭按钮
@@ -180,7 +191,7 @@ export default {
       this.showRebate = false;
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

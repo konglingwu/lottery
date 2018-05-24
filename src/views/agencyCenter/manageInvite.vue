@@ -74,7 +74,13 @@
               <td>注册({{item.invitationState}})</td>
             </tr>                       
           </tbody>
-        </x-table> 
+        </x-table>
+        <!-- 没有数据显示 -->
+        <div class="tips-table" v-if="!(0 in this.invitationsList)">
+          <i class="iconfont icon-wry-smile"></i>
+          <label>暂无数据</label>
+        </div>
+        <!-- 没有数据显示 --> 
         <!-- 邀请码列表 -->
         <!-- 弹出层 -->
         <actionsheet v-model="popup" :menus="popupOption" @on-click-menu="hanleSelect" show-cancel>

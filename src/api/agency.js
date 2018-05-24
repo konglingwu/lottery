@@ -17,3 +17,12 @@ export function lowerReport(query) {
 	    params:query
 	})
 }
+
+// 3. 会员管理
+export function agentMember(query) {
+	return fetch({
+	    url: '/agentMember',
+	    method: 'POST',
+	    params:query
+	})
+}

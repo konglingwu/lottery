@@ -126,6 +126,9 @@ export default {
         }
       })      
     },
+
+    /* 事件操作 */
+
     // 滚动加载
     pullup() {
       console.log('滚动加载')
@@ -133,8 +136,6 @@ export default {
         this.getData()
       }
     },
-    /* 事件操作 */
-
     // 日期切换
     hanleChangeDate() {
       // 日期匹配
@@ -151,7 +152,7 @@ export default {
      this.popup = true;   // 弹出框显示
      this.req.account = item.account;  // 赋值会员名称
      this.popupOption.Report = '查看报表';     // 赋值查看报表
-     if(item.type){
+     if(item.type && item.lowerPeople){
       this.popupOption.lower = '查看下级';     // 赋值查看下级 
      }
      if(item.higher){
