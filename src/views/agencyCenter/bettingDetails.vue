@@ -5,31 +5,31 @@
 		<!-- main -->
 		<div class="main main-padding-top">
 			   <!-- 详情 -->
-				 <group class="betting-cells">
+				 <group class="betting-cells" v-for="item in detailsList" :key="item.id">
 					 <cell-box class="betting-items">
-						  <img class="item-left img" src=""/>
+						  <img class="item-left img" :src="item.lotteryLogo"/>
 							<div class="item-left">
-                <label>大发快3</label>
-								<span>第201805241043期</span>
+                <label>{{item.lotteryName}}</label>
+								<span>第{{item.phase}}期</span>
 							</div>
 							<div  class="item-right">
-                 <span>未中奖</span>
+                 <span>{{item.bettingResults}}</span>
 							</div>
 					 </cell-box>
 					 <cell>
-						 <span slot="title"><span>投注时间</span><span class="pd-twenty">2018-05-24 17:22:44</span> </span>
+						 <span slot="title"><span>投注时间</span><span class="pd-twenty">{{item.timeOfBetting}}</span> </span>
 					 </cell>						 
 					 <cell>
-						 <span slot="title"><span>投注单号</span><span class="pd-twenty">TZ0524172244963684</span> </span>
+						 <span slot="title"><span>投注单号</span><span class="pd-twenty">{{item.oddNumbers}}</span> </span>
 					 </cell>					 	
 					 <cell>
-						 <span slot="title"><span>投注金额</span><span class="pd-twenty">¥1000.00元</span> </span>
+						 <span slot="title"><span>投注金额</span><span class="pd-twenty">¥{{item.investment}}元</span> </span>
 					 </cell>					 
 					 <cell>
-						 <span slot="title"><span>派送奖金</span><span class="pd-twenty">¥0.00元</span> </span>
+						 <span slot="title"><span>派送奖金</span><span class="pd-twenty">¥{{item.bonus}}元</span> </span>
 					 </cell>		
 					 <cell>
-						 <span slot="title"><span>开奖号码</span><span class="pd-twenty">1,1,4</span> </span>
+						 <span slot="title"><span>开奖号码</span><span class="pd-twenty">{{item.awardNumber}}</span> </span>
 					 </cell>
 				 </group>
 				 <!-- 详情 -->
@@ -49,9 +49,16 @@
 
 <script>
 import { ViewBox, XHeader, Group, CellBox, Cell } from "vux";
+import {bettingDetails} from "@/api/index.js";
 export default {
   data() {
-    return {};
+    return {
+			req:{
+				hasLoading: 1,  // 控制是否有loading
+				oddNumbers: "", //投注单号
+			},
+			detailsList:[]  // 详情列表
+		};
   },
   components: {
     ViewBox,
@@ -60,8 +67,22 @@ export default {
     CellBox,
     Cell
   },
-  created() {},
-  methods: {}
+  created() {
+		// 注单详情
+		this.getData()		
+	},
+  methods: {
+		// 数据请求
+		// 注单详情
+		getData(){
+      bettingDetails(this.req).then(response => {
+				console.log(response)
+				this.detailsList = response;
+
+			})
+		}
+		// 事件操作
+	}
 };
 </script>
 

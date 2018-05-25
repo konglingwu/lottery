@@ -35,3 +35,12 @@ export function agentBetRecord(query) {
 	    params:query
 	})
 }
+
+// 4. 投注详情
+export function bettingDetails(query) {
+	return fetch({
+	    url: '/bettingDetails',
+	    method: 'POST',
+	    params:query
+	})
+}

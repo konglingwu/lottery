@@ -92,7 +92,6 @@ export default {
   data() {
     return {
       select: "", // 选中
-      prizeState: 0, // 状态
       list: ["全部", "已中奖", "未中奖", "等待开奖"], // 列表选项
       bettingList: [], // 投注明细
       busy: false,      // 是否滚动加载 

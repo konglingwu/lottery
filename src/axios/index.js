@@ -65,7 +65,7 @@ axios.interceptors.response.use(
 		// 系统级错误
 		if (res.status === 500) {
 			//       Message({
-			//         message: '服务器出错啦~：' + res.res.codeMsg,
+			//         message: '服务器出错啦~：' + res.res.msg,
 			//         type: 'error',
 			//         duration: 5 * 1000
 			//       })
@@ -80,7 +80,7 @@ axios.interceptors.response.use(
 					console.log('Plugin: I\'m hiding')
 				}
 			})
-			return Promise.reject(res.res.codeMsg)
+			return Promise.reject(res.res.msg)
 		} else if (typeof res.status !== 'undefined' && res.status !== 200) {
 			console.log('系统运行错误：', res)
 			//       Message({
@@ -103,10 +103,10 @@ axios.interceptors.response.use(
 		} else if (
 			typeof res.res !== 'undefined' &&
 			typeof res.res.code !== 'undefined' &&
-			res.res.code !== 1000
+			res.res.code !== 0
 		) {
 			//       Message({
-			//         message: '业务处理错误：' + res.res.codeMsg.client_error,
+			//         message: '业务处理错误：' + res.res.msg.client_error,
 			//         type: 'error',
 			//         duration: 5 * 1000
 			//       })
@@ -121,7 +121,7 @@ axios.interceptors.response.use(
 					console.log('Plugin: I\'m hiding')
 				}
 			})
-			return Promise.reject(res.res.codeMsg)
+			return Promise.reject(res.res.msg)
 			// 业务处理
 		} else {
 			// console.log(response.data)
@@ -165,10 +165,10 @@ axios.interceptors.response.use(
 // 自定义 处理 返回信息
 export function custom(config) {
 	const params = {}
-	const d = new Date()
-	params.lang = navigator.language || navigator.browserLanguage
+	//const d = new Date()
+	//params.lang = navigator.language || navigator.browserLanguage
 	params.req = {}
-	params.req.source = 'pc'
+	//params.req.source = 'pc'
 	params.req.data = config.params
 	return axios({
 		method: config.method,
@@ -191,9 +191,9 @@ export function fetch(config) {
 	//     })
 	//   }
 	const params = {}
-	params.lang = navigator.language || navigator.browserLanguage
+	//params.lang = navigator.language || navigator.browserLanguage
 	params.req = {}
-	params.req.source = 'h5'
+	//params.req.source = 'h5'
 	params.req.data = config.params
 	return axios({
 		method: config.method,
