@@ -73,8 +73,18 @@ export default {
     /* 数据请求 */
     
 
-    /* 事件操作 */   
-
+    /* 事件操作 */ 
+      
+    // 日期切换
+    hanleChangeDate() {
+      // 日期匹配
+      this.dateMatching();
+      // 初始化数据
+      this.bettingList = [];
+      this.req.pageNo = 0;
+      // 获取列表数据
+      this.getData();
+    },
     // 切换奖项状态
     hanleSelect(index) {
       index = this.prizeState;

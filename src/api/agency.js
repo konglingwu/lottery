@@ -3,7 +3,7 @@ import { fetch } from '@/axios/index'
 // 1. 代理报表
 export function agentReport(query) {
 	return fetch({
-	    url: '/agentReport',
+	    url: '/agent/agentReport.action',
 	    method: 'POST',
 	    params:query
 	})
@@ -12,7 +12,7 @@ export function agentReport(query) {
 // 2. 下级列表
 export function lowerReport(query) {
 	return fetch({
-	    url: '/lowerReport',
+	    url: '/agent/lowerReport.action',
 	    method: 'POST',
 	    params:query
 	})
@@ -21,7 +21,7 @@ export function lowerReport(query) {
 // 3. 会员管理
 export function agentMember(query) {
 	return fetch({
-	    url: '/agentMember',
+	    url: '/agent/agentMember.action',
 	    method: 'POST',
 	    params:query
 	})
@@ -30,7 +30,7 @@ export function agentMember(query) {
 // 4. 投注明细
 export function agentBetRecord(query) {
 	return fetch({
-	    url: '/agentBetRecord',
+	    url: '/agent/agentBetRecord.action',
 	    method: 'POST',
 	    params:query
 	})
@@ -39,7 +39,7 @@ export function agentBetRecord(query) {
 // 4. 投注详情
 export function bettingDetails(query) {
 	return fetch({
-	    url: '/bettingDetails',
+	    url: '/agent/bettingDetails.action',
 	    method: 'POST',
 	    params:query
 	})
