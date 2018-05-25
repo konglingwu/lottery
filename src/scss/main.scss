@@ -1,4 +1,4 @@
-@import "utils";
+
 
 *,
 *:before,
@@ -99,77 +99,6 @@ input[disabled="disabled"] {
 .flip-list-move {
 	transition: transform 1s;
 }
-// tab-icon
-@font-face {
-	font-family: "iconfont";
-	src: url('../assets/iconfont.ttf?t=1524123129681') format('truetype'),
-/* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-	url('../assets/iconfont.svg?t=1524123129681#iconfont') format('svg');
-/* iOS 4.1- */
-}
-
-.iconfont {
-	font-family:"iconfont" !important;
-	@include font-dpr(16);
-	font-style:normal;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
-
-.icon-trophy:before { content: "\e600"; }
-
-.icon-outMoney:before { content: "\e60e"; }
-
-.icon-access:before { content: "\e604"; }
-
-.icon-setting:before { content: "\e615"; }
-
-.icon-inMoney:before { content: "\e61c"; }
-
-.icon-more:before { content: "\e682"; }
-
-.icon-empty:before { content: "\e621"; }
-
-.icon-service:before { content: "\e60b"; }
-
-.icon-waiting:before { content: "\e65a"; }
-
-.icon-notice:before { content: "\e609"; }
-
-.icon-profile:before { content: "\e620"; }
-
-.icon-shake:before { content: "\e827"; }
-
-.icon-eye:before { content: "\e650"; }
-
-.icon-lipin:before { content: "\e71d"; }
-
-.icon-itemSelected:before { content: "\e6d5"; }
-
-.icon-all:before { content: "\e613"; }
-
-.icon-winning:before { content: "\e60c"; }
-
-.icon-buy:before { content: "\e683"; }
-
-.icon-isWin:before { content: "\e612"; }
-
-.icon-noWin:before { content: "\e614"; }
-
-.icon-arrowdropdown:before { content: "\e60d"; }
-
-.icon-chart:before { content: "\e6ab"; }
-
-.icon-home:before { content: "\e627"; }
-
-.icon-success:before { content: "\e6f1"; }
-
-.icon-record:before { content: "\e61b"; }
-
-.icon-focus:before { content: "\e677"; }
-
-.icon-cart:before { content: "\e601"; }
-
 // app hack
 .form-body .weui-label {
 	width: px2rem(140);

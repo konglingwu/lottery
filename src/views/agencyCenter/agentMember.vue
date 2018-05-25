@@ -140,21 +140,21 @@ export default {
     this.busy = true
     this.req.pageNo = ++this.req.pageNo      
     agentMember(this.req).then(response => {
-        this.busy = false
         this.memberList = this.memberList.concat(response)
         // response 空时候不请求
         console.log(response);
         if (!(0 in response)) {
-          this.busy = true
+          this.busy = false
         }
-      })      
+      });
+      this.busy = false            
     },
 
     /* 事件操作 */  
     // 滚动加载
     pullup() {
       console.log('滚动加载')
-      if (!this.busy) {
+      if (this.busy) {
         this.getData()
       }
     },

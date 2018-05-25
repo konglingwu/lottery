@@ -12,11 +12,11 @@
         <!-- 搜索input -->
         <group class="group-search">
             <x-input v-model="req.search" placeholder="下级投注查询">
-              <x-button slot="right" type="warn" mini>搜索</x-button>
+              <x-button slot="right" type="warn" mini @click.native="hanleSearch">搜索</x-button>
             </x-input>
        </group>
        <!-- 搜索input -->
-       <!-- 搜索列表 -->
+       <!-- 投注列表 -->
        <div class="group-bill">
           <tab :line-width=2 active-color='#fc378c' v-model="req.prizeState">
             <tab-item class="vux-center" :selected="select === item" v-for="(item, index) in list" @on-item-click="hanleSelect(index)" :key="index">{{item}}</tab-item>
@@ -42,7 +42,7 @@
         </div>
         <!-- 列表 -->
        </div>
-       <!-- 搜索列表 -->
+       <!-- 投注列表 -->
     </div>
   </view-box>
 </template>
@@ -118,14 +118,14 @@ export default {
       this.busy = true
       this.req.pageNo = ++this.req.pageNo          
       agentBetRecord(this.req).then(response => {
-        this.busy = false
         this.bettingList = this.bettingList.concat(response)
         // response 空时候不请求
-        console.log(response);
+        console.log(response,'hasLoading');
         if (!(0 in response)) {
-          this.busy = true
+          this.busy = false
         }
       });
+      this.busy = false
     },
 
     /* 事件操作 */
@@ -133,7 +133,7 @@ export default {
     // 滚动加载
     pullup() {
       console.log('滚动加载')
-      if (!this.busy) {
+      if (this.busy) {
         this.getData()
       }
     },
@@ -161,6 +161,12 @@ export default {
      this.$router.push(
        {path:'./bettingDetails'}
      )
+    },
+    // 搜索
+    hanleSearch() {
+      this.bettingList = [];
+      this.req.pageNo = 0;      
+      this.getData();
     }
   }
 };

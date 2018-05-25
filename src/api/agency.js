@@ -44,3 +44,12 @@ export function bettingDetails(query) {
 	    params:query
 	})
 }
+
+// 4. 交易明细
+export function agentBillRecord(query) {
+	return fetch({
+	    url: '/agent/agentBillRecord.action',
+	    method: 'POST',
+	    params:query
+	})
+}

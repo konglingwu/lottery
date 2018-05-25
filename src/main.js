@@ -13,8 +13,7 @@ import {
 	LoadingPlugin 
 } from 'vux'
 import App from './App'
-import '@/scss/main.scss'
-import '@/assets/font/iconfont.scss'
+import '@/scss/index.scss'
 Vue.config.productionTip = false
 
 Vue.use(AjaxPlugin)

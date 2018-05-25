@@ -1,0 +1,85 @@
+@font-face {
+	font-family: "iconfont";
+	src: url('../assets/font/iconfont.ttf?t=1527235390840') format('truetype'),
+/* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+	url('../assets/font/iconfont.eot') format('svg');
+/* iOS 4.1- */
+}
+
+.iconfont {
+	font-family:"iconfont" !important;
+	@include font-dpr(16);
+	font-style:normal;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-trophy:before { content: "\e600"; }
+
+.icon-outMoney:before { content: "\e60e"; }
+
+.icon-access:before { content: "\e604"; }
+
+.icon-setting:before { content: "\e615"; }
+
+.icon-inMoney:before { content: "\e61c"; }
+
+.icon-search:before { content: "\e62a"; }
+
+.icon-love:before { content: "\e61a"; }
+
+.icon-more:before { content: "\e682"; }
+
+.icon-empty:before { content: "\e621"; }
+
+.icon-service:before { content: "\e60b"; }
+
+.icon-waiting:before { content: "\e65a"; }
+
+.icon-money-bag:before { content: "\e626"; }
+
+.icon-notice:before { content: "\e609"; }
+
+.icon-exclamatory-mark:before { content: "\e65f"; }
+
+.icon-user:before { content: "\e643"; }
+
+.icon-profile:before { content: "\e620"; }
+
+.icon-shake:before { content: "\e827"; }
+
+.icon-eye:before { content: "\e650"; }
+
+.icon-lipin:before { content: "\e71d"; }
+
+.icon-itemSelected:before { content: "\e6d5"; }
+
+.icon-all:before { content: "\e613"; }
+
+.icon-winning:before { content: "\e60c"; }
+
+.icon-buy:before { content: "\e683"; }
+
+.icon-wry-smile:before { content: "\e6e2"; }
+
+.icon-isWin:before { content: "\e612"; }
+
+.icon-noWin:before { content: "\e614"; }
+
+.icon-arrowdropdown:before { content: "\e60d"; }
+
+.icon-chart:before { content: "\e6ab"; }
+
+.icon-home:before { content: "\e627"; }
+
+.icon-success:before { content: "\e6f1"; }
+
+.icon-record:before { content: "\e61b"; }
+
+.icon-focus:before { content: "\e677"; }
+
+.icon-arrow-under:before { content: "\e616"; }
+
+.icon-cart:before { content: "\e601"; }
+
+.icon-close:before { content: "\e617"; }

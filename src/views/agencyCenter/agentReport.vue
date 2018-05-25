@@ -116,9 +116,9 @@
 
 <script>
 // common 通用模版
-import common from '../mixin/common.mixin.js'
+import common from "../mixin/common.mixin.js";
 // 接口请求
-import {agentReport} from '@/api/index.js'
+import { agentReport } from "@/api/index.js";
 import {
   ViewBox,
   XHeader,
@@ -151,56 +151,58 @@ export default {
   },
   data() {
     return {
-      agentReportList:[],  // 代理列表
-      req:{
-        switchingDate:'today', // 日期 
-        search:''|| this.$route.query.account, // 搜索内容
-        hasLoading: 1          // 控制是否有loading
+      agentReportList: [], // 代理列表
+      req: {
+        switchingDate: "today", // 日期
+        search: "" || this.$route.query.account, // 搜索内容
+        hasLoading: 1 // 控制是否有loading
       }
     };
   },
   computed: {},
   created() {
     // console.log(this.selectDate.push(this.$route.query.selectDate))
-    // 重置日期 
-    this.resetDate(); 
-    // 获取列表数据   
+    // 重置日期
+    this.resetDate();
+    // 获取列表数据
     this.getData();
   },
   methods: {
     /* 数据请求 */
     // 获取列表数据
-    getData(){
-    agentReport(this.req).then(response => {
-        console.log(response)
-        this.agentReportList.push(response); 
-      })
+    getData() {
+      agentReport(this.req).then(response => {
+        console.log(response);
+        this.agentReportList = [];
+        this.agentReportList.push(response);
+      });
     },
     /* 事件操作 */
-    
+
     // 重置日期
-    resetDate(){
-      console.log(this.$route.query.selectDate)
-      console.log(typeof(this.$route.query.selectDate))
-      if(this.$route.query.selectDate !== undefined){
-        this.selectDate = [this.$route.query.selectDate]
-        console.log(this.selectDate[0])
+    resetDate() {
+      console.log(this.$route.query.selectDate);
+      console.log(typeof this.$route.query.selectDate);
+      if (this.$route.query.selectDate !== undefined) {
+        this.selectDate = [this.$route.query.selectDate];
+        console.log(this.selectDate[0]);
       }
       // 日期匹配
-      this.dateMatching()
+      this.dateMatching();
     },
     // 日期切换
     hanleChangeDate() {
       // 日期匹配
-      this.dateMatching()
+      this.dateMatching();
       // 获取列表数据
-      this.getData()
-    },    
-    // 搜索  
-    hanleSearch(){
+      this.getData();
+    },
+    // 搜索
+    hanleSearch() {
+      this.agentReportList = [];
+      this.req.pageNo = 0;           
       this.getData();
     }
-
   }
 };
 </script>

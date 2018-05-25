@@ -10,12 +10,12 @@ axios.interceptors.request.use(
 	config => {
 		console.log('请求开始', config)
 		// 全屏Loading开始
-		let { data } = config
-		if (typeof data == 'string') data = JSON.parse(data)
-		let { hasLoading } = data.req.data
-		hasLoading && Vue.$vux.loading.show({
-			text: 'Loading'
-		})
+		// let { data } = config
+		// if (typeof data == 'string') data = JSON.parse(data)
+		// let { hasLoading } = data.data
+		// hasLoading && Vue.$vux.loading.show({
+		// 	text: 'Loading'
+		// })
 		return config
 	},
 	error => {
@@ -80,7 +80,7 @@ axios.interceptors.response.use(
 					console.log('Plugin: I\'m hiding')
 				}
 			})
-			return Promise.reject(res.res.msg)
+			return Promise.reject(res.msg)
 		} else if (typeof res.status !== 'undefined' && res.status !== 200) {
 			console.log('系统运行错误：', res)
 			//       Message({
@@ -99,11 +99,9 @@ axios.interceptors.response.use(
 					console.log('Plugin: I\'m hiding')
 				}
 			})
-			return Promise.reject(res.statusMsg)
+			return Promise.reject(res.msg)
 		} else if (
-			typeof res.res !== 'undefined' &&
-			typeof res.res.code !== 'undefined' &&
-			res.res.code !== 0
+			res.code != 0
 		) {
 			//       Message({
 			//         message: '业务处理错误：' + res.res.msg.client_error,
@@ -121,12 +119,12 @@ axios.interceptors.response.use(
 					console.log('Plugin: I\'m hiding')
 				}
 			})
-			return Promise.reject(res.res.msg)
+			return Promise.reject(res.msg)
 			// 业务处理
 		} else {
 			// console.log(response.data)
 			// 处理 lang
-			if (typeof res.res === 'undefined') {
+			if (typeof res === 'undefined') {
 				// 传送2进制文件
 				res.blob = res
 				res.filename = decodeURI(
@@ -134,7 +132,7 @@ axios.interceptors.response.use(
 				)
 				return res
 			} else {
-				return res.res.data
+				return res.data
 			}
 		}
 	},
@@ -192,13 +190,13 @@ export function fetch(config) {
 	//   }
 	const params = {}
 	//params.lang = navigator.language || navigator.browserLanguage
-	params.req = {}
+	// params.req = {}
 	//params.req.source = 'h5'
-	params.req.data = config.params
+	params.data = config.params
 	return axios({
 		method: config.method,
 		url: config.url,
-		data: params,
+		data: config.params,
 		baseURL: '/api/', // api的base_url //需要修改的
 		//baseURL: process.env.BASE_API, // api的  base_url //需要修改的
 		timeout: config.timeout ? config.timeout : 30000,

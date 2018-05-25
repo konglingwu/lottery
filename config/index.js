@@ -31,6 +31,8 @@ module.exports = {
 		proxyTable: {
 			'/api': {
 				target: 'https://www.easy-mock.com/mock/5afea1e76ba6060f61c231fd/lottery',
+				//target: 'http://192.168.1.138:8080/api',
+				//target:'http://103.210.238.58:8087/api', //测试
 				changeOrigin: true,
 				pathRewrite: {
 					'^/api': ''
