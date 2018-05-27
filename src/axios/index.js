@@ -12,15 +12,7 @@ axios.interceptors.request.use(
   config => {
     console.log("请求开始", config.data.hasLoading);
     // 全屏Loading开始
-    // let { data } = config
-    // if (typeof data == 'string') data = JSON.parse(data)
-    // let { hasLoading } = data.hasLoading
-    // console.log(data.hasLoading,'ssss');
-    // hasLoading && Vue.$vux.loading.show({
-    // 	text: 'Loading'
-    // })
     if (config.data.hasLoading == 1) {
-      // 显示
       Vue.$vux.loading.show({
         text: "Loading"
       });
