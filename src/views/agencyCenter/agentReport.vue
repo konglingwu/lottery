@@ -200,7 +200,8 @@ export default {
     // 搜索
     hanleSearch() {
       this.agentReportList = [];
-      this.req.pageNo = 0;           
+      this.req.page = 0;  
+      // 获取列表数据               
       this.getData();
     }
   }

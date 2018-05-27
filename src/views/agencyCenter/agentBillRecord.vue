@@ -18,13 +18,13 @@
        <!-- 搜索input -->      
         <!-- 搜索列表 -->
        <div class="group-bill">
-        <tab :line-width=2 active-color='#fc378c' v-model="prizeState">
+        <tab :line-width=2 active-color='#fc378c' v-model="req.prizeState">
           <tab-item class="vux-center" :selected="select === item" v-for="(item, index) in list" @on-item-click="hanleSelect(index)" :key="index">{{item}}</tab-item>
         </tab>
           <!-- 列表 -->
           <div class="scroller" v-infinite-scroll="pullup" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
             <group>
-              <cell-box class="betting-items" v-for="item in this.transactionList" :key="item.id" @click.native="hanleClickBetting(item)">
+              <cell-box class="betting-items" v-for="item in this.transactionList" :key="item.id">
                 <div class="item-left">
                      <label>{{item.account}}</label>
                      <p>{{item.tradingTime}}</p>
@@ -95,13 +95,12 @@ export default {
   },
   data() {
     return {
-      prizeState: 0, // 状态
       select: "", // 选中
       transactionList: [], // 投注明细
       busy: false,      // 是否滚动加载 
       req: {
         switchingDate: "today", // 日期
-        pageNo: 0, // 分页
+        page: 0, // 分页
         pageSize: 10, // 条数
         hasLoading: 1, // 控制是否有loading
         search: "", // 搜索内容
@@ -120,7 +119,7 @@ export default {
     // 交易明细
       getData() {
       this.busy = true
-      this.req.pageNo = ++this.req.pageNo          
+      this.req.page = ++this.req.page         
       agentBillRecord(this.req).then(response => {
         this.transactionList = this.transactionList.concat(response)
         // response 空时候不请求
@@ -136,31 +135,35 @@ export default {
 
     // 滚动加载
     pullup() {
-      console.log('滚动加载')
       if (this.busy) {
         this.getData()
       }
     },  
-
+    // 清空数据方法
+    init(){
+      this.transactionList = [];
+      this.req.page = 0;    
+    },
     // 日期切换
     hanleChangeDate() {
       // 日期匹配
       this.dateMatching();
-      // 初始化数据
-      this.transactionList = [];
-      this.req.pageNo = 0;
+      // 清空数据方法
+      this.init()
       // 获取列表数据
       this.getData();
     },
     // 切换奖项状态
     hanleSelect(index) {
-      index = this.prizeState;
-      console.log(index);
+      // 清空数据方法
+      this.init()
+      // 获取列表数据
+      this.getData();
     },
     // 搜索
     hanleSearch() {
-      this.transactionList = [];
-      this.req.pageNo = 0;      
+      // 清空数据方法
+      this.init()     
       this.getData();
     }
   }

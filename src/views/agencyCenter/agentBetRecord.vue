@@ -97,7 +97,7 @@ export default {
       busy: false,      // 是否滚动加载 
       req: {
         switchingDate: "today", // 日期
-        pageNo: 0, // 分页
+        page: 0,      // 分页
         pageSize: 10, // 条数
         hasLoading: 1, // 控制是否有loading
         search: "", // 搜索内容
@@ -116,7 +116,7 @@ export default {
     // 投注明细
     getData() {
       this.busy = true
-      this.req.pageNo = ++this.req.pageNo          
+      this.req.page = ++this.req.page          
       agentBetRecord(this.req).then(response => {
         this.bettingList = this.bettingList.concat(response)
         // response 空时候不请求
@@ -132,26 +132,28 @@ export default {
 
     // 滚动加载
     pullup() {
-      console.log('滚动加载')
       if (this.busy) {
         this.getData()
       }
     },
-
+    // 清空数据方法
+    init(){
+      this.bettingList = [];
+      this.req.page = 0;    
+    },
     // 日期切换
     hanleChangeDate() {
       // 日期匹配
       this.dateMatching();
-      // 初始化数据
-      this.bettingList = [];
-      this.req.pageNo = 0;
+      // 清空数据方法
+      this.init()
       // 获取列表数据
       this.getData();
     },
     // 切换奖项状态
     hanleSelect(index) {
-      this.bettingList = [];
-      this.req.pageNo = 0;
+      // 清空数据方法
+      this.init()
       // 获取列表数据
       this.getData();
     },
@@ -164,8 +166,9 @@ export default {
     },
     // 搜索
     hanleSearch() {
-      this.bettingList = [];
-      this.req.pageNo = 0;      
+      // 清空数据方法
+      this.init()  
+      // 获取列表数据   
       this.getData();
     }
   }

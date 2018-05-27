@@ -1,7 +1,6 @@
 export default{
 	data() {
 		return {
-      search: "", // 搜索内容
       dataList: [['今天', '昨天', '本月', '上月']], // 日期选项列表
       selectDate: ['今天'], // 日期选项
 		}

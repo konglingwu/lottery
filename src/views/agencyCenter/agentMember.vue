@@ -106,7 +106,7 @@ export default {
       popupOption: {},  // 弹出选项
       busy: false,      // 是否滚动加载 
       req:{
-        pageNo: 0,             // 分页
+        page: 0,             // 分页
         pageSize:10,           // 条数
         hasLoading: 1,         // 控制是否有loading
         account: ''            // 会员名称
@@ -138,7 +138,7 @@ export default {
     // 获取会员管理
     getData(){
     this.busy = true
-    this.req.pageNo = ++this.req.pageNo      
+    this.req.page = ++this.req.page     
     agentMember(this.req).then(response => {
         this.memberList = this.memberList.concat(response)
         // response 空时候不请求
@@ -179,7 +179,7 @@ export default {
         console.log('lower',this.req.account);
         // 初始化数据
         this.memberList = []
-        this.req.pageNo = 0        
+        this.req.page = 0        
         // 获取列表数据
         this.getData()        
       }else if(key == 'higher'){
