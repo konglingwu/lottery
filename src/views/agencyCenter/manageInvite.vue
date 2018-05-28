@@ -177,6 +177,7 @@ export default {
       req: {
         hasLoading: 1
       },
+      sumError:0, // 错误累计总和
       showPopup: false, // 显示弹窗-下级开户
       switching: 0, // tab切换
       showRebate: false, // 返点详情是否显示-邀请码
@@ -243,7 +244,7 @@ export default {
     // 提交邀请码
     submitInvitingCode(codeList) {
       invitingCode(codeList).then(response => {
-        console.log(codeList, "www");
+        console.log(codeList);
       });
     },
     /* 事件操作 */
@@ -285,35 +286,45 @@ export default {
     hanleCloseRebate() {
       this.showRebate = false;
     },
-
-    // 验证
-    hanleBlur(item) {
+    // 验证方法
+    verification(item) {
       let lotteryType = item.lotteryType;
       let rebate = parseFloat(item.rebate);
       let maxPoint = parseFloat(item.maxPoint);
       let minPoint = parseFloat(item.minPoint);
       const reg = /^[0-9]*$/; // 数字验证
-      const title =
-        lotteryType + "：请输入" + minPoint + "-" + maxPoint + "之间数字"; // 提示语
       if (!reg.test(rebate) || rebate > maxPoint || rebate < minPoint) {
-        item.rebate = "";
+        const title =
+          lotteryType + "：请输入" + minPoint + "-" + maxPoint + "之间数字"; // 提示语
         this.$vux.toast.text(title, "middle");
+        this.sumError += 1;
       }
     },
-    
+    // 验证
+    hanleBlur(item) {
+      // 验证方法
+      this.verification(item);
+    },
+
     // 生成邀请码
     hanleInvitingCode() {
+      const codeList = []; // 过滤后的数据
+      this.sumError = 0;
       this.rebateList.forEach(item => {
-        this.hanleBlur(item);
-      });
-      const codeList = []; //过滤后的数据
-      this.rebateList.forEach(item => {
-        const spItem = {};
+        // 验证方法
+        this.verification(item);
+
+        // 赋值
+        const spItem = {}; // 重新赋值数据
         spItem.id = item.id;
         spItem.rebate = item.rebate;
         codeList.push(spItem);
       });
-      this.submitInvitingCode(codeList);
+      console.log(this.sumError,'NBA')
+      if (this.sumError == 0) {
+        this.submitInvitingCode(codeList); // 生成邀请码
+        this.showPopup = true; // 弹出框
+      }
     },
     // 关闭温馨提示
     onCancel() {
