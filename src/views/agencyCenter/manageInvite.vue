@@ -39,19 +39,25 @@
         </group>    
         <!-- 彩票列表 -->
         <group class="lottery-items">
-          <x-input title="时时彩" placeholder="自身返点8.0，可设置返点0.0-8.0" placeholder-align="left"></x-input>
-          <x-input title="快3" placeholder="自身返点7.5，可设置返点0.0-7.5" placeholder-align="left"></x-input>
-          <x-input title="11选5" placeholder="自身返点7.5，可设置返点0.0-7.5"  placeholder-align="left"></x-input>
-          <x-input title="福彩3D" placeholder="自身返点7.5，可设置返点0.0-7.5" placeholder-align="left"></x-input>
-          <x-input title="排列3" placeholder="自身返点8.0，可设置返点0.0-8.0" placeholder-align="left"></x-input>
-          <x-input title="北京快乐8" placeholder="自身返点7.5，可设置返点0.0-7.5" placeholder-align="left"></x-input>
-          <x-input title="PK10" placeholder="自身返点8.0，可设置返点0.0-8.0" placeholder-align="left"></x-input>
-          <x-input title="六合彩" placeholder="自身返点10.0，可设置返点0.0-10" placeholder-align="left"></x-input>                                                                                    
+          <div v-for="item in rebateList" :key="item.id" class="invitation-list">
+            <label>{{item.lotteryType}}</label>
+            <input :placeholder="item.point" v-model="item.rebate" @blur.stop="hanleBlur(item)"/>
+          </div>                                                                                 
           <!-- 生成邀请码 -->
             <cell-box>
-              <x-button type="warn">生成邀请码</x-button>
+              <x-button type="warn" @click.native="hanleInvitingCode">生成邀请码</x-button>
             </cell-box>
           <!-- 生成邀请码 -->
+          <!-- 邀请码确认弹窗 -->
+            <div v-transfer-dom>
+              <confirm v-model="showPopup"
+                title="温馨提示"
+                @on-cancel="onCancel"
+                @on-confirm="onConfirm">
+                <p style="text-align:center;">邀请码已生成，请点击邀请码管理进行查询·，是否查看?</p>
+              </confirm>
+            </div>        
+          <!-- 邀请码确认弹窗 -->
         </group>      
         <!-- 彩票列表 -->
       </div>
@@ -91,7 +97,7 @@
           <popup v-model="showRebate" position="bottom" max-height="69%" style="overflow: hidden;">
             <group>
               <cell class="popup-title"><label>查看详情</label><i class="iconfont icon-close" @click="hanleCloseRebate"></i></cell>
-              <group v-for="item in rebateList" :key="item.id">
+              <group v-for="item in rebateDetails" :key="item.id">
                 <cell title="时时彩">{{item.whilstLottery}}</cell>
                 <cell title="快3">{{item.fastThree}}</cell>
                 <cell title="11选5">{{item.elevenSelectFive}}</cell>
@@ -112,6 +118,8 @@
 </template>
 
 <script>
+// 接口请求
+import { agentRebate, invitingCode } from "@/api/index.js";
 import {
   ViewBox,
   XHeader,
@@ -128,14 +136,17 @@ import {
   Actionsheet,
   Cell,
   Popup,
-  TransferDom
+  TransferDom,
+  Toast,
+  Alert
 } from "vux";
+import { logicalExpression } from "babel-types";
 
 export default {
   name: "manageInvite",
   directives: {
     TransferDom
-  },    
+  },
   components: {
     ViewBox,
     XHeader,
@@ -151,73 +162,165 @@ export default {
     XTable,
     Actionsheet,
     Cell,
-    Popup
+    Popup,
+    Toast,
+    Alert
   },
   data() {
     return {
-      popup:false,          // 控制弹出层  
-      popupOption: {        // 弹出选项       
-        rebate:'查看返点',
-        delCode:'删除邀请码'
-      },         
-      switching: 0,         // tab切换
-      showRebate:false,     // 返点详情是否显示      
-      switchItems: true,    // 控制显示列表内容
+      popup: false, // 控制弹出层
+      popupOption: {
+        // 弹出选项
+        rebate: "查看返点",
+        delCode: "删除邀请码"
+      },
+      req: {
+        hasLoading: 1
+      },
+      showPopup: false, // 显示弹窗-下级开户
+      switching: 0, // tab切换
+      showRebate: false, // 返点详情是否显示-邀请码
+      switchItems: true, // 控制显示列表内容
       accountType: "agent", // 开户类型
-      invitationsList:[     // 邀请码列表
+      invitationsList: [
+        // 邀请码列表
         {
-          invitationCode:49735720,              // 邀请码
-          productionTime:'2018-05-21 15:26:30', // 生成时间
-          invitationState:0                     // 状态
+          invitationCode: 49735720, // 邀请码
+          productionTime: "2018-05-21 15:26:30", // 生成时间
+          invitationState: 0 // 状态
         }
       ],
-      rebateList:[          // 返点详情
-       {
-        id:1,                // ID 
-        whilstLottery: 6,    // 时时彩
-        fastThree:3,         // 快3
-        elevenSelectFive:6,  // 11选5
-        welfareLottery:3,    // 福彩3D
-        arrayThree:4,        // 排列3
-        happyBeijing:3,      // 北京快乐8
-        beijingPK:8,         // 北京PK 
-        markSixLottery:6     // 六合彩
-       }
-      ]   
+      rebateDetails: [
+        // 返点详情
+        {
+          id: 1, // ID
+          whilstLottery: 6, // 时时彩
+          fastThree: 3, // 快3
+          elevenSelectFive: 6, // 11选5
+          welfareLottery: 3, // 福彩3D
+          arrayThree: 4, // 排列3
+          happyBeijing: 3, // 北京快乐8
+          beijingPK: 8, // 北京PK
+          markSixLottery: 6 // 六合彩
+        }
+      ],
+      rebateList: [] // 返点列表
     };
   },
   computed: {},
-  created() {},
+  created() {
+    // 获取返点(第一次进入执行)
+    this.getFirst();
+  },
   methods: {
     /* 数据请求 */
+
+    // 获取返点
+    getRebate() {
+      agentRebate(this.req).then(response => {
+        response.forEach(element => {
+          const spItem = {};
+          spItem.id = element.id;
+          spItem.lotteryType = element.lotteryType;
+          spItem.maxPoint = element.maxPoint;
+          spItem.minPoint = element.minPoint;
+          spItem.point =
+            "自身返点" +
+            element.maxPoint +
+            "," +
+            "可设置返点" +
+            element.minPoint +
+            "-" +
+            element.point;
+          this.rebateList.push(spItem);
+        });
+
+        const obj = JSON.stringify(this.rebateList); //  转成字符串格式
+        localStorage.setItem("rebateList", obj); // 存储到localStorage
+      });
+    },
+
+    // 提交邀请码
+    submitInvitingCode(codeList) {
+      invitingCode(codeList).then(response => {
+        console.log(codeList, "www");
+      });
+    },
     /* 事件操作 */
+
+    // 判断是否第一次进入
+    getFirst() {
+      let res = localStorage.getItem("rebateList");
+      if (res == null || res == "") {
+        this.getRebate();
+      } else {
+        this.rebateList = JSON.parse(res); // 读取localStorage数据
+        console.log(this.rebateList, "读取localStorage数据");
+      }
+    },
 
     // 切换tab
     hanleTabClick() {
       if (this.switching == 0) {
-        this.accountType = 'agent' // 初始化radio
-        this.switchItems = true;   // 控制下级开户显示
+        this.accountType = "agent"; // 初始化radio
+        this.switchItems = true; // 控制下级开户显示
       } else {
-        this.accountType = 'agent' // 初始化radio
-        this.switchItems = false;  // 控制下级开户隐藏
+        this.accountType = "agent"; // 初始化radio
+        this.switchItems = false; // 控制下级开户隐藏
       }
     },
     // 弹出层
-    hanleCheck(item){
-     this.popup = true;   // 弹出框显示
-     console.log(this.popupOption);
-    },    
+    hanleCheck(item) {
+      this.popup = true; // 弹出框显示
+      console.log(this.popupOption);
+    },
     // 查看信息
-    hanleSelect (key) {
+    hanleSelect(key) {
       console.log(key);
-      if(key == 'rebate'){
+      if (key == "rebate") {
         this.showRebate = true;
       }
-    },  
+    },
     // 关闭按钮
-    hanleCloseRebate(){
+    hanleCloseRebate() {
       this.showRebate = false;
-    }
+    },
+
+    // 验证
+    hanleBlur(item) {
+      let lotteryType = item.lotteryType;
+      let rebate = parseFloat(item.rebate);
+      let maxPoint = parseFloat(item.maxPoint);
+      let minPoint = parseFloat(item.minPoint);
+      const reg = /^[0-9]*$/; // 数字验证
+      const title =
+        lotteryType + "：请输入" + minPoint + "-" + maxPoint + "之间数字"; // 提示语
+      if (!reg.test(rebate) || rebate > maxPoint || rebate < minPoint) {
+        item.rebate = "";
+        this.$vux.toast.text(title, "middle");
+      }
+    },
+    
+    // 生成邀请码
+    hanleInvitingCode() {
+      this.rebateList.forEach(item => {
+        this.hanleBlur(item);
+      });
+      const codeList = []; //过滤后的数据
+      this.rebateList.forEach(item => {
+        const spItem = {};
+        spItem.id = item.id;
+        spItem.rebate = item.rebate;
+        codeList.push(spItem);
+      });
+      this.submitInvitingCode(codeList);
+    },
+    // 关闭温馨提示
+    onCancel() {
+      console.log("关闭！");
+    },
+    // 跳转到邀请码列表
+    onConfirm() {}
   }
 };
 </script>
@@ -287,9 +390,27 @@ export default {
   }
 }
 // 调转路由颜色
-.router-red{
+.router-red {
   a {
     color: #cd0006;
+  }
+}
+// 邀请列表
+.invitation-list {
+  border-bottom: 1px solid #ccc;
+  padding: 5px 10px;
+  label {
+    width: 75px;
+    display: inline-block;
+    font-size: 14px; /*px*/
+  }
+  input {
+    border: none;
+    border-radius: 2px; /*px*/
+    height: 30px;
+    line-height: 30px;
+    width: 250px;
+    padding: 0 10px;
   }
 }
 </style>

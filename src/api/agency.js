@@ -53,3 +53,21 @@ export function agentBillRecord(query) {
 	    params:query
 	})
 }
+
+// 5. 下级用户-返点列表
+export function agentRebate(query) {
+	return fetch({
+	    url: '/agent/agentRebate.action',
+	    method: 'POST',
+	    params:query
+	})
+}
+
+// 5. 下级用户-生成邀请码
+export function invitingCode(query) {
+	return fetch({
+	    url: '/agent/invitingCode.action',
+	    method: 'POST',
+	    params:query
+	})
+}
