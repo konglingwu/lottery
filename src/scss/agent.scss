@@ -224,3 +224,16 @@
 .bg-wite{
   background: white;
 }
+
+// 查看详情
+.popup-list {
+  background: white;
+  overflow: hidden;
+  .item {
+    padding: 10px;
+    border-top: 1px solid #f5f5f5;
+    .right {
+      float: right;
+    }
+  }
+}

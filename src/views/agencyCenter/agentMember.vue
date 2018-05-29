@@ -40,19 +40,13 @@
         <!-- 查看返点 -->
         <div v-transfer-dom>
           <popup v-model="showRebate" position="bottom" max-height="69%" style="overflow: hidden;">
-            <group>
+            <div class="popup-list">
               <cell class="popup-title"><label>查看详情</label><i class="iconfont icon-close" @click="hanleCloseRebate"></i></cell>
-              <group v-for="item in rebateList" :key="item.id">
-                <cell title="时时彩">{{item.whilstLottery}}</cell>
-                <cell title="快3">{{item.fastThree}}</cell>
-                <cell title="11选5">{{item.elevenSelectFive}}</cell>
-                <cell title="福彩3D">{{item.welfareLottery}}</cell>
-                <cell title="排列3">{{item.arrayThree}}</cell>
-                <cell title="北京快乐8">{{item.happyBeijing}}</cell>
-                <cell title="北京PK10">{{item.beijingPK}}</cell>
-                <cell title="六合彩">{{item.markSixLottery}}</cell>
-              </group>
-            </group>
+                <div class="item" v-for="item in rebateDetails" :key="item.id">
+                  <label class="left">{{item.lotteryType}}</label>
+                  <label class="right">{{item.rebate}}</label>
+                </div>
+            </div>
           </popup>
           </div>
         <!-- 查看返点 -->
@@ -62,7 +56,7 @@
 
 <script>
 // 接口请求
-import {agentMember} from '@/api/index.js'
+import {agentMember,rebateDetails} from '@/api/index.js'
 // 滚动加载插件
 import infiniteScroll from 'vue-infinite-scroll'
 import {
@@ -109,22 +103,12 @@ export default {
         page: 0,             // 分页
         pageSize:10,           // 条数
         hasLoading: 1,         // 控制是否有loading
-        account: ''            // 会员名称
+        account: '',            // 会员名称
+        userID:''             // 会员ID
       },              
       showRebate:false, // 返点详情是否显示
-      rebateList:[      // 返点详情
-       {
-        id:1,                // ID 
-        whilstLottery: 6,    // 时时彩
-        fastThree:3,         // 快3
-        elevenSelectFive:6,  // 11选5
-        welfareLottery:3,    // 福彩3D
-        arrayThree:4,        // 排列3
-        happyBeijing:3,      // 北京快乐8
-        beijingPK:8,         // 北京PK 
-        markSixLottery:6     // 六合彩
-       }
-      ]     
+      rebateDetails: [], // 返点详情
+      
     }
   },
   computed: {},
@@ -149,6 +133,12 @@ export default {
       });
       this.busy = false            
     },
+    // 返点详情
+    getRebateDetails() {
+      rebateDetails(this.req).then(response => {
+        this.rebateDetails = response;
+      });
+    },    
 
     /* 事件操作 */  
     // 滚动加载
@@ -162,8 +152,9 @@ export default {
     // 弹出层
     hanleCheck(item){
      this.popupOption ={}; // 每次进入清空 
-     this.popup = true;   // 弹出框显示
+     this.popup = true;    // 弹出框显示
      this.req.account = item.account;  // 赋值会员名称
+     this.req.userID = item.id;  // 赋值会员ID     
      this.popupOption.rebate = '查看返点';     // 赋值查看返点
      if(item.type && item.lowerPeople){
       this.popupOption.lower = '查看下级';     // 赋值查看下级 
@@ -175,6 +166,8 @@ export default {
       console.log(key);
       if(key == 'rebate'){
         this.showRebate = true;
+        // 返点详情
+        this.getRebateDetails();    
       }else if(key == 'lower') {
         console.log('lower',this.req.account);
         // 初始化数据

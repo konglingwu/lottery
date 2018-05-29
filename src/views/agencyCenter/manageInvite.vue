@@ -258,7 +258,8 @@ export default {
     // 删除邀请码
     delInvitationCode() {
       deleteInvitationCode(this.req).then(response => {
-        this.rebateDetails = response;
+        // 邀请码列表
+        this.getCodeList()
       });
     },
     /* 事件操作 */
@@ -473,16 +474,5 @@ export default {
     margin-bottom: 0;
   }
 }
-// 查看详情
-.popup-list {
-  background: white;
-  overflow: hidden;
-  .item {
-    padding: 10px;
-    border-top: 1px solid #f5f5f5;
-    .right {
-      float: right;
-    }
-  }
-}
+
 </style>
