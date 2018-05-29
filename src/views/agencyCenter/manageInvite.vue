@@ -232,8 +232,8 @@ export default {
     },
 
     // 下级用户-提交邀请码
-    submitInvitingCode(codeList) {
-      invitingCode(codeList).then(response => {
+    submitInvitingCode(resItem) {
+      invitingCode(resItem).then(response => {
         // 清空rebate
         this.rebateList.forEach(item => {
           item.rebate = "";
@@ -344,7 +344,10 @@ export default {
       });
       console.log(this.sumError, "NBA");
       if (this.sumError == 0) {
-        this.submitInvitingCode(codeList); // 生成邀请码
+        const resItem = {}
+        resItem.list = codeList // 列表
+        resItem.accountType = this.req.accountType // 代理类型
+        this.submitInvitingCode(resItem); // 生成邀请码
         this.showPopup = true; // 打开弹出框
       }
     },
