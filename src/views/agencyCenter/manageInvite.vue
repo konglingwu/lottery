@@ -16,11 +16,11 @@
             <cell-box>
               <span>开户类型</span>
               <div class="agent">
-                  <input type="radio" id="agent" name="type" value="agent" v-model="accountType"/>
+                  <input type="radio" id="agent" name="type" value="agent" v-model="req.accountType" @click="hanleTypeClick()"/>
                   <label for="agent">代理类型</label>
               </div>
               <div class="player">                
-                <input type="radio" id="player" name="type" value="player" v-model="accountType"/>
+                <input type="radio" id="player" name="type" value="player" v-model="req.accountType" @click="hanleTypeClick()"/>
                 <label for="player">玩家类型</label>
               </div>
             </cell-box>        
@@ -95,22 +95,25 @@
         <!-- 查看返点 -->
         <div v-transfer-dom>
           <popup v-model="showRebate" position="bottom" max-height="69%" style="overflow: hidden;">
-            <group>
+            <div class="popup-list">
               <cell class="popup-title"><label>查看详情</label><i class="iconfont icon-close" @click="hanleCloseRebate"></i></cell>
-              <group v-for="item in rebateDetails" :key="item.id">
-                <cell title="时时彩">{{item.whilstLottery}}</cell>
-                <cell title="快3">{{item.fastThree}}</cell>
-                <cell title="11选5">{{item.elevenSelectFive}}</cell>
-                <cell title="福彩3D">{{item.welfareLottery}}</cell>
-                <cell title="排列3">{{item.arrayThree}}</cell>
-                <cell title="北京快乐8">{{item.happyBeijing}}</cell>
-                <cell title="北京PK10">{{item.beijingPK}}</cell>
-                <cell title="六合彩">{{item.markSixLottery}}</cell>
-              </group>
-            </group>
+                <div class="item" v-for="item in rebateDetails" :key="item.id">
+                  <label class="left">{{item.lotteryType}}</label>
+                  <label class="right">{{item.rebate}}</label>
+                </div>
+            </div>
           </popup>
           </div>
         <!-- 查看返点 -->
+        <!-- 删除邀请码弹窗 -->
+          <div v-transfer-dom>
+              <confirm v-model="delInvitation "
+                title="您确定要删除邀请码吗？"
+                @on-cancel="delCancel"
+                @on-confirm="delConfirm">
+              </confirm>
+          </div>        
+        <!-- 删除邀请码弹窗 -->
       </div>
       <!-- 玩家类型 -->
     </div>
@@ -119,7 +122,13 @@
 
 <script>
 // 接口请求
-import { agentRebate, invitingCode } from "@/api/index.js";
+import {
+  agentRebate,
+  invitingCode,
+  InvitingCodeList,
+  rebateDetails,
+  deleteInvitationCode
+} from "@/api/index.js";
 import {
   ViewBox,
   XHeader,
@@ -140,7 +149,6 @@ import {
   Toast,
   Alert
 } from "vux";
-import { logicalExpression } from "babel-types";
 
 export default {
   name: "manageInvite",
@@ -175,36 +183,18 @@ export default {
         delCode: "删除邀请码"
       },
       req: {
-        hasLoading: 1
+        hasLoading: 1, // 是否有loading
+        accountType: "agent", // 开户类型
+        codeId: "" // 邀请码ID
       },
-      sumError:0, // 错误累计总和
-      showPopup: false, // 显示弹窗-下级开户
       switching: 0, // tab切换
+      sumError: 0, // 错误累计总和
+      showPopup: false, // 显示弹窗-下级开户
+      delInvitation:false, // 显示删除弹窗 
       showRebate: false, // 返点详情是否显示-邀请码
       switchItems: true, // 控制显示列表内容
-      accountType: "agent", // 开户类型
-      invitationsList: [
-        // 邀请码列表
-        {
-          invitationCode: 49735720, // 邀请码
-          productionTime: "2018-05-21 15:26:30", // 生成时间
-          invitationState: 0 // 状态
-        }
-      ],
-      rebateDetails: [
-        // 返点详情
-        {
-          id: 1, // ID
-          whilstLottery: 6, // 时时彩
-          fastThree: 3, // 快3
-          elevenSelectFive: 6, // 11选5
-          welfareLottery: 3, // 福彩3D
-          arrayThree: 4, // 排列3
-          happyBeijing: 3, // 北京快乐8
-          beijingPK: 8, // 北京PK
-          markSixLottery: 6 // 六合彩
-        }
-      ],
+      invitationsList: [], // 邀请码列表
+      rebateDetails: [], // 返点详情
       rebateList: [] // 返点列表
     };
   },
@@ -216,7 +206,7 @@ export default {
   methods: {
     /* 数据请求 */
 
-    // 获取返点
+    // 下级用户-获取返点
     getRebate() {
       agentRebate(this.req).then(response => {
         response.forEach(element => {
@@ -241,10 +231,34 @@ export default {
       });
     },
 
-    // 提交邀请码
+    // 下级用户-提交邀请码
     submitInvitingCode(codeList) {
       invitingCode(codeList).then(response => {
-        console.log(codeList);
+        // 清空rebate
+        this.rebateList.forEach(item => {
+          item.rebate = "";
+        });
+      });
+    },
+
+    // 邀请码列表
+    getCodeList() {
+      InvitingCodeList(this.req).then(response => {
+        this.invitationsList = response;
+      });
+    },
+
+    // 返点详情
+    getRebateDetails() {
+      rebateDetails(this.req).then(response => {
+        this.rebateDetails = response;
+      });
+    },
+
+    // 删除邀请码
+    delInvitationCode() {
+      deleteInvitationCode(this.req).then(response => {
+        this.rebateDetails = response;
       });
     },
     /* 事件操作 */
@@ -262,24 +276,31 @@ export default {
 
     // 切换tab
     hanleTabClick() {
+      console.log(this.switching);
       if (this.switching == 0) {
         this.accountType = "agent"; // 初始化radio
         this.switchItems = true; // 控制下级开户显示
       } else {
         this.accountType = "agent"; // 初始化radio
         this.switchItems = false; // 控制下级开户隐藏
+        // 邀请码列表
+        this.getCodeList();
       }
     },
     // 弹出层
     hanleCheck(item) {
+      this.req.codeId = item.id;
       this.popup = true; // 弹出框显示
-      console.log(this.popupOption);
     },
     // 查看信息
     hanleSelect(key) {
       console.log(key);
       if (key == "rebate") {
         this.showRebate = true;
+        // 返点详情
+        this.getRebateDetails();
+      } else if (key == "delCode") {
+        this.delInvitation = true // 删除弹出框显示
       }
     },
     // 关闭按钮
@@ -320,10 +341,10 @@ export default {
         spItem.rebate = item.rebate;
         codeList.push(spItem);
       });
-      console.log(this.sumError,'NBA')
+      console.log(this.sumError, "NBA");
       if (this.sumError == 0) {
         this.submitInvitingCode(codeList); // 生成邀请码
-        this.showPopup = true; // 弹出框
+        this.showPopup = true; // 打开弹出框
       }
     },
     // 关闭温馨提示
@@ -331,7 +352,29 @@ export default {
       console.log("关闭！");
     },
     // 跳转到邀请码列表
-    onConfirm() {}
+    onConfirm() {
+      this.switching = 1; // 切换到邀请码页面
+      this.hanleTabClick(); // 切换事件
+      this.showPopup = false; // 关闭弹出框
+      // 邀请码列表
+      this.getCodeList();
+    },
+    // 关闭删除弹窗
+    delCancel() {
+      console.log("关闭删除弹窗!");
+    },
+    // 确认删除邀请码
+    delConfirm() {
+      // 删除邀请码
+      this.delInvitationCode();
+    },    
+    // 代理类型切换
+    hanleTypeClick() {
+      if (this.switching == 1) {
+        // 邀请码列表
+        this.getCodeList();
+      }
+    }
   }
 };
 </script>
@@ -408,7 +451,7 @@ export default {
 }
 // 邀请列表
 .invitation-list {
-  border-bottom: 1px solid #ccc;
+  // border-bottom: 1px solid #ccc;
   padding: 5px 10px;
   label {
     width: 75px;
@@ -422,6 +465,24 @@ export default {
     line-height: 30px;
     width: 250px;
     padding: 0 10px;
+  }
+}
+
+.v-transfer-dom {
+  .vux-no-group-title {
+    margin-bottom: 0;
+  }
+}
+// 查看详情
+.popup-list {
+  background: white;
+  overflow: hidden;
+  .item {
+    padding: 10px;
+    border-top: 1px solid #f5f5f5;
+    .right {
+      float: right;
+    }
   }
 }
 </style>

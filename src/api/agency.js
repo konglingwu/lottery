@@ -36,7 +36,7 @@ export function agentBetRecord(query) {
 	})
 }
 
-// 4. 投注详情
+// 5. 投注详情
 export function bettingDetails(query) {
 	return fetch({
 	    url: '/agent/bettingDetails.action',
@@ -45,7 +45,7 @@ export function bettingDetails(query) {
 	})
 }
 
-// 4. 交易明细
+// 6. 交易明细
 export function agentBillRecord(query) {
 	return fetch({
 	    url: '/agent/agentBillRecord.action',
@@ -54,7 +54,7 @@ export function agentBillRecord(query) {
 	})
 }
 
-// 5. 下级用户-返点列表
+// 7. 下级用户-返点列表
 export function agentRebate(query) {
 	return fetch({
 	    url: '/agent/agentRebate.action',
@@ -63,11 +63,38 @@ export function agentRebate(query) {
 	})
 }
 
-// 5. 下级用户-生成邀请码
+// 8. 下级用户-生成邀请码
 export function invitingCode(query) {
 	return fetch({
 	    url: '/agent/invitingCode.action',
 	    method: 'POST',
+	    params:query
+	})
+}
+
+// 9. 邀请码-列表
+export function InvitingCodeList(query) {
+	return fetch({
+	    url: '/agent/InvitingCodeList.action',
+	    method: 'POST',
+	    params:query
+	})
+}
+
+// 10. 返点详情
+export function rebateDetails(query) {
+	return fetch({
+	    url: '/agent/rebateDetails.action',
+	    method: 'POST',
+	    params:query
+	})
+}
+
+// 11. 删除邀请码
+export function deleteInvitationCode(query) {
+	return fetch({
+	    url: '/agent/deleteInvitationCode.action',
+	    method: 'DELETE',
 	    params:query
 	})
 }
