@@ -55,7 +55,7 @@ export default {
     return {
 			req:{
 				hasLoading: 1,  // 控制是否有loading
-				oddNumbers: "", //投注单号
+				id: "" || this.$route.query.id, // id
 			},
 			detailsList:[]  // 详情列表
 		};

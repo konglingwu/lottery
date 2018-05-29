@@ -37,11 +37,11 @@ axios.interceptors.response.use(
     // const res = response.data;
     if (code == -1) {
       // 失败
-      Vue.$vux.toast.text("加载失败！", "top");
+      Vue.$vux.toast.text(msg, "top");
       return Promise.reject(msg);
     }else if (code == 401) {
       // 无权限
-      Vue.$vux.toast.text("无权限！", "top");
+      Vue.$vux.toast.text(msg, "top");
       return Promise.reject(msg);
     }else {
       // 处理 lang

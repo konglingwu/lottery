@@ -120,25 +120,22 @@ export default {
     this.busy = true
     this.req.page = ++this.req.page
     lowerReport(this.req).then(response => {
+        this.busy = false  
         this.lowerList = this.lowerList.concat(response)
         // response 空时候不请求
         console.log(response);
         console.log(!(0 in this.lowerList),'en');
         if (!(0 in response)) {
-          this.busy = false
-          console.log('3',this.busy) 
+          this.busy = true
         }
-      }); 
-      this.busy = false    
-      console.log('1',this.busy) 
+      });   
     },
 
     /* 事件操作 */
 
     // 滚动加载
     pullup() {
-      console.log('2',this.busy) 
-      if (this.busy) {
+      if (!this.busy) {
         this.getData()
       }
     },

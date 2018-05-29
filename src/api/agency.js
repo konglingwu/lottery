@@ -98,3 +98,12 @@ export function deleteInvitationCode(query) {
 	    params:query
 	})
 }
+
+// 12. 删除邀请码
+export function rebateDes(query) {
+	return fetch({
+	    url: '/agent/rebateDes.action',
+	    method: 'POST',
+	    params:query
+	})
+}

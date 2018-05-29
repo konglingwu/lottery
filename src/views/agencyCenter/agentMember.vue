@@ -125,13 +125,13 @@ export default {
     this.req.page = ++this.req.page     
     agentMember(this.req).then(response => {
         this.memberList = this.memberList.concat(response)
+        this.busy = false           
         // response 空时候不请求
         console.log(response);
         if (!(0 in response)) {
-          this.busy = false
+          this.busy = true
         }
-      });
-      this.busy = false            
+      });         
     },
     // 返点详情
     getRebateDetails() {
@@ -144,7 +144,7 @@ export default {
     // 滚动加载
     pullup() {
       console.log('滚动加载')
-      if (this.busy) {
+      if (!this.busy) {
         this.getData()
       }
     },

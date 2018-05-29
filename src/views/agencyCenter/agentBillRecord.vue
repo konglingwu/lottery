@@ -121,21 +121,21 @@ export default {
       this.busy = true
       this.req.page = ++this.req.page         
       agentBillRecord(this.req).then(response => {
+        this.busy = false
         this.transactionList = this.transactionList.concat(response)
         // response 空时候不请求
         console.log(response,'hasLoading');
         if (!(0 in response)) {
-          this.busy = false
+          this.busy = true
         }
       });
-      this.busy = false
     },  
 
     /* 事件操作 */ 
 
     // 滚动加载
     pullup() {
-      if (this.busy) {
+      if (!this.busy) {
         this.getData()
       }
     },  

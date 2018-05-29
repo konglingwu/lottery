@@ -118,21 +118,22 @@ export default {
       this.busy = true
       this.req.page = ++this.req.page          
       agentBetRecord(this.req).then(response => {
+        this.busy = false
         this.bettingList = this.bettingList.concat(response)
         // response 空时候不请求
         console.log(response,'hasLoading');
         if (!(0 in response)) {
-          this.busy = false
+          this.busy = true
         }
       });
-      this.busy = false
+      //
     },
 
     /* 事件操作 */
 
     // 滚动加载
     pullup() {
-      if (this.busy) {
+      if (!this.busy) {
         this.getData()
       }
     },
@@ -159,9 +160,9 @@ export default {
     },
     // 跳转到详情
     hanleClickBetting(item){
-     console.log(item.account)
+     console.log(item.id)
      this.$router.push(
-       {path:'./bettingDetails'}
+       {path:'./bettingDetails',query:{id:item.id}}
      )
     },
     // 搜索
