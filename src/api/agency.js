@@ -45,10 +45,10 @@ export function bettingDetails(query) {
 	})
 }
 
-// 6. 交易明细
-export function agentBillRecord(query) {
+// 6. 交易明细-所有类型
+export function agentBillRecordAll(query) {
 	return fetch({
-	    url: '/agent/agentBillRecord.action',
+	    url: '/agent/agentBillRecordAll.action',
 	    method: 'POST',
 	    params:query
 	})
@@ -99,10 +99,28 @@ export function deleteInvitationCode(query) {
 	})
 }
 
-// 12. 删除邀请码
+// 12. 返点赔率表
 export function rebateDes(query) {
 	return fetch({
 	    url: '/agent/rebateDes.action',
+	    method: 'POST',
+	    params:query
+	})
+}
+
+// 13. 交易明细-提现记录
+export function agentBillRecordWithdrawals(query) {
+	return fetch({
+	    url: '/agent/agentBillRecordWithdrawals.action',
+	    method: 'POST',
+	    params:query
+	})
+}
+
+// 14. 交易明细-充值记录
+export function agentBillRecordRecharge(query) {
+	return fetch({
+	    url: '/agent/agentBillRecordRecharge.action',
 	    method: 'POST',
 	    params:query
 	})

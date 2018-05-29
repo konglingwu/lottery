@@ -3,9 +3,9 @@
     <x-header slot="header" style="width:100%;position:absolute;left:0;top:0;z-index:100;" :title="$route.meta.pageTitle">
     </x-header>
 		<!-- main -->
-		<div class="main main-padding-top">
+		<div class="main main-padding-top" v-for="item in detailsList" :key="item.id">
 			   <!-- 详情 -->
-				 <group class="betting-cells" v-for="item in detailsList" :key="item.id">
+				 <group class="betting-cells">
 					 <cell-box class="betting-items">
 						  <img class="item-left img" :src="item.lotteryLogo"/>
 							<div class="item-left">
@@ -37,8 +37,8 @@
 						<section class="section-detail">
 							  <h3>我的投注</h3>
 								<ul>
-									 <li style="padding-top:20px;">单</li>
-									 <li>和值</li>
+									 <li style="padding-top:20px;">{{item.BettingInfo}}</li>
+									 <li>{{item.laws}}</li>
 								</ul>
 						</section>				 
 				 <!-- 我的投注 -->

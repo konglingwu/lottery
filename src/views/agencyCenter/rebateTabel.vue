@@ -111,6 +111,7 @@ export default {
 				this.lotteryName = Response.lotteryType // 赋值彩票类型
 			})
 		},
+		
 		/* 事件操作 */
     // 彩票匹配
     lotteryMatching(){

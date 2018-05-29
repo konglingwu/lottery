@@ -18,7 +18,7 @@
        <!-- 搜索input -->      
         <!-- 搜索列表 -->
        <div class="group-bill">
-        <tab :line-width=2 active-color='#fc378c' v-model="req.prizeState">
+        <tab :line-width=2 active-color='#fc378c' v-model="prizeState">
           <tab-item class="vux-center" :selected="select === item" v-for="(item, index) in list" @on-item-click="hanleSelect(index)" :key="index">{{item}}</tab-item>
         </tab>
           <!-- 列表 -->
@@ -53,9 +53,9 @@
 // common 通用模版
 import common from "../mixin/common.mixin.js";
 // 接口请求
-import { agentBillRecord } from "@/api/index.js";
+import { agentBillRecordAll,agentBillRecordWithdrawals,agentBillRecordRecharge } from "@/api/index.js";
 // 滚动加载插件
-import infiniteScroll from 'vue-infinite-scroll'
+import infiniteScroll from "vue-infinite-scroll";
 import {
   ViewBox,
   XHeader,
@@ -77,7 +77,7 @@ export default {
   mixins: [common],
   directives: {
     infiniteScroll
-  },    
+  },
   components: {
     ViewBox,
     XHeader,
@@ -97,73 +97,97 @@ export default {
     return {
       select: "", // 选中
       transactionList: [], // 投注明细
-      busy: false,      // 是否滚动加载 
+      busy: false, // 是否滚动加载
       req: {
         switchingDate: "today", // 日期
         page: 0, // 分页
         pageSize: 10, // 条数
         hasLoading: 1, // 控制是否有loading
         search: "", // 搜索内容
-        prizeState: 0 // 状态
-      },      
+      },
+      prizeState: 0, // 状态      
       list: ["所有类型", "提现记录", "充值记录"] // 列表选项
     };
   },
   computed: {},
   created() {
     // 交易明细
-    this.getData()
+    this.getData();
   },
   methods: {
     /* 数据请求 */
     // 交易明细
-      getData() {
-      this.busy = true
-      this.req.page = ++this.req.page         
-      agentBillRecord(this.req).then(response => {
-        this.busy = false
-        this.transactionList = this.transactionList.concat(response)
-        // response 空时候不请求
-        console.log(response,'hasLoading');
-        if (!(0 in response)) {
-          this.busy = true
-        }
-      });
-    },  
-
-    /* 事件操作 */ 
+    getData() {
+      this.busy = true;
+      this.req.page = ++this.req.page;
+      if (this.prizeState == 0) {
+        // 所有类型
+        agentBillRecordAll(this.req).then(response => {
+          this.busy = false;
+          this.transactionList = this.transactionList.concat(response);
+          // response 空时候不请求
+          console.log(response, "hasLoading");
+          if (!(0 in response)) {
+            this.busy = true;
+          }
+        });
+      } else if (this.prizeState == 1) {
+        // 提现记录
+        agentBillRecordWithdrawals(this.req).then(response => {
+          this.busy = false;
+          this.transactionList = this.transactionList.concat(response);
+          // response 空时候不请求
+          console.log(response, "hasLoading");
+          if (!(0 in response)) {
+            this.busy = true;
+          }
+        });
+      } else if (this.prizeState == 2) {
+        // 充值记录
+        agentBillRecordRecharge(this.req).then(response => {
+          this.busy = false;
+          this.transactionList = this.transactionList.concat(response);
+          // response 空时候不请求
+          console.log(response, "hasLoading");
+          if (!(0 in response)) {
+            this.busy = true;
+          }
+        });
+      }
+    },
+    /* 事件操作 */
 
     // 滚动加载
     pullup() {
       if (!this.busy) {
-        this.getData()
+        this.getData();
       }
-    },  
+    },
     // 清空数据方法
-    init(){
+    init() {
       this.transactionList = [];
-      this.req.page = 0;    
+      this.req.page = 0;
     },
     // 日期切换
     hanleChangeDate() {
       // 日期匹配
       this.dateMatching();
       // 清空数据方法
-      this.init()
+      this.init();
       // 获取列表数据
       this.getData();
     },
     // 切换奖项状态
     hanleSelect(index) {
       // 清空数据方法
-      this.init()
+      this.init();
       // 获取列表数据
       this.getData();
     },
     // 搜索
     hanleSearch() {
       // 清空数据方法
-      this.init()     
+      this.init();
       this.getData();
     }
   }
