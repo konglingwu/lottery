@@ -1,0 +1,221 @@
+// app hack
+.form-body .weui-label {
+  width: 140px;
+}
+.weui-tab__panel {
+  padding-bottom: 200px;
+}
+.focus-detail .weui-tab__panel {
+  padding-bottom: 220px;
+}
+.game-wrap,
+.game-center {
+  .weui-tab__panel {
+    // 倒计时的高度 72.48
+    // 顶部 90+40
+    // 底部高度100
+    padding-bottom: 73 * 2 + 130 + 100px;
+  }
+  // for: gameCenter-chart
+  .yo-scroll {
+    top: 73 * 2 + 130px !important;
+  }
+  .load-more {
+    display: none !important;
+  }
+  // 投注按钮
+  .weui-btn_warn {
+    width: 180px;
+  }
+}
+.service-wrap {
+  .weui-tab__panel {
+    padding-bottom: 90+40px;
+  }
+}
+
+.vux-header {
+  padding: 40px 0 0;
+  display: flex;
+  align-items: center;
+  @extend .clearfix;
+  $size: 90px;
+  .vux-header-title {
+    flex: 1;
+    margin: 0 150px;
+    height: $size;
+    line-height: $size;
+  }
+  .vux-header-left,
+  .vux-header-right {
+    top: auto;
+  }
+  .vux-header-title,
+  h1 {
+    font-size: 18px; /*px*/
+  }
+  .profile .iconfont {
+    font-size: 24px; /*px*/
+  }
+}
+
+// tabbar
+.weui-tabbar {
+  background-color: #fff;
+  .iconfont {
+    font-size: 26px; /*px*/
+    line-height: 1;
+  }
+}
+.weui-tabbar__icon {
+  height: auto;
+  width: auto;
+}
+.weui-tabbar__label {
+  margin-top: $space-xs;
+  font-size: 13px; /*px*/
+}
+.vux-tab {
+  $height: 88px;
+  height: $height !important;
+  .vux-tab-item {
+    line-height: $height !important;
+  }
+}
+
+// dialog hack
+.app-hack {
+  $size: 100px;
+  // transform-style: preserve-3d;
+  backface-visibility: hidden;
+  .weui-dialog {
+    max-width: 590px;
+  }
+  .weui-dialog__hd {
+    padding: 0;
+    height: $size;
+    line-height: $size;
+    border-bottom: border1px(); /*no*/
+  }
+  .weui-dialog__bd {
+    color: #333;
+    padding: 40px;
+    text-align: left;
+    font-size: 14px; /*px*/
+  }
+  .weui-dialog__title {
+    font-size: 16px; /*px*/
+  }
+  .weui-dialog__ft {
+    line-height: $size;
+    font-size: 16px; /*px*/
+  }
+  .weui-cells {
+    font-size: 13px; /*px*/
+  }
+}
+
+.weui-cells {
+  margin-top: 0 !important;
+  margin-bottom: $space;
+  font-size: 14px; /*px*/
+}
+.weui-cell {
+  padding: 32px $space-lg !important;
+  font-size: 14px; /*px*/
+  &:before {
+    left: 0 !important;
+  }
+}
+.weui-toast {
+  width: auto !important;
+  min-width: 200px;
+  max-width: 80%;
+  padding: 0 $space;
+}
+.vux-x-switch.weui-cell_switch {
+  $size: 15px;
+  padding-top: $size;
+  padding-bottom: $size;
+}
+// CellBox
+.weui-cell_access.vux-cell-box:after {
+  content: ' ';
+  display: inline-block;
+  @include square(20);
+  border-width: 2px 2px 0 0;
+  border-color: #c8c8cd;
+  border-style: solid;
+  -webkit-transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+  transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+  position: absolute;
+  top: 50%;
+  margin-top: -4px;
+  right: $space;
+}
+// header
+.vux-header-title {
+  & > span {
+    font-size: 18px; /*px*/
+  }
+  .icon-profile {
+    display: block;
+    font-size: 100px; /*px*/
+    margin-top: -$space-sm;
+  }
+  .icon-arrowdropdown {
+    display: inline-block;
+    font-size: 28px; /*px*/
+    vertical-align: middle;
+    transition: transform 0.3s linear;
+    transform-origin: 50% 50%;
+  }
+  .active .icon-arrowdropdown {
+    transform: rotate(180deg);
+  }
+}
+.cell-header {
+  $size: 80px;
+  height: $size;
+  line-height: $size;
+  background-color: $bg-color;
+  color: $gray;
+  font-size: 14px; /*px*/
+  &:before {
+    content: '';
+    margin: 0 $space;
+    display: inline-block;
+    vertical-align: middle;
+    width: 8px;
+    height: 28px;
+    background: $primary-color;
+  }
+}
+.vux-cell-box > div {
+  width: 100%;
+}
+
+// hack
+.tool-fixed {
+  .game-center .weui-tab__panel {
+    padding-bottom: 73 * 2 + 130 + 100 + 200px;
+  }
+  .buy-tool {
+    position: fixed;
+    z-index: 99999;
+  }
+}
+
+// hack
+.android-hack {
+  .vux-header {
+    padding-top: 0;
+  }
+  .home .vux-header-left {
+    top: 50%;
+  }
+  .ui-dropdown,
+  .helper-menu {
+    top: 90px;
+  }
+}

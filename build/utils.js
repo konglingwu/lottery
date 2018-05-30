@@ -24,13 +24,14 @@ exports.cssLoaders = function (options) {
   const px2remLoader = {
     loader: 'px2rem-loader',
     options: {
-      remUnit: 37.5,
+      remUnit: 75,
       baseDpr: 1
     }
   }
 
   function generateLoaders(loader, loaderOptions) {
-    const loaders = [cssLoader, px2remLoader]
+    const loaders =[cssLoader];
+    if (loader != 'less') loaders.push(px2remLoader)
     if (loader) {
       loaders.push({
         loader: loader + '-loader',

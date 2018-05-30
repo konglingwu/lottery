@@ -37,6 +37,12 @@
               </cell-box>
             </group>
           </div>
+          <!-- 数据显示完了 -->
+            <div class="load-completion" v-if="this.loadCompletion">
+              <i class="iconfont icon-wry-smile"></i>
+              <span>数据加载完了</span>
+            </div>
+          <!-- 数据显示完了 -->          
           <!-- 没有数据显示 -->
           <div class="tips-table" v-if="!(0 in this.transactionList)">
             <i class="iconfont icon-wry-smile"></i>
@@ -98,6 +104,7 @@ export default {
       select: "", // 选中
       transactionList: [], // 投注明细
       busy: false, // 是否滚动加载
+      loadCompletion:false, // 显示加载完成
       req: {
         switchingDate: "today", // 日期
         page: 0, // 分页
@@ -124,10 +131,13 @@ export default {
         // 所有类型
         agentBillRecordAll(this.req).then(response => {
           this.busy = false;
-          this.transactionList = this.transactionList.concat(response);
+          this.transactionList = this.transactionList.concat(response.data);
+            // 判断是否已经是最后一页
+            if(this.req.page == response.total){
+              this.loadCompletion = true
+            }               
           // response 空时候不请求
-          console.log(response, "hasLoading");
-          if (!(0 in response)) {
+          if (!(0 in response.data)) {
             this.busy = true;
           }
         });
@@ -135,10 +145,13 @@ export default {
         // 提现记录
         agentBillRecordWithdrawals(this.req).then(response => {
           this.busy = false;
-          this.transactionList = this.transactionList.concat(response);
+          this.transactionList = this.transactionList.concat(response.data);
+            // 判断是否已经是最后一页
+            if(this.req.page == response.total){
+              this.loadCompletion = true
+            }            
           // response 空时候不请求
-          console.log(response, "hasLoading");
-          if (!(0 in response)) {
+          if (!(0 in response.data)) {
             this.busy = true;
           }
         });
@@ -146,10 +159,13 @@ export default {
         // 充值记录
         agentBillRecordRecharge(this.req).then(response => {
           this.busy = false;
-          this.transactionList = this.transactionList.concat(response);
+          this.transactionList = this.transactionList.concat(response.data);
+            // 判断是否已经是最后一页
+            if(this.req.page == response.total){
+              this.loadCompletion = true
+            }            
           // response 空时候不请求
-          console.log(response, "hasLoading");
-          if (!(0 in response)) {
+          if (!(0 in response.data)) {
             this.busy = true;
           }
         });

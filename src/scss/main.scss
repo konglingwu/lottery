@@ -1,178 +1,19 @@
-
-
-*,
-*:before,
-*:after {
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-}
-html, body, h1, h2, h3, h4, h5, h6, p, dl, dt, dd, ul, ol, li, form, fieldset, button, input, textarea { margin: 0; padding: 0; }
-a { color: inherit; text-decoration: none; }
-img { max-width: 100%; vertical-align: top; }
-ul { list-style: none; }
-button, input { font-family: inherit; }
-button { border: none; color: inherit; text-transform: none; font: inherit; -webkit-appearance: button; }
-input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button { margin: 0; -webkit-appearance: none; }
-input::-webkit-search-decoration, input::-webkit-search-cancel-button { display: none; }
-html { width: 100%; height: 100%; }
-body { min-height: 100%; outline: 0; font: 13px/1.5 "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Arial, "Hiragino Sans GB", STHeiti, 'Microsoft Yahei', sans-serif; cursor: default; -webkit-tap-highlight-color: transparent; -webkit-text-size-adjust: 100% !important; }
-body, img, a { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
-input { -webkit-touch-callout: none; touch-callout: none; -webkit-appearance: none; }
-table {
-	width: 100%;
-	border-spacing: 0;
-	border-collapse: collapse;
-}
-html, body, .g-doc {
-	position: relative;
-	height: 100%;
-	width: 100%;
-	width: 100vw;
-	height: 100vh;
-	overflow: hidden;
-	background-color: $bg-color;
-	color: $black;
-	-webkit-tap-highlight-color: transparent;
-	transform-style: preserve-3d;
-	backface-visibility: hidden;
-}
-.vhide {
-	visibility: hidden;
-}
-.clearfix {
-	@include clearfix();
-}
-a {
-	color: $black;
-}
-em, i {
-	font-style: normal;
-}
-.m5 {
-	margin-left: $space-sm;
-	margin-right: $space-sm;
-}
-// color
-.text-primary {
-	color: $primary-color;
-}
-.text-info {
-	color: $info-color;
-}
-.text-success {
-	color: $success-color;
-}
-.text-warning {
-	color: $warning-color;
-}
-.text-error {
-	color: $error-color;
-}
-.text-gray {
-	color: $gray-light;
-}
-.text-center {
-	text-align: center;
-}
-.text-right {
-	text-align: right;
-}
-.text-left {
-	text-align: left;
-}
-.text-xs {
-	@include font-dpr(9);
-}
-.text-sm {
-	@include font-dpr(11);
-}
-input[disabled="disabled"] {
-	color: #999;
-}
-
-// 圆形图片
-.img-circle {
-	border-radius: 50%;
-	overflow: hidden;
-}
-// 列表动画
-.flip-list-move {
-	transition: transform 1s;
-}
-// app hack
-.form-body .weui-label {
-	width: px2rem(140);
-}
-.weui-tab__panel {
-	padding-bottom: px2rem(200);
-}
-.focus-detail .weui-tab__panel {
-	padding-bottom: px2rem(220);
-}
-.game-wrap,
-.game-center {
-	.weui-tab__panel {
-		// 倒计时的高度 72.48
-		// 顶部 90+40
-		// 底部高度100
-		padding-bottom: px2rem(73*2 + 130 + 100);
-	}
-	// for: gameCenter-chart
-	.yo-scroll {
-		top: px2rem(73*2 + 130) !important;
-	}
-	.load-more {
-		display: none !important;
-	}
-	// 投注按钮
-	.weui-btn_warn {
-		width: px2rem(180);
-	}
-}
-.service-wrap {
-	.weui-tab__panel {
-		padding-bottom: px2rem(90+40)
-	}
-}
-// 走势图
+/* #region chart */
 .chart-view header {
 	position: relative;
 	z-index: 2;
 }
 .chart-view .weui-tab__panel {
 	position: relative;
-	padding-bottom: px2rem(88 + 130 + 50);
+	padding-bottom: 88 + 130 + 50px;
 }
+/* #endregion */
 
-.vux-header {
-	padding: px2rem(40) 0 0;
-	display: flex;
-	align-items: center;
-	@extend .clearfix;
-	$size: px2rem(90);
-	.vux-header-title {
-		flex: 1;
-		margin: 0 $size;
-		height: $size;
-		line-height: $size;
-	}
-	.vux-header-left,
-	.vux-header-right {
-		position: relative;
-		top: 0;
-	}
-	.vux-header-title,
-	h1 {
-		@include font-dpr(18);
-	}
-	.profile .iconfont {
-		@include font-dpr(24);
-	}
-}
+/* #region home */
 .home {
 	.vux-header-left {
 		position: absolute;
-		top: px2rem(40 + 45);
+		top: 40 + 45px;
 		margin-top: -12px;
 		line-height: 1;
 	}
@@ -185,153 +26,9 @@ input[disabled="disabled"] {
 .ui-footer {
 	z-index: 500;
 }
-// tabbar
-.weui-tabbar {
-	background-color: #fff;
-	.iconfont {
-		@include font-dpr(26);
-		line-height: 1;
-	}
-}
-.weui-tabbar__icon {
-	height: auto;
-	width: auto;
-}
-.weui-tabbar__label {
-	margin-top: $space-xs;
-	@include font-dpr(13);
-}
-.vux-tab {
-	$height: px2rem(88);
-	height: $height !important;
-	.vux-tab-item {
-		line-height: $height !important;
-	}
-}
-// dialog hack
-.app-hack {
-	$size: px2rem(100);
-	// transform-style: preserve-3d;
-	backface-visibility: hidden;
-	.weui-dialog {
-		max-width: px2rem(590);
-	}
-	.weui-dialog__hd {
-		padding: 0;
-		height: $size;
-		line-height: $size;
-		border-bottom: border1px();
-	}
-	.weui-dialog__bd {
-		color: #333;
-		padding: px2rem(40);
-		text-align: left;
-		@include font-dpr(14);
-	}
-	.weui-dialog__title {
-		@include font-dpr(16);
-	}
-	.weui-dialog__ft {
-		line-height: $size;
-		@include font-dpr(16);
-	}
-	.weui-cells {
-		@include font-dpr(13);
-	}
+/* #endregion */
 
-	// .weui-switch {
-	// 	top: 50%;
-	// 	width: px2rem(100);
-	// 	height: px2rem(60);
-	// }
-/* 	.weui-dialog__btn {
-		height: $size;
-		line-height: $size;
-		padding: 0;
-		@include font-dpr(14);
-	} */
-}
-
-.weui-cells {
-	margin-top: 0 !important;
-	margin-bottom: $space;
-	@include font-dpr(14);
-}
-.weui-cell {
-	padding: px2rem(32) $space-lg !important;
-	@include font-dpr(14);
-	&:before {
-		left: 0!important;
-	}
-}
-.weui-toast {
-	width: auto !important;
-	min-width: px2rem(200);
-	max-width: 80%;
-	padding: 0 $space;
-}
-.vux-x-switch.weui-cell_switch {
-	$size: px2rem(15);
-	padding-top: $size;
-	padding-bottom: $size;
-}
-// CellBox
-.weui-cell_access.vux-cell-box:after {
-	content: " ";
-	display: inline-block;
-	@include square(20);
-	border-width: px2rem(2) px2rem(2) 0 0;
-	border-color: #C8C8CD;
-	border-style: solid;
-	-webkit-transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
-	transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
-	position: absolute;
-	top: 50%;
-	margin-top: -4px;
-	right: $space;
-}
-// header
-.vux-header-title {
-	& > span {
-		@include font-dpr(18);
-	}
-	.icon-profile {
-		display: block;
-		@include font-dpr(100);
-		margin-top: -$space-sm;
-	}
-	.icon-arrowdropdown {
-		display: inline-block;
-		@include font-dpr(28);
-		vertical-align: middle;
-		transition: transform .3s linear;
-		transform-origin: 50% 50%;
-	}
-	.active .icon-arrowdropdown {
-		transform: rotate(180deg);
-	}
-}
-.cell-header {
-	$size: px2rem(80);
-	height: $size;
-	line-height: $size;
-	background-color: $bg-color;
-	color: $gray;
-	@include font-dpr(14);
-	&:before {
-		content: "";
-		margin: 0 $space;
-		display: inline-block;
-		vertical-align: middle;
-		width: px2rem(8);
-		height: px2rem(28);
-		background: $primary-color;
-	}
-}
-.vux-cell-box > div {
-	width: 100%;
-}
-// 彩票球
+/* #region gameball */
 .gameball {
 	display: inline-block;
 	border-radius: 50%;
@@ -340,11 +37,11 @@ input[disabled="disabled"] {
 }
 .gameball-lg {
 	@include square(80);
-	line-height: px2rem(80);
+	line-height: 80px;
 	background: #fff;
-	@include font-dpr(14);
+	font-size: 14px; /*px*/
 	color: $primary-color;
-	border: $width1 solid $border-color;
+	border: border1px(); /*no*/
 	&:active,
 	&.active {
 		background: $primary-color;
@@ -353,18 +50,21 @@ input[disabled="disabled"] {
 }
 .gameball-sm {
 	@include square(55);
-	line-height: px2rem(55);
+	line-height: 55px;
 	background-color: $primary-color;
-	@include font-dpr(10);
+	font-size: 10px; /*px*/
 	color: #fff;
 }
 .gameball-gray {
 	@include square(55);
-	line-height: px2rem(55);
+	line-height: 55px;
 	background-color: $gray-dark;
-	@include font-dpr(10);
+	font-size: 10px; /*px*/
 	color: #fff;
 }
+/* #endregion */
+
+/* #region buy-tool */
 .ui-footer,
 .buy-tool {
 	position: absolute;
@@ -381,14 +81,15 @@ input[disabled="disabled"] {
 		justify-content: space-between;
 	}
 	&-footer {
-		height: px2rem(100);
+		height: 100px;
 		padding: 0 $space-lg;
 		background-color: #666;
 		color: #fff;
-		@include font-dpr(15);
+    // font-size: 15px; /*px*/
+    font-size: 15px; /*px*/
 		.icon-empty {
 			display: block;
-			@include font-dpr(25);
+			font-size: 25px; /*px*/
 		}
 		.result {
 			font-weight: 700;
@@ -397,14 +98,14 @@ input[disabled="disabled"] {
 			display: inline-block;
 		}
 		.weui-btn {
-			@include font-dpr(14);
+      font-size: 14px; /*px*/
 		}
 	}
 	&-head {
-		height: px2rem(86);
-		border-top: border1px();
+		height: 86px;
+		border-top: border1px(); /*no*/
 		background: #fff;
-		padding: 0 px2rem(40);
+		padding: 0 40px;
 		.stop-checkbox {
 			input {
 				margin-right: $space-sm;
@@ -419,17 +120,17 @@ input[disabled="disabled"] {
 			padding: 0!important;
 			border: none!important;
 		}
-		$height: px2rem(66);
-		$width: px2rem(60);
+		$height: 66px;
+		$width: 60px;
 		.vux-number-selector-sub,
 		.vux-number-selector-plus,
 		.vux-number-input {
 			padding: 0;
 			height: $height;
 			width: $width;
-			line-height: px2rem(80);
-			border: border1px();
-			@include font-dpr(14);
+			line-height: 80px;
+			border: border1px(); /*no*/
+			font-size: 14px; /*px*/
 			font-weight: 700;
 			text-align: center;
 		}
@@ -448,7 +149,9 @@ input[disabled="disabled"] {
 		}
 	}
 }
-// 顶部下拉菜单
+/* #endregion */
+
+/* #region 顶部下拉菜单 */
 .ui-mask {
 	display: none;
 	position: fixed;
@@ -468,14 +171,14 @@ input[disabled="disabled"] {
 }
 .ui-dropdown,
 .helper-menu {
-	top: px2rem(40+90);
+	top: 40+90px;
  }
 // 助手菜单
 .helper-menu {
-	border: border1px();
+	border: border1px(); /*no*/
 	position: absolute;
 	right: 0;
-	width: px2rem(200);
+	width: 200px;
 	z-index: 1;
 	li {
 		background: #000;
@@ -484,7 +187,7 @@ input[disabled="disabled"] {
 		text-align: center;
 	}
 	li + li {
-		border-top: border1px();
+		border-top: border1px(); /*no*/
 	}
 }
 .ui-dropdown {
@@ -511,21 +214,21 @@ input[disabled="disabled"] {
 	$border-radius: $space-sm;
 	overflow: hidden;
 	position: relative;
-	width: px2rem(214);
-	padding: px2rem(16) 0;
+	width: 214px;
+	padding: 16px 0;
 	margin-bottom: $space;
-	border: border1px();
+	border: border1px(); /*no*/
 	background: #fff;
 	border-radius: $border-radius;
 	text-align: center;
-	@include font-dpr(14);
+	font-size: 14px; /*px*/
 	line-height: 1;
 	// 选中
 	&:before {
 		@extend .iconfont;
 		color: $primary-color;
 		position: absolute;
-		right: px2rem(-1);
+		right: -1px; /*no*/
 		bottom: 0;
 		line-height: 1;
 	}
@@ -550,14 +253,15 @@ input[disabled="disabled"] {
 	}
 }
 .sm-radio {
-	@include font-dpr(12);
+	font-size: 12px; /*px*/
 }
 .ui-dropdown .vux-divider {
 	padding-top: 0;
 	padding-bottom: $space;
 }
+/* #endregion */
 
-// login
+/* #region login */
 .login {
 	.vux-x-icon {
 		fill: #fff;
@@ -565,7 +269,7 @@ input[disabled="disabled"] {
 	.helper {
 		display: flex;
 		justify-content: space-between;
-		margin: px2rem(40) $space-lg;
+		margin: 40px $space-lg;
 	}
 	.form-group-right {
 		display: inline-block;
@@ -578,7 +282,7 @@ input[disabled="disabled"] {
 }
 .weui-btn {
 	padding: $space-sm;
-	@include font-dpr(14);
+	font-size: 14px; /*px*/
 }
 .custom-default {
 	color: $primary-color !important;
@@ -586,7 +290,9 @@ input[disabled="disabled"] {
 		border-color: $primary-color !important;
 	}
 }
+/* #endregion */
 
+/* #region countdown */
 .countdown-btn {
 	display: inline-block;
 	padding: 0 1.32em;
@@ -602,7 +308,7 @@ input[disabled="disabled"] {
 		position: absolute;
 		top: 0;
 		left: 0;
-		border: 1px solid rgba(0, 0, 0, 0.2);
+		border: 1px solid rgba(0, 0, 0, 0.2);/*no*/
 		-webkit-transform: scale(0.5);
 		transform: scale(0.5);
 		-webkit-transform-origin: 0 0;
@@ -611,38 +317,32 @@ input[disabled="disabled"] {
 		border-radius: 10px;
 	}
 }
-// 银行密码
+/* #endregion */
+
+/* #region bank-password */
 .bank-password {
 	width: 70%;
 	display: flex;
 	justify-content: space-around;
 	background: #fff;
 	border-radius: $space-xs;
-	border: border1px();
+	border: border1px(); /*no*/
 	text-align: center;
 	span {
 		@include square(80);
-		line-height: px2rem(80);
+		line-height: 80px;
 		flex-basis: (1/6)*1%;
 		flex: 1;
-		@include font-dpr(15);
+		font-size: 15px; /*px*/
 		font-weight: 700;
 		& + span {
-			border-left: border1px();
+			border-left: border1px(); /*no*/
 		}
 	}
 }
-// toast hack
-.weui-toast_text .weui-toast__content {
-	padding-top: $space;
-	padding-bottom: $space;
-	border-radius: $space;
-}
-.weui-toast__content {
-	@include font-dpr(14);
-}
-// withdraw-view
-// 取款
+/* #endregion */
+
+/* #region withdraw-view */
 .withdraw-view .weui-cell_select .weui-select {
 	padding-left: 0;
 }
@@ -650,21 +350,22 @@ input[disabled="disabled"] {
 	height: auto;
 	line-height: 1;
 }
+/* #endregion */
 
-// 投注详情
+/* #region 投注详情 */
 .focusdetail,
 .betdetail {
 	overflow: hidden;
 	margin-bottom: $space;
 	background: #fff;
-	border-top: border1px();
-	border-bottom: border1px();
+	border-top: border1px(); /*no*/
+	border-bottom: border1px(); /*no*/
 }
 .focusdetail-title,
 .betdetail-title {
 	position: relative;
 	z-index: 1;
-	border-left: px2rem(4) solid $primary-color;
+	border-left: 4px solid $primary-color;
 	color: $gray-light;
 	line-height: 1;
 	margin-bottom: $space-lg;
@@ -673,7 +374,7 @@ input[disabled="disabled"] {
 		padding: 0 $space 0 $space-sm;
 		background: #fff;
 		font-weight: normal;
-		@include font-dpr(15);
+		font-size: 15px; /*px*/
 	}
 }
 .betdetail {
@@ -685,7 +386,7 @@ input[disabled="disabled"] {
 		position: absolute;
 		z-index: -1;
 		width: 100%;
-		height: px2rem(1);
+		height: 1px;/*no*/
 		background: $border-color;
 		top: 50%;
 		left: 0;
@@ -695,9 +396,9 @@ input[disabled="disabled"] {
 .betdetail-head {
 	display: flex;
 	align-items: baseline;
-	margin: px2rem(40) 0;
+	margin: 40px 0;
 	h2 {
-		@include font-dpr(16);
+		font-size: 16px; /*px*/
 		margin-right: $space;
 	}
 	span {
@@ -706,7 +407,7 @@ input[disabled="disabled"] {
 }
 .betdetail-body {
 	.result {
-		margin-bottom: px2rem(40);
+		margin-bottom: 40px;
 	}
 	.gameball {
 		margin-right: $space;
@@ -715,7 +416,7 @@ input[disabled="disabled"] {
 .betdetail-foot {
 	position: relative;
 	dl {
-		@include font-dpr(14);
+		font-size: 14px; /*px*/
     word-wrap: break-word;
     word-break: break-all;
 	}
@@ -724,9 +425,9 @@ input[disabled="disabled"] {
 	}
 	.iconfont {
 		position: absolute;
-		top: px2rem(50);
-		right: px2rem(60);
-		@include font-dpr(100);
+		top: 50px;
+		right: 60px;
+		font-size: 100px; /*px*/
 	}
 }
 // button
@@ -750,8 +451,9 @@ input[disabled="disabled"] {
 		margin-bottom: 0;
 	}
 }
+/* #endregion */
 
-// 公告
+/* #region notice */
 .notice .weui-tab__panel {
 	&:before {
 		content: "";
@@ -760,13 +462,15 @@ input[disabled="disabled"] {
 		top: 0;
 		bottom: 0;
 		height: 100%;
-		width: 1px;
+		width: 1px;/*no*/
 		background: $border-color;
 	}
 }
+/* #endregion */
+
 // 活动
 .event-view .weui-tab__panel {
-	$size: px2rem(20);
+	$size: 20px;
 	padding-top: $size;
 	padding-left: $size;
 	padding-right: $size;
@@ -776,19 +480,7 @@ input[disabled="disabled"] {
 	display: none;
 }
 
-// hack
-.android-hack {
-	.vux-header {
-		padding-top: 0;
-	}
-	.home .vux-header-left {
-		top: 50%;
-	}
-	.ui-dropdown, .helper-menu {
-		top: px2rem(90);
-	}
-}
-
+/* #region play-chart */
 .play-chart {
 	position: absolute;
 	// position: relative;
@@ -806,7 +498,7 @@ input[disabled="disabled"] {
 	}
 	th {
 		font-weight: normal;
-		border-bottom: border1px();
+		border-bottom: border1px(); /*no*/
 	}
 	td {
 		text-align: center;
@@ -821,10 +513,11 @@ input[disabled="disabled"] {
 		}
 	}
 }
+/* #endregion */
 
 // 验证码图片
 .weui-vcode-img {
-	height: px2rem(44);
+	height: 44px;
 }
 
 // 充值
@@ -833,16 +526,15 @@ input[disabled="disabled"] {
 		display: block;
 		margin-top: $space-sm;
 		color: $gray;
-		@include font-dpr(13);
+		font-size: 13px; /*px*/
 	}
 }
 
+/* #region gameCenter */
 .game-center .vux-header .vux-header-title,
 .game-center .vux-header h1 {
-	@include font-dpr(16);
+	font-size: 16px; /*px*/
 }
-
-// gameCenter
 .game-center-head {
 	background: #fff;
 	text-align: center;
@@ -851,15 +543,15 @@ input[disabled="disabled"] {
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
-		padding: px2rem(30) 0 px2rem(30);
-		height: px2rem(145);
+		padding: 30px 0 30px;
+		height: 145px;
 		&:active {
 			background: none !important;
 		}
 	}
 	.result,
 	.count-down {
-		@include font-dpr(14);
+		font-size: 14px; /*px*/
 	}
 	.result em {
 		display: inline-block;
@@ -880,7 +572,7 @@ input[disabled="disabled"] {
 	transform: translate3d(0, 0, 0);
 	transition: transform .38s ease-in-out;
 	&.active {
-		transform: translate3d(0, px2rem(620), 0);
+		transform: translate3d(0, 620px, 0);
 	}
 	&:before {
 		content: "";
@@ -888,17 +580,17 @@ input[disabled="disabled"] {
 		top: 0;
 		left: 0;
 		right: 0;
-		border-top: border1px();
+		border-top: border1px(); /*no*/
 	}
 	.toggle-chart {
 		position: absolute;
 		top: -1px;
 		left: 50%;
 		transform: translateX(-50%);
-		border: border1px();
+		border: border1px(); /*no*/
 		border-top: none;
-		width: px2rem(100);
-		height: px2rem(40);
+		width: 100px;
+		height: 40px;
 		text-align: center;
 		background: $bg-color;
 		svg {
@@ -911,19 +603,19 @@ input[disabled="disabled"] {
 		align-items: center;
 	}
 	.icon-shake {
-		@include font-dpr(25);
+		font-size: 25px; /*px*/
 	}
 	.gocart {
 		position: relative;
 		padding: $space-xs $space;
-		border: border1px();
+		border: border1px(); /*no*/
 		border-radius: $space-lg;
 		background: #fff;
 	}
 	.vux-badge {
 		position: absolute;
-		top: px2rem(-15);
-		right: px2rem(-10);
+		top: -15px;
+		right: -10px;
 		background: $warning-color;
 	}
 	.icon-cart {
@@ -934,14 +626,14 @@ input[disabled="disabled"] {
 .numbers {
 	line-height: 1;
 	&-title {
-		border-bottom: border1px();
+		border-bottom: border1px(); /*no*/
 		text-align: center;
 		padding-bottom: $space;
 		h3 {
 			margin-right: $space-lg;
 			display: inline-block;
 			font-weight: normal;
-			@include font-dpr(15);
+			font-size: 15px; /*px*/
 		}
 	}
 	&-cell {
@@ -949,18 +641,18 @@ input[disabled="disabled"] {
 		@include clearfix();
 	}
 	&-cell + &-cell {
-		padding-top: px2rem(40);
-		border-top: border1px();
+		padding-top: 40px;
+		border-top: border1px(); /*no*/
 	}
 	.side {
 		float: left;
-		width: px2rem(110);
+		width: 110px;
 	}
 	.main {
-		margin-left: px2rem(110);
+		margin-left: 110px;
 	}
 	.label {
-		margin: px2rem(15) 0 $space;
+		margin: 15px 0 $space;
 		display: inline-block;
 		min-width: 35px;
 		height: 22px;
@@ -1000,16 +692,16 @@ input[disabled="disabled"] {
 	}
 	.number-value {
 		@include square(80);
-		line-height: px2rem(80);
-		border: $width1 solid $border-color;
+		line-height: 80px;
+		border: border1px(); /*no*/
 		border-radius: 50%;
-		@include font-dpr(14);
+		font-size: 14px; /*px*/
 		color: $primary-color;
 	}
 	.number-value-lg {
 		@include square(100);
-		line-height: px2rem(100);
-		@include font-dpr(20);
+		line-height: 100px;
+		font-size: 20px; /*px*/
 	}
 	.number-active {
 		.number-value,
@@ -1028,7 +720,7 @@ input[disabled="disabled"] {
 	}
 	.number-omit {
 		display: block;
-		width: px2rem(80);
+		width: 80px;
 		margin-bottom: $space;
 		color: $gray-light;
 	}
@@ -1041,9 +733,9 @@ input[disabled="disabled"] {
 	.rectangle-value {
 		padding: $space 0;
 		width: 85%;
-		border: border1px();
+		border: border1px(); /*no*/
 		border-radius: $space-sm;
-		@include font-dpr(20);
+		font-size: 20px; /*px*/
 		overflow: hidden;
 	}
 	.rectangle-active .rectangle-value {
@@ -1054,7 +746,7 @@ input[disabled="disabled"] {
 			@extend .iconfont;
 			color: $primary-color;
 			position: absolute;
-			right: px2rem(-1);
+			right: -1px;
 			bottom: 0;
 			line-height: 1;
 		}
@@ -1072,21 +764,21 @@ input[disabled="disabled"] {
 .dwd {
 	.top,
 	.top-digits {
-		margin-left: px2rem(100);
+		margin-left: 100px;
 		display: flex;
 	}
 	.top {
-		$size: 60;
+		$size: 60px;
 		justify-content: space-around;
 		background: #e4e4e4;
 		padding: 2px 0;
-		border-radius: px2rem($size);
+		border-radius: $size;
 		.filter {
 			display: block;
-			@include square($size);
-			line-height: px2rem($size);
+			@include square(60);
+			line-height: $size;
 			background: #fff;
-			border: border1px();
+			border: border1px(); /*no*/
 			border-radius: 50%;
 			text-align: center;
 		}
@@ -1102,7 +794,7 @@ input[disabled="disabled"] {
 			display: block;
 			padding: $space;
 			border-radius: $space-sm;
-			border: border1px();
+			border: border1px(); /*no*/
 			overflow: hidden;
 		}
 		.filter-digits-active {
@@ -1113,8 +805,8 @@ input[disabled="disabled"] {
 				font-family:"iconfont";
 				color: $primary-color;
 				position: absolute;
-				right: px2rem(-1);
-				bottom: px2rem(-1);
+				right: -1px;
+				bottom: -1px;
 				line-height: 1;
 			}
 		}
@@ -1132,12 +824,14 @@ input[disabled="disabled"] {
 		margin-right: 0;
 	}
 }
-// 弹窗
+/* #endregion */
+
+/* #region 弹窗 */
 .setpice-head {
 	display: flex;
 	justify-content: space-between;
 	item-align: center;
-	$height: px2rem(56);
+	$height: 56px;
 	line-height: $height;
 	overflow: hidden;
 	& > * {
@@ -1150,30 +844,30 @@ input[disabled="disabled"] {
 		width: 100%;
 		padding: 0 $space;
 		height: $height;
-		border: border1px();
+		border: border1px(); /*no*/
 		border-radius: 0;
 		box-shadow: none;
 		outline: none;
 		background: #fff;
 		text-align: right;
-		@include font-dpr(14);
+		font-size: 14px; /*px*/
 		-webkit-touch-callout: none;
 	}
 }
 .setpice-body {
-	margin: $space-lg 0 px2rem(40);
+	margin: $space-lg 0 40px;
 	display: flex;
 	justify-content: space-between;
 	.price-radio {
 		display: block;
-		width: px2rem(90);
-		height: px2rem(60);
-		line-height: px2rem(60);
+		width: 90px;
+		height: 60px;
+		line-height: 60px;
 		text-align: center;
 		background: #999;
-		border-radius: px2rem(10);
+		border-radius: 10px;
 		color: #fff;
-		@include font-dpr(11);
+		font-size: 11px; /*px*/
 	}
 	.price-radio-selected {
 		background: $primary-color;
@@ -1184,28 +878,29 @@ input[disabled="disabled"] {
 		margin-top: $space;
 	}
 	span {
-		margin-right: px2rem(80);
+		margin-right: 80px;
 	}
 	em {
 		margin: 0 $space-sm;
 	}
 }
+/* #endregion */
 
-// game-cart
+/* #region game-cart */
 .game-cart-head {
 	margin: 0 $space;
 	padding: $space 0;
-	border-bottom: $width1 solid $border-color;
+	border-bottom: border1px(); /*no*/
 }
 .game-cart-body {
 	margin: 0 $space;
-	padding-bottom: px2rem(60);
+	padding-bottom: 60px;
 	.weui-cell {
 		b {
 			display: block;
 			margin-right: $space;
 			margin-bottom: $space;
-			@include font-dpr(14);
+			font-size: 14px; /*px*/
 			word-break: break-all;
 		}
 		span + span {
@@ -1219,17 +914,18 @@ input[disabled="disabled"] {
 		transform: translateY(-50%);
 	}
 }
+/* #endregion */
 
-// 色波
+/* #region 色波 */
 .sb-num {
 	display: inline-block;
 	@include square(36);
-	line-height: px2rem(36);
+	line-height: 36px;
 	text-align: center;
-	border: border1px();
+	border: border1px(); /*no*/
 	border-radius: 50%;
 	color: #fff;
-	@include font-dpr(9);
+	font-size: 9px; /*px*/
 	& + .sb-num {
 		margin-left: $space-sm;
 	}
@@ -1246,18 +942,8 @@ input[disabled="disabled"] {
 	border-color: #4087b5;
 	background-color: #1c85c9;
 }
+/* #endregion */
 
-
-// hack
-.tool-fixed {
-	.game-center .weui-tab__panel {
-		padding-bottom: px2rem(73*2 + 130 + 100 + 200);
-	}
-	.buy-tool {
-		position: fixed;
-		z-index: 99999;
-	}
-}
 // promotionDetail
 .artile-content {
 	img {

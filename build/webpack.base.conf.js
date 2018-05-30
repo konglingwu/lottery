@@ -113,9 +113,5 @@ module.exports = vuxLoader.merge(webpackConfig, {
 	}, {
 			name: 'less-theme',
 			path: 'src/styles/theme.less'
-		},
-		{
-			name: 'iconfont',
-			path: 'src/styles/font/iconfont.css'
 		}]
 })

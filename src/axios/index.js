@@ -42,6 +42,10 @@ axios.interceptors.response.use(
       // 无权限
       Vue.$vux.toast.text(msg, "top");
       return Promise.reject(msg);
+    }else if (code == 500) {
+      // 服务器异常
+      Vue.$vux.toast.text(msg, "top");
+      return Promise.reject(msg);
     } else {
       // 处理 lang
       if (typeof res === "undefined") {
@@ -52,18 +56,17 @@ axios.interceptors.response.use(
         );
         return res;
       } else {
-        return res.data;
+        return res;
       }
     }
   },
   error => {
     // 全屏Loading结束
     Vue.$vux.loading.hide();
-    // if (error !== "USERCANCEL") {
-    //   // error
-    // 	Vue.$vux.toast.text("请求错误", "top");
+    console.log(error.indexOf("timeout") > -1)
+    // if(cuo.indexOf("timeout") > -1){
+    //   Vue.$vux.toast.text("请求超时！", "top"); 
     // }
-
     return Promise.reject(error);
   }
 );
@@ -95,7 +98,7 @@ export function fetch(config) {
     data: config.params,
     baseURL: "/api/", // api的base_url //需要修改的
     //baseURL: process.env.BASE_API, // api的  base_url //需要修改的
-    timeout: config.timeout ? config.timeout : 30000,
+    timeout: config.timeout ? config.timeout : 10000,
     headers: {
       accept: "application/json"
     }

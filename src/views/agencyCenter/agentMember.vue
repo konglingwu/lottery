@@ -22,6 +22,12 @@
           </tr>
         </tbody>
         </x-table>
+        <!-- 数据显示完了 -->
+          <div class="load-completion" v-if="this.loadCompletion">
+            <i class="iconfont icon-wry-smile"></i>
+            <span>数据加载完了</span>
+           </div>
+        <!-- 数据显示完了 -->        
         </div>
         <!-- 没有数据显示 -->
         <div class="tips-table" v-if="!(0 in this.memberList)">
@@ -56,9 +62,9 @@
 
 <script>
 // 接口请求
-import {agentMember,rebateDetails} from '@/api/index.js'
+import { agentMember, rebateDetails } from "@/api/index.js";
 // 滚动加载插件
-import infiniteScroll from 'vue-infinite-scroll'
+import infiniteScroll from "vue-infinite-scroll";
 import {
   ViewBox,
   XHeader,
@@ -79,7 +85,7 @@ export default {
   directives: {
     TransferDom,
     infiniteScroll
-  },  
+  },
   components: {
     ViewBox,
     XHeader,
@@ -95,96 +101,100 @@ export default {
   },
   data() {
     return {
-      popup:false,      // 控制弹出层
-      memberList:[],    // 会员列表                              
-      popupOption: {},  // 弹出选项
-      busy: false,      // 是否滚动加载 
-      req:{
-        page: 0,             // 分页
-        pageSize:10,           // 条数
-        hasLoading: 1,         // 控制是否有loading
-        account: '',            // 会员名称
-        userID:''             // 会员ID
-      },              
-      showRebate:false, // 返点详情是否显示
-      rebateDetails: [], // 返点详情
-      
-    }
+      popup: false, // 控制弹出层
+      memberList: [], // 会员列表
+      popupOption: {}, // 弹出选项
+      busy: false, // 是否滚动加载
+      loadCompletion:false, // 显示加载完成      
+      req: {
+        page: 0, // 分页
+        pageSize: 10, // 条数
+        hasLoading: 1, // 控制是否有loading
+        account: "", // 会员名称
+        userID: "" // 会员ID
+      },
+      showRebate: false, // 返点详情是否显示
+      rebateDetails: [] // 返点详情
+    };
   },
   computed: {},
   created() {
     // 获取会员管理
-    this.getData()    
+    this.getData();
   },
   methods: {
     /* 数据请求 */
-    
+
     // 获取会员管理
-    getData(){
-    this.busy = true
-    this.req.page = ++this.req.page     
-    agentMember(this.req).then(response => {
-        this.memberList = this.memberList.concat(response)
-        this.busy = false           
+    getData() {
+      this.busy = true;
+      this.req.page = ++this.req.page;
+      agentMember(this.req).then(response => {
+        this.memberList = this.memberList.concat(response.data);
+        this.busy = false;
+        // 判断是否已经是最后一页
+        if(this.req.page == response.total){
+          this.loadCompletion = true
+        }        
         // response 空时候不请求
         console.log(response);
-        if (!(0 in response)) {
-          this.busy = true
+        if (!(0 in response.data)) {
+          this.busy = true;
         }
-      });         
+      });
     },
     // 返点详情
     getRebateDetails() {
       rebateDetails(this.req).then(response => {
-        this.rebateDetails = response;
+        this.rebateDetails = response.data;
       });
-    },    
+    },
 
-    /* 事件操作 */  
+    /* 事件操作 */
+
     // 滚动加载
     pullup() {
-      console.log('滚动加载')
+      console.log("滚动加载");
       if (!this.busy) {
-        this.getData()
+        this.getData();
       }
     },
 
     // 弹出层
-    hanleCheck(item){
-     this.popupOption ={}; // 每次进入清空 
-     this.popup = true;    // 弹出框显示
-     this.req.account = item.account;  // 赋值会员名称
-     this.req.userID = item.id;  // 赋值会员ID     
-     this.popupOption.rebate = '查看返点';     // 赋值查看返点
-     if(item.type && item.lowerPeople){
-      this.popupOption.lower = '查看下级';     // 赋值查看下级 
-     }
-     console.log(this.popupOption);
+    hanleCheck(item) {
+      this.popupOption = {}; // 每次进入清空
+      this.popup = true; // 弹出框显示
+      this.req.account = item.account; // 赋值会员名称
+      this.req.userID = item.id; // 赋值会员ID
+      this.popupOption.rebate = "查看返点"; // 赋值查看返点
+      if (item.type && item.lowerPeople) {
+        this.popupOption.lower = "查看下级"; // 赋值查看下级
+      }
+      console.log(this.popupOption);
     },
     // 查看信息
-    hanleSelect (key) {
+    hanleSelect(key) {
       console.log(key);
-      if(key == 'rebate'){
+      if (key == "rebate") {
         this.showRebate = true;
         // 返点详情
-        this.getRebateDetails();    
-      }else if(key == 'lower') {
-        console.log('lower',this.req.account);
+        this.getRebateDetails();
+      } else if (key == "lower") {
+        console.log("lower", this.req.account);
         // 初始化数据
-        this.memberList = []
-        this.req.page = 0        
+        this.memberList = [];
+        this.req.page = 0;
         // 获取列表数据
-        this.getData()        
-      }else if(key == 'higher'){
-        
+        this.getData();
+      } else if (key == "higher") {
       }
-    },  
+    },
     // 关闭按钮
-    hanleCloseRebate(){
+    hanleCloseRebate() {
       this.showRebate = false;
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

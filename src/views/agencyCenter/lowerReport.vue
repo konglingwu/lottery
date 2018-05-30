@@ -29,6 +29,12 @@
           </tr>
         </tbody>
       </x-table>
+      <!-- 数据显示完了 -->
+      <div class="load-completion" v-if="this.loadCompletion">
+          <i class="iconfont icon-wry-smile"></i>
+           <span>数据加载完了</span>
+      </div>
+      <!-- 数据显示完了 -->
       <!-- 没有数据显示 -->
         <div class="tips-table" v-if="!(0 in this.lowerList)">
           <i class="iconfont icon-wry-smile"></i>
@@ -98,6 +104,7 @@ export default {
       lowerList:[],     // 下级报表
       popupOption: {},  // 弹出选项
       busy: false,      // 是否滚动加载
+      loadCompletion:false, // 显示加载完成
       req:{
         switchingDate:'today', // 日期 
         page: 0,               // 分页
@@ -121,10 +128,12 @@ export default {
     this.req.page = ++this.req.page
     lowerReport(this.req).then(response => {
         this.busy = false  
-        this.lowerList = this.lowerList.concat(response)
+        this.lowerList = this.lowerList.concat(response.data)
+        // 判断是否已经是最后一页
+        if(this.req.page == response.total){
+          this.loadCompletion = true
+        }     
         // response 空时候不请求
-        console.log(response);
-        console.log(!(0 in this.lowerList),'en');
         if (!(0 in response)) {
           this.busy = true
         }

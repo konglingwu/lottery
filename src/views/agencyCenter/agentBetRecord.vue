@@ -35,6 +35,12 @@
               </cell-box>
             </group>
           </div>
+          <!-- 数据显示完了 -->
+            <div class="load-completion" v-if="this.loadCompletion">
+              <i class="iconfont icon-wry-smile"></i>
+              <span>数据加载完了</span>
+            </div>
+          <!-- 数据显示完了 -->            
           <!-- 没有数据显示 -->
           <div class="tips-table" v-if="!(0 in this.bettingList)">
             <i class="iconfont icon-wry-smile"></i>
@@ -95,6 +101,7 @@ export default {
       list: ["全部", "已中奖", "未中奖", "等待开奖"], // 列表选项
       bettingList: [], // 投注明细
       busy: false,      // 是否滚动加载 
+      loadCompletion:false, // 显示加载完成        
       req: {
         switchingDate: "today", // 日期
         page: 0,      // 分页
@@ -119,10 +126,13 @@ export default {
       this.req.page = ++this.req.page          
       agentBetRecord(this.req).then(response => {
         this.busy = false
-        this.bettingList = this.bettingList.concat(response)
+        this.bettingList = this.bettingList.concat(response.data)
         // response 空时候不请求
-        console.log(response,'hasLoading');
-        if (!(0 in response)) {
+        // 判断是否已经是最后一页
+        if(this.req.page == response.total){
+          this.loadCompletion = true
+        }             
+        if (!(0 in response.data)) {
           this.busy = true
         }
       });

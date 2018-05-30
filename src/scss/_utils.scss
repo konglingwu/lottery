@@ -14,6 +14,7 @@ $scale: 75 !default;
 	}
 }
 
+// todo
 @mixin square($size) {
 	width: px2rem($size);
 	height: px2rem($size);
@@ -46,14 +47,12 @@ $gray-lightest:             #f2f3f6 !default;
 $bg-color:									#f2f2f2 !default;
 
 // variable-space
-$space-base:								px2rem(20) !default; // 20
-$space-xs:									px2rem(5) !default;	// 5
-$space-sm:									px2rem(10) !default;	// 10
+$space-base:								20px !default; // 20
+$space-xs:									5px !default;	// 5
+$space-sm:									10px !default;	// 10
 $space:											$space-base !default;	// 20
-$space-lg:									px2rem(30) !default;	// 30
-
-$width1:										px2rem(1) !default;	// 1px
+$space-lg:									30px !default;	// 30
 
 @function border1px() {
-	@return $width1 solid $border-color;
+	@return 1px solid $border-color;
 }

@@ -101,7 +101,7 @@ export default {
 		// 彩票列表
 		getLottery(){
      lotteryList().then(Response =>{
-			 this.lotteryList.push(Response)
+			 this.lotteryList.push(Response.data)
 		 });
 		},
 
@@ -109,11 +109,11 @@ export default {
     getData() {
 			this.rateList = []
       rebateDes(this.req).then(Response => {
-        this.rebateDesLaws = Response.content; // 赋值彩票玩法
-        let sysPoint = Response.sysPoint; // 赋值总代理返点
+        this.rebateDesLaws = Response.data.content; // 赋值彩票玩法
+        let sysPoint = Response.data.sysPoint; // 赋值总代理返点
 				let selfReturn = sysPoint * 10;
 				this.breadth = selfReturn * 132; // 计算列表总宽度
-        this.lotteryName = Response.lotteryType; // 赋值彩票类型
+        this.lotteryName = Response.data.lotteryType; // 赋值彩票类型
         for (let i = selfReturn; i >= 0; i--) {
 					let sumSysPoint = [];
           this.rebateDesLaws.forEach(element => {

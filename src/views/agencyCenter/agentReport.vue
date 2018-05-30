@@ -174,7 +174,7 @@ export default {
       agentReport(this.req).then(response => {
         console.log(response);
         this.agentReportList = [];
-        this.agentReportList.push(response);
+        this.agentReportList.push(response.data);
       });
     },
     /* 事件操作 */

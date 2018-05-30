@@ -210,7 +210,8 @@ export default {
     // 下级用户-获取返点
     getRebate() {
       agentRebate(this.req).then(response => {
-        response.forEach(element => {
+        let res = response.data
+        res.forEach(element => {
           const spItem = {};
           spItem.id = element.id;
           spItem.lotteryType = element.lotteryType;
@@ -250,14 +251,14 @@ export default {
     // 邀请码列表
     getCodeList() {
       InvitingCodeList(this.req).then(response => {
-        this.invitationsList = response;
+        this.invitationsList = response.data;
       });
     },
 
     // 返点详情
     getRebateDetails() {
       rebateDetails(this.req).then(response => {
-        this.rebateDetails = response;
+        this.rebateDetails = response.data;
       });
     },
 
@@ -461,27 +462,35 @@ export default {
 }
 // 邀请列表
 .invitation-list {
-  // border-bottom: 1px solid #ccc;
-  padding: 5px 10px;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 20px;
   label {
-    width: 75px;
+    width: 150px;
     display: inline-block;
     font-size: 14px; /*px*/
   }
   input {
     border: none;
     border-radius: 2px; /*px*/
-    height: 30px;
-    line-height: 30px;
-    width: 250px;
+    height: 60px;
+    line-height: 60px;
+    width: 500px;
     padding: 0 10px;
   }
 }
-
+.invitation-list:last-child(1){
+  border-bottom: none;
+}
 .v-transfer-dom {
   .vux-no-group-title {
     margin-bottom: 0;
   }
 }
-
+.lottery-items{
+  .vux-no-group-title{
+    .vux-cell-box:before{
+      border-top:none;
+    }
+  }
+}
 </style>

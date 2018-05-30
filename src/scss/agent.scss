@@ -6,7 +6,11 @@
 }
 // 代理中心
 .main-padding-top {
-  padding-top: 42px;
+  // vux-header 90px
+  padding-top: 40px + 90px;
+}
+.android-hack .main-padding-top {
+  padding-top: 90px;
 }
 .top-slide {
   width: 100%;
@@ -31,12 +35,12 @@
   top:0;
   right: 0;
   z-index: 100;
-  height: 42px;
-  line-height: 42px;
+  height: 90px;
+  line-height: 60px;
   .weui-cells{
    background: none;
-   height: 42px;
-   line-height: 15px;
+   height: 90px;
+   line-height: 30px;
    margin: 0;
    .vux-cell-value{
     color: white;
@@ -104,7 +108,7 @@
 .rebate-items{
   height: 100%;/*px*/
   overflow: scroll; 
-  padding-top: 30px;
+  padding-top: 50px;
   .rebate-title{
     position: relative;
     z-index: 1;
@@ -113,15 +117,15 @@
   // 左侧标题和右侧内容 
   .rebate-title,.rebate-content-item{
     background: white;
-    width: 130px;
+    width: 260px;
     float: left;
     overflow: hidden;
     li:nth-child(2n+1){
      background: #eee;
     }
     li{
-      height: 40px;
-      line-height: 40px;
+      height: 80px;
+      line-height: 80px;
       text-align: center;
       position: relative;
       color: #333;
@@ -131,14 +135,14 @@
       font-size: 14px;/*px*/
       label{
         position: absolute;
-        left: 15px;
-        bottom: -6px;
+        left: 30px;
+        bottom: -12px;
         z-index: 2;
       }
       span{
         position: absolute;
-        right: 15px;
-        top: -6px;
+        right: 30px;
+        top: -12px;
         z-index: 2;        
       }
     }
@@ -146,7 +150,7 @@
   }
   // 右侧内容
   .rebate-content{
-    width: 245px;
+    width: 490px;
     float: left;
     overflow: scroll;
   }
@@ -176,14 +180,14 @@
   margin: auto;
   text-align: center;
   color: #ccc;
-  height: 200px;
+  height: 400px;
   label{
-    font-size: 20px;
+    font-size: 36px;
     display:block; 
   }
   .icon-wry-smile{
     padding-top:80px;
-    font-size: 40px;
+    font-size: 50px;
   }
 }
 
@@ -191,9 +195,9 @@
 .betting-items{
   overflow: hidden;
   img{
-    width: 55px;
-    height: 55px;
-    margin-right: 20px;
+    width: 110px;
+    height: 110px;
+    margin-right: 40px;
   }
   .item-left{
     label{
@@ -234,10 +238,24 @@
   background: white;
   overflow: hidden;
   .item {
-    padding: 10px;
+    padding: 20px;
     border-top: 1px solid #f5f5f5;
     .right {
       float: right;
     }
+  }
+}
+
+// 数据记载完
+.load-completion{
+  padding-top: 20px;
+  i,span{
+    display: block;   
+    text-align: center;
+    font-size: 30px;
+    color: #ccc;
+  }
+  span{
+    font-size: 36px;
   }
 }

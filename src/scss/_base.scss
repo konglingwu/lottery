@@ -1,0 +1,99 @@
+*,
+*:before,
+*:after {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+html, body, h1, h2, h3, h4, h5, h6, p, dl, dt, dd, ul, ol, li, form, fieldset, button, input, textarea { margin: 0; padding: 0; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; vertical-align: top; }
+ul { list-style: none; }
+button, input { font-family: inherit; }
+button { border: none; color: inherit; text-transform: none; font: inherit; -webkit-appearance: button; }
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button { margin: 0; -webkit-appearance: none; }
+input::-webkit-search-decoration, input::-webkit-search-cancel-button { display: none; }
+html { width: 100%; height: 100%; }
+body { min-height: 100%; outline: 0; font: 13px/1.5 "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Arial, "Hiragino Sans GB", STHeiti, 'Microsoft Yahei', sans-serif; cursor: default; -webkit-tap-highlight-color: transparent; -webkit-text-size-adjust: 100% !important; }
+body, img, a { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+input { -webkit-touch-callout: none; touch-callout: none; -webkit-appearance: none; }
+table {
+	width: 100%;
+	border-spacing: 0;
+	border-collapse: collapse;
+}
+html, body, .g-doc {
+	position: relative;
+	height: 100%;
+	width: 100%;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	background-color: $bg-color;
+	color: $black;
+	-webkit-tap-highlight-color: transparent;
+	transform-style: preserve-3d;
+	backface-visibility: hidden;
+}
+.vhide {
+	visibility: hidden;
+}
+.clearfix {
+	@include clearfix();
+}
+a {
+	color: $black;
+}
+em, i {
+	font-style: normal;
+}
+.m5 {
+	margin-left: $space-sm;
+	margin-right: $space-sm;
+}
+// color
+.text-primary {
+	color: $primary-color;
+}
+.text-info {
+	color: $info-color;
+}
+.text-success {
+	color: $success-color;
+}
+.text-warning {
+	color: $warning-color;
+}
+.text-error {
+	color: $error-color;
+}
+.text-gray {
+	color: $gray-light;
+}
+.text-center {
+	text-align: center;
+}
+.text-right {
+	text-align: right;
+}
+.text-left {
+	text-align: left;
+}
+.text-xs {
+	font-size: 9px; /*px*/
+}
+.text-sm {
+	font-size: 11px; /*px*/
+}
+input[disabled="disabled"] {
+	color: #999;
+}
+
+// 圆形图片
+.img-circle {
+	border-radius: 50%;
+	overflow: hidden;
+}
+// 列表动画
+.flip-list-move {
+	transition: transform 1s;
+}
