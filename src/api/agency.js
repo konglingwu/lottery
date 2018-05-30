@@ -125,3 +125,11 @@ export function agentBillRecordRecharge(query) {
 	    params:query
 	})
 }
+
+// 15. 彩票列表
+export function lotteryList() {
+	return fetch({
+	    url: '/agent/lotteryList.action',
+	    method: 'GET'
+	})
+}

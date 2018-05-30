@@ -113,8 +113,9 @@
   // 左侧标题和右侧内容 
   .rebate-title,.rebate-content-item{
     background: white;
-    width: 120px;
+    width: 130px;
     float: left;
+    overflow: hidden;
     li:nth-child(2n+1){
      background: #eee;
     }
@@ -124,6 +125,9 @@
       text-align: center;
       position: relative;
       color: #333;
+      overflow: hidden;
+      white-space: normal;
+      text-overflow: ellipsis;      
       font-size: 14px;/*px*/
       label{
         position: absolute;
@@ -142,7 +146,7 @@
   }
   // 右侧内容
   .rebate-content{
-    width: 255px;
+    width: 245px;
     float: left;
     overflow: scroll;
   }

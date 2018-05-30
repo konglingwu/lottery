@@ -10,13 +10,12 @@ Vue.use(ToastPlugin);
 // request拦截器
 axios.interceptors.request.use(
   config => {
-    console.log("请求开始", config.data.hasLoading);
-    // 全屏Loading开始
-    if (config.data.hasLoading == 1) {
-      Vue.$vux.loading.show({
-        text: "Loading"
-      });
-    }
+    console.log(config);
+
+    Vue.$vux.loading.show({
+      text: "Loading"
+    });
+
     return config;
   },
   error => {
@@ -29,9 +28,9 @@ axios.interceptors.request.use(
 // respone拦截器
 axios.interceptors.response.use(
   response => {
-		const code = response.data.code
-		const msg =	response.data.msg
-		const res = response.data
+    const code = response.data.code;
+    const msg = response.data.msg;
+    const res = response.data;
     // 全屏Loading结束
     Vue.$vux.loading.hide();
     // const res = response.data;
@@ -39,11 +38,11 @@ axios.interceptors.response.use(
       // 失败
       Vue.$vux.toast.text(msg, "top");
       return Promise.reject(msg);
-    }else if (code == 401) {
+    } else if (code == 401) {
       // 无权限
       Vue.$vux.toast.text(msg, "top");
       return Promise.reject(msg);
-    }else {
+    } else {
       // 处理 lang
       if (typeof res === "undefined") {
         // 传送2进制文件
@@ -59,12 +58,12 @@ axios.interceptors.response.use(
   },
   error => {
     // 全屏Loading结束
-		Vue.$vux.loading.hide();
+    Vue.$vux.loading.hide();
     // if (error !== "USERCANCEL") {
     //   // error
-		// 	Vue.$vux.toast.text("请求错误", "top");
-		// }
-		
+    // 	Vue.$vux.toast.text("请求错误", "top");
+    // }
+
     return Promise.reject(error);
   }
 );

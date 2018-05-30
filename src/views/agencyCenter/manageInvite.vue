@@ -195,7 +195,8 @@ export default {
       switchItems: true, // 控制显示列表内容
       invitationsList: [], // 邀请码列表
       rebateDetails: [], // 返点详情
-      rebateList: [] // 返点列表
+      rebateList: [], // 返点列表
+      selfReturn:[] //  自身返点
     };
   },
   computed: {},
@@ -224,7 +225,12 @@ export default {
             "-" +
             element.point;
           this.rebateList.push(spItem);
+
+          this.selfReturn.push(element.maxPoint) 
+
         });
+        const selfPoint = JSON.stringify(this.selfReturn); //  转成字符串格式
+        localStorage.setItem("selfReturn", selfPoint) // 存储自身返点
 
         const obj = JSON.stringify(this.rebateList); //  转成字符串格式
         localStorage.setItem("rebateList", obj); // 存储到localStorage
