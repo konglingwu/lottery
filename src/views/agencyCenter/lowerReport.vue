@@ -95,6 +95,7 @@ export default {
       loadCompletion:false, // 显示加载完成
       dataCache:{}, // 数据缓存集合
       lowerNames:[],//缓存账号集合
+      levelTotal:1, // 代理层级
       req:{
         switchingDate:'today', // 日期 
         page: 0,               // 分页
@@ -178,7 +179,7 @@ export default {
      if(item.type && item.lowerPeople){
       this.popupOption.lower = '查看下级';     // 赋值查看下级 
      }
-     if(item.higher){
+     if(this.levelTotal > 1){
       this.popupOption.higher = '返回上级';     // 赋值返回上级
      }
     },
@@ -193,16 +194,15 @@ export default {
         // 初始化数据
         this.lowerList = []
         this.req.page = 0 
-        
         // 缓存被选中账号名称
         this.lowerNames.push(this.req.account);
         // 获取列表数据
         this.cache()
+        this.levelTotal += 1; // 层级累加 
         
       }else if(key == 'higher'){
        this.req.account = this.lowerNames.pop()
-       console.log(this.lowerNames)
-       console.log(this.req.account,'上一级')
+       this.levelTotal -= 1; // 层级递减 
        // 获取列表数据
        this.cache()       
       }
