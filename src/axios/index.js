@@ -63,7 +63,7 @@ axios.interceptors.response.use(
   error => {
     // 全屏Loading结束
     Vue.$vux.loading.hide();
-    console.log(error.indexOf("timeout") > -1)
+    // console.log(error.indexOf("timeout") > -1)
     // if(cuo.indexOf("timeout") > -1){
     //   Vue.$vux.toast.text("请求超时！", "top"); 
     // }

@@ -183,7 +183,6 @@ export default {
         delCode: "删除邀请码"
       },
       req: {
-        hasLoading: 1, // 是否有loading
         accountType: "agent", // 开户类型
         codeId: "" // 邀请码ID
       },

@@ -106,7 +106,6 @@ export default {
         switchingDate: "today", // 日期
         page: 0,      // 分页
         pageSize: 10, // 条数
-        hasLoading: 1, // 控制是否有loading
         search: "", // 搜索内容
         prizeState: 0 // 状态
       }

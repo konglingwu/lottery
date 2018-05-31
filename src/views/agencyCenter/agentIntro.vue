@@ -60,7 +60,7 @@ import {
   XSwitch,
   XButton,
   Confirm
-} from "vux";
+} from 'vux';
 export default {
   name: "agentIntro",
   components: {

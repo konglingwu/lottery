@@ -83,7 +83,6 @@ export default {
       lotteryList: [], // 彩票选项列表
       selectLottery: ["快3"], // 彩票选项
       req: {
-        hasLoading: 1, // 请求loading
         switchingLottery: "fast3" // 传到后端的英文类型
       }
     };
@@ -126,7 +125,7 @@ export default {
 						let sqlItem = {};
         	  sqlItem.rebate = i / 10; // 返点
         		sqlItem.interestRate = sumSysPoint; // 返点利率
-						this.rateList.push(sqlItem);
+            this.rateList.push(sqlItem);
 				}
       });
     },

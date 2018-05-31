@@ -54,7 +54,6 @@ export default {
   data() {
     return {
 			req:{
-				hasLoading: 1,  // 控制是否有loading
 				id: "" || this.$route.query.id, // id
 			},
 			detailsList:[]  // 详情列表

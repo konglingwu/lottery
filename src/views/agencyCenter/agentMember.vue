@@ -109,7 +109,6 @@ export default {
       req: {
         page: 0, // 分页
         pageSize: 10, // 条数
-        hasLoading: 1, // 控制是否有loading
         account: "", // 会员名称
         userID: "" // 会员ID
       },

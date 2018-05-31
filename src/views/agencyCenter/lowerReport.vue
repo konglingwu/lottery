@@ -105,11 +105,12 @@ export default {
       popupOption: {},  // 弹出选项
       busy: false,      // 是否滚动加载
       loadCompletion:false, // 显示加载完成
+      dataCache:{}, // 数据缓存集合
+      lowerNames:[],//缓存账号集合
       req:{
         switchingDate:'today', // 日期 
         page: 0,               // 分页
         pageSize:10,           // 条数
-        hasLoading: 1,         // 控制是否有loading
         account: ''            // 会员名称
       }             
     };
@@ -129,6 +130,14 @@ export default {
     lowerReport(this.req).then(response => {
         this.busy = false  
         this.lowerList = this.lowerList.concat(response.data)
+        // 添加缓存
+        let {account, switchingDate} = this.req
+        this.dataCache[[account,switchingDate].join('@')] = {
+          list: JSON.parse(JSON.stringify(response.data)),
+          account: account,
+          switchingDate:switchingDate
+        }
+        // 添加缓存      
         // 判断是否已经是最后一页
         if(this.req.page == response.total){
           this.loadCompletion = true
@@ -138,6 +147,19 @@ export default {
           this.busy = true
         }
       });   
+    },
+
+    // 数据缓存
+    cache(){
+      let {account, switchingDate} = this.req
+      let key = [account, switchingDate].join('@')
+      let obj = this.dataCache[key]
+      if (obj) {
+        this.lowerList.splice(0)
+        this.lowerList.push(...obj.list)
+      } else {
+        this.getData()
+      }     
     },
 
     /* 事件操作 */
@@ -180,14 +202,21 @@ export default {
           {path:'/agentReport',query: {account:this.req.account,selectDate:this.selectDate[0]}}
         )
       }else if(key == 'lower') {
-        console.log('lower',this.req.account);
         // 初始化数据
         this.lowerList = []
-        this.req.page = 0        
-        // 获取列表数据
-        this.getData()        
-      }else if(key == 'higher'){
+        this.req.page = 0 
         
+        // 缓存被选中账号名称
+        this.lowerNames.push(this.req.account);
+        // 获取列表数据
+        this.cache()
+        
+      }else if(key == 'higher'){
+       this.req.account = this.lowerNames.pop()
+       console.log(this.lowerNames)
+       console.log(this.req.account,'上一级')
+       // 获取列表数据
+       this.cache()       
       }
     }
   }

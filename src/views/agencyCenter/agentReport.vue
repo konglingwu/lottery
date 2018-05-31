@@ -155,7 +155,6 @@ export default {
       req: {
         switchingDate: "today", // 日期
         search: "" || this.$route.query.account, // 搜索内容
-        hasLoading: 1 // 控制是否有loading
       }
     };
   },
