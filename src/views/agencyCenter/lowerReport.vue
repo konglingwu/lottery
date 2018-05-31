@@ -66,18 +66,12 @@ import {
   ViewBox,
   XHeader,
   Group,
-  CellBox,
-  XSwitch,
-  XButton,
-  Confirm,
   XTable,
   PopupPicker,
   Actionsheet,
   Popup,
-  Cell,
-  Scroller,
-  LoadMore
-} from "vux";
+  Scroller
+} from 'vux';
 export default {
   name: "lowerReport",
   mixins: [common],  
@@ -86,17 +80,11 @@ export default {
     ViewBox,
     XHeader,
     Group,
-    CellBox,
-    XSwitch,
-    XButton,
-    Confirm,
     XTable,
     PopupPicker,
     Actionsheet,    
     Popup,
-    Cell,
-    Scroller,
-    LoadMore
+    Scroller
   },
   data() {
     return {

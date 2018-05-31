@@ -56,6 +56,7 @@ import {
   XTable,
   PopupPicker
 } from "vux";
+import { log } from 'util';
 
 export default {
   name: "rebateTabel",
@@ -81,9 +82,9 @@ export default {
 			rateList: [], //赔率表
 			breadth:100,    // 汇率表宽度
       lotteryList: [], // 彩票选项列表
-      selectLottery: ["快3"], // 彩票选项
+      selectLottery: [], // 彩票选项
       req: {
-        switchingLottery: "fast3" // 传到后端的英文类型
+        switchingLottery: 1 // 传到后端的英文类型
       }
     };
   },
@@ -99,34 +100,43 @@ export default {
 
 		// 彩票列表
 		getLottery(){
-     lotteryList().then(Response =>{
-			 this.lotteryList.push(Response.data)
-		 });
+     lotteryList().then(({data}) =>{
+       this.lotteryList.push(data);
+       this.selectLottery.push(data[0].name);
+     });
 		},
 
     // 返点赔率
     getData() {
 			this.rateList = []
       rebateDes(this.req).then(Response => {
-        this.rebateDesLaws = Response.data.content; // 赋值彩票玩法
+        let contents = Response.data.content; // 赋值彩票玩法
         let sysPoint = Response.data.sysPoint; // 赋值总代理返点
 				let selfReturn = sysPoint * 10;
 				this.breadth = selfReturn * 132; // 计算列表总宽度
         this.lotteryName = Response.data.lotteryType; // 赋值彩票类型
+        // 循环计算利率表
         for (let i = selfReturn; i >= 0; i--) {
-					let sumSysPoint = [];
-          this.rebateDesLaws.forEach(element => {
+          let sumSysPoint = [];
+          contents.forEach(element => {
             let points =
               parseFloat(element.substr(element.indexOf("|") + 1)) * 100; // 过滤返点数
             let sum =
 							(points - points * ((sysPoint * 10 - i) / 10) / 100) / 100;
-							sumSysPoint.push(sum.toFixed(3)); // 过滤点集合
+              sumSysPoint.push(sum.toFixed(3)); // 过滤点集合
 					});
 						let sqlItem = {};
         	  sqlItem.rebate = i / 10; // 返点
         		sqlItem.interestRate = sumSysPoint; // 返点利率
             this.rateList.push(sqlItem);
-				}
+        }
+        // 循环计算利率表
+        // 过滤列表计算值
+        contents.forEach(element => {
+          let content = element.substr(0,element.indexOf("|")); // 左侧列表数据（过滤计算值）
+          this.rebateDesLaws.push(content)
+        })
+        // 过滤列表计算值
       });
     },
 
@@ -163,11 +173,17 @@ export default {
       console.log("date", this.req.switchingLottery);
     },
     // 彩票切换
-    hanleChangeLottery() {
-      // 彩票匹配
-      this.lotteryMatching();
-      // 获取列表数据
-      this.getData();
+    hanleChangeLottery(value) {
+      let key = value[0]
+      let obj = this.lotteryList[0].find(item => item.value == key)
+      if (obj) {
+        this.selectLottery.splice(0)
+        this.selectLottery.push(obj.name)
+        this.req.switchingLottery = obj.value
+        // 获取列表数据
+        this.getData();
+      } 
+
     }
   }
 };
