@@ -55,22 +55,12 @@
 import {
   ViewBox,
   XHeader,
-  Group,
-  CellBox,
-  XSwitch,
-  XButton,
-  Confirm
 } from 'vux';
 export default {
   name: "agentIntro",
   components: {
     ViewBox,
-    XHeader,
-    Group,
-    CellBox,
-    XSwitch,
-    XButton,
-    Confirm
+    XHeader
   },
   data() {
     return {};

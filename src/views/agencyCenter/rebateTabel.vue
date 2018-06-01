@@ -3,9 +3,11 @@
     <x-header slot="header" style="width:100%;position:absolute;left:0;top:0;z-index:100;" v-bind:title="$route.meta.pageTitle">
       <span>{{$route.meta.pageTitle}}</span>
 			<!-- 彩票选择 -->
+      <div slot="right">
         <group class="group-select-data">
         	<popup-picker :data="lotteryList" v-model="selectLottery" @on-change="hanleChangeLottery"></popup-picker>
         </group>
+      </div>  
       <!-- 彩票选择 -->			
 		</x-header>
     <div class="main main-padding-top">
@@ -49,14 +51,8 @@ import {
   ViewBox,
   XHeader,
   Group,
-  CellBox,
-  XSwitch,
-  XButton,
-  Confirm,
-  XTable,
   PopupPicker
 } from "vux";
-import { log } from 'util';
 
 export default {
   name: "rebateTabel",
@@ -65,18 +61,10 @@ export default {
     ViewBox,
     XHeader,
     Group,
-    CellBox,
-    XSwitch,
-    XButton,
-    Confirm,
-    XTable,
     PopupPicker
   },
   data() {
     return {
-      req: {
-        lotteryType: "快3" // 选择类型
-      },
       lotteryName: "", // 当前彩票名称
       rebateDesLaws: [], // 赋值彩票玩法
 			rateList: [], //赔率表
@@ -84,7 +72,7 @@ export default {
       lotteryList: [], // 彩票选项列表
       selectLottery: [], // 彩票选项
       req: {
-        switchingLottery: 1 // 传到后端的英文类型
+        switchingLottery: 1 // 选择类型
       }
     };
   },
@@ -108,6 +96,7 @@ export default {
 
     // 返点赔率
     getData() {
+      this.rebateDesLaws = []
 			this.rateList = []
       rebateDes(this.req).then(Response => {
         let contents = Response.data.content; // 赋值彩票玩法
@@ -141,37 +130,6 @@ export default {
     },
 
     /* 事件操作 */
-    // 彩票匹配
-    lotteryMatching() {
-      console.log("val change", this.selectLottery[0]);
-      switch (this.selectLottery[0]) {
-        case "快3":
-          this.req.switchingLottery = "fast3";
-          break;
-        case "时时彩":
-          this.req.switchingLottery = "ssc";
-          break;
-        case "11选5":
-          this.req.switchingLottery = "11Selection5";
-          break;
-        case "福彩3D":
-          this.req.switchingLottery = "welfareLottery3D";
-          break;
-        case "排列3":
-          this.req.switchingLottery = "arrange3";
-          break;
-        case "北京快乐8":
-          this.req.switchingLottery = "happyBeijing";
-          break;
-        case "PK10":
-          this.req.switchingLottery = "pk10";
-          break;
-        case "六合彩":
-          this.req.switchingLottery = "markSixLottery";
-          break;
-      }
-      console.log("date", this.req.switchingLottery);
-    },
     // 彩票切换
     hanleChangeLottery(value) {
       let key = value[0]

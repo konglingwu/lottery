@@ -3,9 +3,11 @@
     <x-header slot="header" style="width:100%;position:absolute;left:0;top:0;z-index:100;">
       <span>{{$route.meta.pageTitle}}</span>
       <!-- 日期选择 -->
+      <div slot="right">
         <group class="group-select-data">
           <popup-picker :data="dataList" v-model="selectDate" @on-change="hanleChangeDate"></popup-picker>
         </group>
+      </div>  
       <!-- 日期选择 -->      
     </x-header>
     <div class="main main-padding-top">
@@ -67,14 +69,10 @@ import {
   XHeader,
   Group,
   CellBox,
-  XSwitch,
   XButton,
-  Confirm,
   XInput,
   Tab,
   TabItem,
-  Swiper,
-  SwiperItem,
   PopupPicker
 } from "vux";
 
@@ -89,14 +87,10 @@ export default {
     XHeader,
     Group,
     CellBox,
-    XSwitch,
     XButton,
-    Confirm,
     XInput,
     Tab,
     TabItem,
-    Swiper,
-    SwiperItem,
     PopupPicker
   },
   data() {

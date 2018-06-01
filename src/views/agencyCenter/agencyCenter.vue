@@ -23,10 +23,7 @@ import {
   ViewBox,
   XHeader,
   Group,
-  CellBox,
-  XSwitch,
-  XButton,
-  Confirm
+  CellBox
 } from "vux";
 
 export default {
@@ -35,10 +32,7 @@ export default {
     ViewBox,
     XHeader,
     Group,
-    CellBox,
-    XSwitch,
-    XButton,
-    Confirm
+    CellBox
   },
   data() {
     return {};

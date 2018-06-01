@@ -96,7 +96,7 @@
         <div v-transfer-dom>
           <popup v-model="showRebate" position="bottom" max-height="69%" style="overflow: hidden;">
             <div class="popup-list">
-              <cell class="popup-title"><label>查看详情</label><i class="iconfont icon-close" @click="hanleCloseRebate"></i></cell>
+              <cell class="popup-title"><label class="title">查看详情</label><i class="iconfont icon-close" @click="hanleCloseRebate"></i></cell>
                 <div class="item" v-for="item in rebateDetails" :key="item.id">
                   <label class="left">{{item.lotteryType}}</label>
                   <label class="right">{{item.rebate}}</label>
@@ -134,20 +134,16 @@ import {
   XHeader,
   Group,
   CellBox,
-  XSwitch,
   XButton,
   Confirm,
   ButtonTab,
   ButtonTabItem,
-  XInput,
-  Box,
-  XTable,
   Actionsheet,
-  Cell,
   Popup,
   TransferDom,
   Toast,
-  Alert
+  XTable,
+  Cell
 } from "vux";
 
 export default {
@@ -160,19 +156,15 @@ export default {
     XHeader,
     Group,
     CellBox,
-    XSwitch,
     XButton,
     Confirm,
     ButtonTab,
     ButtonTabItem,
-    XInput,
-    Box,
-    XTable,
     Actionsheet,
-    Cell,
     Popup,
     Toast,
-    Alert
+    XTable,
+    Cell
   },
   data() {
     return {
