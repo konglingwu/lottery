@@ -32,7 +32,7 @@
 如果您为下级设置的是代理类型的账号，那么您的下级就能继续发展下级，如果设置的是玩家类型，那么您的下级只能投注，不能再发展下级，也看不到代理中心；
 								 </p>
 						</div>
-						<!-- 如何为下级开户 -->	
+						<!-- 如何为下级开户 -->
 						<!-- 温馨提示 -->
 						<h3>
 							<i class="iconfont icon-love"></i>温馨提示：
@@ -52,26 +52,12 @@
 </template>
 
 <script>
-import {
-  ViewBox,
-  XHeader,
-} from 'vux';
+import { ViewBox, XHeader } from 'vux';
 export default {
-  name: "agentIntro",
+  name: 'agentIntro',
   components: {
     ViewBox,
     XHeader
-  },
-  data() {
-    return {};
-  },
-  computed: {},
-  created() {},
-  methods: {
-    /* 数据请求 */
-    
-
-    /* 事件操作 */    
   }
 };
 </script>
@@ -84,10 +70,10 @@ export default {
   line-height: 30px;
   font-size: 14px; /*px*/
   h3 {
-		font-size: 16px; /*px*/
-		overflow: hidden;
+    font-size: 16px; /*px*/
+    overflow: hidden;
     .iconfont {
-			float: left;
+      float: left;
       font-size: 20px; /*px*/
       margin-right: 5px;
     }
@@ -100,7 +86,7 @@ export default {
       position: relative;
     }
     p:before {
-      content: "";
+      content: '';
       position: absolute;
       width: 5px;
       height: 5px;
@@ -113,7 +99,7 @@ export default {
       z-index: 1;
     }
     .item:after {
-      content: "";
+      content: '';
       position: absolute;
       height: 100%;
       // height: calc(100% - 1em);

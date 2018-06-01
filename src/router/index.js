@@ -94,13 +94,13 @@ export default new Router({
 		},	
 		// 返点赔率表开始
 		{
-			path: '/rebateTabel',
-			name: 'rebateTabel',
+			path: '/rebateTable',
+			name: 'rebateTable',
 			meta: {
 				keepAlive: true,
 				pageTitle: '返点赔率表'
 			},
-			component: resolve => require(['@/views/agencyCenter/rebateTabel'], resolve)
+			component: resolve => require(['@/views/agencyCenter/rebateTable'], resolve)
 		},			
 		// 返点赔率表结束
 		// 注单详情开始

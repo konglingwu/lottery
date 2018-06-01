@@ -3,10 +3,10 @@
     <x-header slot="header" style="width:100%;position:absolute;left:0;top:0;z-index:100;">
       <span>{{$route.meta.pageTitle}}</span>
       <!-- 日期选择 -->
-        <group class="group-select-data" slot="right">
-          <popup-picker :data="dataList" v-model="selectDate" @on-change="hanleChangeDate"></popup-picker>
-        </group>
-      <!-- 日期选择 -->      
+      <group slot="right" class="group-select-data">
+        <popup-picker :data="dataList" v-model="selectDate" @on-change="hanleChangeDate"></popup-picker>
+      </group>
+      <!-- 日期选择 -->
     </x-header>
     <div class="main main-padding-top">
       <!-- 下级列表 -->
@@ -57,98 +57,89 @@
 
 <script>
 // common 通用模版
-import common from '../mixin/common.mixin.js'
+import common from '../mixin/common.mixin.js';
 // 接口请求
-import {lowerReport} from '@/api/index.js'
+import { lowerReport } from '@/api/index.js';
 // 滚动加载插件
-import infiniteScroll from 'vue-infinite-scroll'
-import {
-  ViewBox,
-  XHeader,
-  Group,
-  XTable,
-  PopupPicker,
-  Actionsheet,
-  Popup,
-  Scroller
-} from 'vux';
+import infiniteScroll from 'vue-infinite-scroll';
+import { ViewBox, XHeader, Group, XTable, PopupPicker, Actionsheet, Popup, Scroller } from 'vux';
 export default {
-  name: "lowerReport",
-  mixins: [common],  
-  directives: { infiniteScroll },  
+  name: 'lowerReport',
+  mixins: [common],
+  directives: { infiniteScroll },
   components: {
     ViewBox,
     XHeader,
     Group,
     XTable,
     PopupPicker,
-    Actionsheet,    
+    Actionsheet,
     Popup,
     Scroller
   },
   data() {
     return {
-      popup:false,      // 控制弹出层      
-      lowerList:[],     // 下级报表
-      popupOption: {},  // 弹出选项
-      busy: false,      // 是否滚动加载
-      loadCompletion:false, // 显示加载完成
-      dataCache:{}, // 数据缓存集合
-      lowerNames:[],//缓存账号集合
-      levelTotal:1, // 代理层级
-      req:{
-        switchingDate:'today', // 日期 
-        page: 0,               // 分页
-        pageSize:10,           // 条数
-        account: ''            // 会员名称
-      }             
+      popup: false, // 控制弹出层
+      lowerList: [], // 下级报表
+      popupOption: {}, // 弹出选项
+      busy: false, // 是否滚动加载
+      loadCompletion: false, // 显示加载完成
+      dataCache: {}, // 数据缓存集合
+      lowerNames: [], //缓存账号集合
+      levelTotal: 1, // 代理层级
+      req: {
+        switchingDate: 'today', // 日期
+        page: 0, // 分页
+        pageSize: 10, // 条数
+        account: '' // 会员名称
+      }
     };
   },
   computed: {},
   created() {
     // 获取下级列表
-    this.getData()
+    this.getData();
   },
   methods: {
     /* 数据请求 */
 
     // 获取下级列表
-    getData(){
-    this.busy = true
-    this.req.page = ++this.req.page
-    lowerReport(this.req).then(response => {
-        this.busy = false  
-        this.lowerList = this.lowerList.concat(response.data)
+    getData() {
+      this.busy = true;
+      this.req.page = ++this.req.page;
+      lowerReport(this.req).then(response => {
+        this.busy = false;
+        this.lowerList = this.lowerList.concat(response.data);
         // 添加缓存
-        let {account, switchingDate} = this.req
-        this.dataCache[[account,switchingDate].join('@')] = {
+        let { account, switchingDate } = this.req;
+        this.dataCache[[account, switchingDate].join('@')] = {
           list: JSON.parse(JSON.stringify(response.data)),
           account: account,
-          switchingDate:switchingDate
-        }
-        // 添加缓存      
+          switchingDate: switchingDate
+        };
+        // 添加缓存
         // 判断是否已经是最后一页
-        if(this.req.page == response.total){
-          this.loadCompletion = true
-        }     
+        if (this.req.page == response.total) {
+          this.loadCompletion = true;
+        }
         // response 空时候不请求
         if (!(0 in response)) {
-          this.busy = true
+          this.busy = true;
         }
-      });   
+      });
     },
 
     // 数据缓存
-    cache(){
-      let {account, switchingDate} = this.req
-      let key = [account, switchingDate].join('@')
-      let obj = this.dataCache[key]
+    cache() {
+      let { account, switchingDate } = this.req;
+      let key = [account, switchingDate].join('@');
+      let obj = this.dataCache[key];
       if (obj) {
-        this.lowerList.splice(0)
-        this.lowerList.push(...obj.list)
+        this.lowerList.splice(0);
+        this.lowerList.push(...obj.list);
       } else {
-        this.getData()
-      }     
+        this.getData();
+      }
     },
 
     /* 事件操作 */
@@ -156,55 +147,55 @@ export default {
     // 滚动加载
     pullup() {
       if (!this.busy) {
-        this.getData()
+        this.getData();
       }
     },
-    
+
     // 日期切换
     hanleChangeDate() {
       // 日期匹配
-      this.dateMatching()
+      this.dateMatching();
       // 初始化数据
-      this.lowerList = []
-      this.req.page = 0
+      this.lowerList = [];
+      this.req.page = 0;
       // 获取列表数据
-      this.getData()
+      this.getData();
     },
     // 弹出层
-    hanleCheck(item){
-     this.popupOption ={}; // 每次进入清空 
-     this.popup = true;   // 弹出框显示
-     this.req.account = item.account;  // 赋值会员名称
-     this.popupOption.Report = '查看报表';     // 赋值查看报表
-     if(item.type && item.lowerPeople){
-      this.popupOption.lower = '查看下级';     // 赋值查看下级 
-     }
-     if(this.levelTotal > 1){
-      this.popupOption.higher = '返回上级';     // 赋值返回上级
-     }
+    hanleCheck(item) {
+      this.popupOption = {}; // 每次进入清空
+      this.popup = true; // 弹出框显示
+      this.req.account = item.account; // 赋值会员名称
+      this.popupOption.Report = '查看报表'; // 赋值查看报表
+      if (item.type && item.lowerPeople) {
+        this.popupOption.lower = '查看下级'; // 赋值查看下级
+      }
+      if (this.levelTotal > 1) {
+        this.popupOption.higher = '返回上级'; // 赋值返回上级
+      }
     },
     // 查看信息
-    hanleSelect (key) {
+    hanleSelect(key) {
       console.log(key);
-      if(key == 'Report'){
-        this.$router.push(
-          {path:'/agentReport',query: {account:this.req.account,selectDate:this.selectDate[0]}}
-        )
-      }else if(key == 'lower') {
+      if (key == 'Report') {
+        this.$router.push({
+          path: '/agentReport',
+          query: { account: this.req.account, selectDate: this.selectDate[0] }
+        });
+      } else if (key == 'lower') {
         // 初始化数据
-        this.lowerList = []
-        this.req.page = 0 
+        this.lowerList = [];
+        this.req.page = 0;
         // 缓存被选中账号名称
         this.lowerNames.push(this.req.account);
         // 获取列表数据
-        this.cache()
-        this.levelTotal += 1; // 层级累加 
-        
-      }else if(key == 'higher'){
-       this.req.account = this.lowerNames.pop()
-       this.levelTotal -= 1; // 层级递减 
-       // 获取列表数据
-       this.cache()       
+        this.cache();
+        this.levelTotal += 1; // 层级累加
+      } else if (key == 'higher') {
+        this.req.account = this.lowerNames.pop();
+        this.levelTotal -= 1; // 层级递减
+        // 获取列表数据
+        this.cache();
       }
     }
   }

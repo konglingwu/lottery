@@ -27,7 +27,7 @@
             <i class="iconfont icon-wry-smile"></i>
             <span>数据加载完了</span>
            </div>
-        <!-- 数据显示完了 -->        
+        <!-- 数据显示完了 -->
         </div>
         <!-- 没有数据显示 -->
         <div class="tips-table" v-if="!(0 in this.memberList)">
@@ -62,22 +62,13 @@
 
 <script>
 // 接口请求
-import { agentMember, rebateDetails } from "@/api/index.js";
+import { agentMember, rebateDetails } from '@/api/index.js';
 // 滚动加载插件
-import infiniteScroll from "vue-infinite-scroll";
-import {
-  ViewBox,
-  XHeader,
-  Group,
-  XTable,
-  Actionsheet,
-  Cell,
-  TransferDom,
-  Popup
-} from "vux";
+import infiniteScroll from 'vue-infinite-scroll';
+import { ViewBox, XHeader, Group, XTable, Actionsheet, Cell, TransferDom, Popup } from 'vux';
 
 export default {
-  name: "agentMember",
+  name: 'agentMember',
   directives: {
     TransferDom,
     infiniteScroll
@@ -97,12 +88,12 @@ export default {
       memberList: [], // 会员列表
       popupOption: {}, // 弹出选项
       busy: false, // 是否滚动加载
-      loadCompletion:false, // 显示加载完成      
+      loadCompletion: false, // 显示加载完成
       req: {
         page: 0, // 分页
         pageSize: 10, // 条数
-        account: "", // 会员名称
-        userID: "" // 会员ID
+        account: '', // 会员名称
+        userID: '' // 会员ID
       },
       showRebate: false, // 返点详情是否显示
       rebateDetails: [] // 返点详情
@@ -124,9 +115,9 @@ export default {
         this.memberList = this.memberList.concat(response.data);
         this.busy = false;
         // 判断是否已经是最后一页
-        if(this.req.page == response.total){
-          this.loadCompletion = true
-        }        
+        if (this.req.page == response.total) {
+          this.loadCompletion = true;
+        }
         // response 空时候不请求
         console.log(response);
         if (!(0 in response.data)) {
@@ -145,7 +136,7 @@ export default {
 
     // 滚动加载
     pullup() {
-      console.log("滚动加载");
+      console.log('滚动加载');
       if (!this.busy) {
         this.getData();
       }
@@ -157,27 +148,27 @@ export default {
       this.popup = true; // 弹出框显示
       this.req.account = item.account; // 赋值会员名称
       this.req.userID = item.id; // 赋值会员ID
-      this.popupOption.rebate = "查看返点"; // 赋值查看返点
+      this.popupOption.rebate = '查看返点'; // 赋值查看返点
       if (item.type && item.lowerPeople) {
-        this.popupOption.lower = "查看下级"; // 赋值查看下级
+        this.popupOption.lower = '查看下级'; // 赋值查看下级
       }
       console.log(this.popupOption);
     },
     // 查看信息
     hanleSelect(key) {
       console.log(key);
-      if (key == "rebate") {
+      if (key == 'rebate') {
         this.showRebate = true;
         // 返点详情
         this.getRebateDetails();
-      } else if (key == "lower") {
-        console.log("lower", this.req.account);
+      } else if (key == 'lower') {
+        console.log('lower', this.req.account);
         // 初始化数据
         this.memberList = [];
         this.req.page = 0;
         // 获取列表数据
         this.getData();
-      } else if (key == "higher") {
+      } else if (key == 'higher') {
       }
     },
     // 关闭按钮

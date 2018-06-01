@@ -3,10 +3,10 @@
     <x-header slot="header" style="width:100%;position:absolute;left:0;top:0;z-index:100;">
       <span>{{$route.meta.pageTitle}}</span>
       <!-- 日期选择 -->
-        <group class="group-select-data" slot="right">
+        <group slot="right" class="group-select-data">
           <popup-picker :data="dataList" v-model="selectDate" @on-change="hanleChangeDate"></popup-picker>
         </group>
-      <!-- 日期选择 -->      
+      <!-- 日期选择 -->
     </x-header>
     <div class="main main-padding-top">
         <!-- 搜索input -->
@@ -18,7 +18,7 @@
        <!-- 搜索input -->
        <!-- 投注列表 -->
        <div class="group-bill">
-          <tab :line-width=2 active-color='#fc378c' v-model="req.prizeState">
+          <tab :line-width=2 active-color='#cd0006' v-model="req.prizeState">
             <tab-item class="vux-center" :selected="select === item" v-for="(item, index) in list" @on-item-click="hanleSelect(index)" :key="index">{{item}}</tab-item>
           </tab>
           <!-- 列表 -->
@@ -40,7 +40,7 @@
               <i class="iconfont icon-wry-smile"></i>
               <span>数据加载完了</span>
             </div>
-          <!-- 数据显示完了 -->            
+          <!-- 数据显示完了 -->
           <!-- 没有数据显示 -->
           <div class="tips-table" v-if="!(0 in this.bettingList)">
             <i class="iconfont icon-wry-smile"></i>
@@ -55,25 +55,15 @@
 
 <script>
 // common 通用模版
-import common from "../mixin/common.mixin.js";
+import common from '../mixin/common.mixin.js';
 // 接口请求
-import { agentBetRecord } from "@/api/index.js";
+import { agentBetRecord } from '@/api/index.js';
 // 滚动加载插件
-import infiniteScroll from "vue-infinite-scroll";
-import {
-  ViewBox,
-  XHeader,
-  Group,
-  CellBox,
-  XButton,
-  XInput,
-  Tab,
-  TabItem,
-  PopupPicker
-} from "vux";
+import infiniteScroll from 'vue-infinite-scroll';
+import { ViewBox, XHeader, Group, CellBox, XButton, XInput, Tab, TabItem, PopupPicker } from 'vux';
 
 export default {
-  name: "agentBetRecord",
+  name: 'agentBetRecord',
   mixins: [common],
   directives: {
     infiniteScroll
@@ -91,16 +81,17 @@ export default {
   },
   data() {
     return {
-      select: "", // 选中
-      list: ["全部", "已中奖", "未中奖", "等待开奖"], // 列表选项
+      select: '', // 选中
+      list: ['全部', '已中奖', '未中奖', '等待开奖'], // 列表选项
       bettingList: [], // 投注明细
       busy: false, // 是否滚动加载
       loadCompletion: false, // 显示加载完成
       req: {
-        switchingDate: "today", // 日期
+        switchingDate: 'today', // 日期
         page: 0, // 分页
         pageSize: 10, // 条数
-        search: "", // 搜索内容
+        hasLoading: 1, // 控制是否有loading
+        search: '', // 搜索内容
         prizeState: 0 // 状态
       }
     };
@@ -164,7 +155,7 @@ export default {
     // 跳转到详情
     hanleClickBetting(item) {
       console.log(item.id);
-      this.$router.push({ path: "./bettingDetails", query: { id: item.id } });
+      this.$router.push({ path: './bettingDetails', query: { id: item.id } });
     },
     // 搜索
     hanleSearch() {
@@ -181,9 +172,7 @@ export default {
 .vux-cell-box:not(:first-child):before {
   border-top: none;
 }
-.main {
-  .vux-cell-box {
-    border-bottom: 1px solid #d9d9d9;
-  }
+.vux-cell-box {
+  border-bottom: 1px solid #d9d9d9;
 }
 </style>

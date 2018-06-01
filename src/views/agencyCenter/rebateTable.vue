@@ -3,15 +3,16 @@
     <x-header slot="header" style="width:100%;position:absolute;left:0;top:0;z-index:100;" v-bind:title="$route.meta.pageTitle">
       <span>{{$route.meta.pageTitle}}</span>
 			<!-- 彩票选择 -->
-        <group class="group-select-data" slot="right">
-        	<popup-picker :data="lotteryList" v-model="selectLottery" @on-change="hanleChangeLottery"></popup-picker>
-        </group> 
-      <!-- 彩票选择 -->			
+      <group slot="right" class="group-select-data">
+        <popup-picker :data="lotteryList" v-model="selectLottery" @on-change="hanleChangeLottery"></popup-picker>
+      </group>
+      <!-- 彩票选择 -->
 		</x-header>
     <div class="main main-padding-top">
 				<!-- 表格 -->
 				<div class="rebate-tabel">
-          <h3 class="title">① {{this.lotteryName}}是基数2元1注的奖金模式，奖金+2换算成赔率。</h3>
+          <!-- <h3 class="title">① {{this.lotteryName}}是基数2元1注的奖金模式，奖金+2换算成赔率。</h3> -->
+          <h3 class="title">{{this.lotteryName}}返点赔率表</h3>
 				  <div class="rebate-items">
 						  <!-- 左侧标题 -->
                <ul class="rebate-title">
@@ -19,7 +20,7 @@
 										  <label>玩法</label>
 											<span>返点</span>
 									</li>
-									<li v-for="item in rebateDesLaws" :key="item.id">{{item}}</li> 																	
+									<li v-for="item in rebateDesLaws" :key="item.id">{{item}}</li>
 							 </ul>
 							 <!-- 左侧标题 -->
 							 <!-- 右侧内容 -->
@@ -27,10 +28,10 @@
 								  <div :style="{width:this.breadth + 'px'}">
                   <ul class="rebate-content-item" v-for="items in rateList" :key="items.id">
                        <li>{{items.rebate}}</li>
-											 <li v-for="item in items.interestRate" :key="item.id">赔率{{item}}</li>								 
-									 </ul>									 
+											 <li v-for="item in items.interestRate" :key="item.id">赔率{{item}}</li>
+									 </ul>
 									</div>
-									 									 									 
+
 							 </div>
 							 <!-- 右侧内容 -->
 					</div>
@@ -48,7 +49,7 @@ import common from '../mixin/common.mixin.js';
 import { ViewBox, XHeader, Group, PopupPicker } from 'vux';
 
 export default {
-  name: 'rebateTabel',
+  name: 'rebateTable',
   mixins: [common],
   components: {
     ViewBox,

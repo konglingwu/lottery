@@ -3,10 +3,10 @@
     <x-header slot="header" style="width:100%;position:absolute;left:0;top:0;z-index:100;">
       <span>{{$route.meta.pageTitle}}</span>
       <!-- 日期选择 -->
-        <group class="group-select-data" slot="right">
-          <popup-picker :data="dataList" v-model="selectDate" @on-change="hanleChangeDate"></popup-picker>
-        </group>
-      <!-- 日期选择 -->      
+      <group slot="right" class="group-select-data">
+        <popup-picker :data="dataList" v-model="selectDate" @on-change="hanleChangeDate"></popup-picker>
+      </group>
+      <!-- 日期选择 -->
     </x-header>
     <div class="main main-padding-top">
         <!-- 搜索input -->
@@ -15,7 +15,7 @@
               <x-button slot="right" type="warn" mini @click.native="hanleSearch">搜索</x-button>
             </x-input>
        </group>
-       <!-- 搜索input -->      
+       <!-- 搜索input -->
         <!-- 搜索列表 -->
        <div class="group-bill">
         <tab :line-width=2 active-color='#fc378c' v-model="prizeState">
@@ -42,7 +42,7 @@
               <i class="iconfont icon-wry-smile"></i>
               <span>数据加载完了</span>
             </div>
-          <!-- 数据显示完了 -->          
+          <!-- 数据显示完了 -->
           <!-- 没有数据显示 -->
           <div class="tips-table" v-if="!(0 in this.transactionList)">
             <i class="iconfont icon-wry-smile"></i>
@@ -50,32 +50,22 @@
         </div>
         <!-- 列表 -->
        </div>
-       <!-- 搜索列表 -->        
+       <!-- 搜索列表 -->
     </div>
   </view-box>
 </template>
 
 <script>
 // common 通用模版
-import common from "../mixin/common.mixin.js";
+import common from '../mixin/common.mixin.js';
 // 接口请求
-import { agentBillRecordAll,agentBillRecordWithdrawals,agentBillRecordRecharge } from "@/api/index.js";
+import { agentBillRecordAll, agentBillRecordWithdrawals, agentBillRecordRecharge } from '@/api/index.js';
 // 滚动加载插件
-import infiniteScroll from "vue-infinite-scroll";
-import {
-  ViewBox,
-  XHeader,
-  Group,
-  CellBox,
-  XButton,
-  XInput,
-  Tab,
-  TabItem,
-  PopupPicker
-} from "vux";
+import infiniteScroll from 'vue-infinite-scroll';
+import { ViewBox, XHeader, Group, CellBox, XButton, XInput, Tab, TabItem, PopupPicker } from 'vux';
 
 export default {
-  name: "agentBillRecord",
+  name: 'agentBillRecord',
   mixins: [common],
   directives: {
     infiniteScroll
@@ -93,18 +83,18 @@ export default {
   },
   data() {
     return {
-      select: "", // 选中
+      select: '', // 选中
       transactionList: [], // 投注明细
       busy: false, // 是否滚动加载
-      loadCompletion:false, // 显示加载完成
+      loadCompletion: false, // 显示加载完成
       req: {
-        switchingDate: "today", // 日期
+        switchingDate: 'today', // 日期
         page: 0, // 分页
         pageSize: 10, // 条数
-        search: "", // 搜索内容
+        search: '' // 搜索内容
       },
-      prizeState: 0, // 状态      
-      list: ["所有类型", "提现记录", "充值记录"] // 列表选项
+      prizeState: 0, // 状态
+      list: ['所有类型', '提现记录', '充值记录'] // 列表选项
     };
   },
   computed: {},
@@ -123,10 +113,10 @@ export default {
         agentBillRecordAll(this.req).then(response => {
           this.busy = false;
           this.transactionList = this.transactionList.concat(response.data);
-            // 判断是否已经是最后一页
-            if(this.req.page == response.total){
-              this.loadCompletion = true
-            }               
+          // 判断是否已经是最后一页
+          if (this.req.page == response.total) {
+            this.loadCompletion = true;
+          }
           // response 空时候不请求
           if (!(0 in response.data)) {
             this.busy = true;
@@ -137,10 +127,10 @@ export default {
         agentBillRecordWithdrawals(this.req).then(response => {
           this.busy = false;
           this.transactionList = this.transactionList.concat(response.data);
-            // 判断是否已经是最后一页
-            if(this.req.page == response.total){
-              this.loadCompletion = true
-            }            
+          // 判断是否已经是最后一页
+          if (this.req.page == response.total) {
+            this.loadCompletion = true;
+          }
           // response 空时候不请求
           if (!(0 in response.data)) {
             this.busy = true;
@@ -151,10 +141,10 @@ export default {
         agentBillRecordRecharge(this.req).then(response => {
           this.busy = false;
           this.transactionList = this.transactionList.concat(response.data);
-            // 判断是否已经是最后一页
-            if(this.req.page == response.total){
-              this.loadCompletion = true
-            }            
+          // 判断是否已经是最后一页
+          if (this.req.page == response.total) {
+            this.loadCompletion = true;
+          }
           // response 空时候不请求
           if (!(0 in response.data)) {
             this.busy = true;

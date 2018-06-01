@@ -25,7 +25,6 @@ import {
   Group,
   CellBox
 } from "vux";
-
 export default {
   name: "agencyCenter",
   components: {
@@ -42,7 +41,6 @@ export default {
   methods: {
     /* 数据请求 */
     
-
     /* 事件操作 */    
   }
 };

@@ -18,16 +18,16 @@
 					 </cell-box>
 					 <cell>
 						 <span slot="title"><span>投注时间</span><span class="pd-twenty">{{item.timeOfBetting}}</span> </span>
-					 </cell>						 
+					 </cell>
 					 <cell>
 						 <span slot="title"><span>投注单号</span><span class="pd-twenty">{{item.oddNumbers}}</span> </span>
-					 </cell>					 	
+					 </cell>
 					 <cell>
 						 <span slot="title"><span>投注金额</span><span class="pd-twenty">¥{{item.investment}}元</span> </span>
-					 </cell>					 
+					 </cell>
 					 <cell>
 						 <span slot="title"><span>派送奖金</span><span class="pd-twenty">¥{{item.bonus}}元</span> </span>
-					 </cell>		
+					 </cell>
 					 <cell>
 						 <span slot="title"><span>开奖号码</span><span class="pd-twenty">{{item.awardNumber}}</span> </span>
 					 </cell>
@@ -40,24 +40,24 @@
 									 <li style="padding-top:20px;">{{item.BettingInfo}}</li>
 									 <li>{{item.laws}}</li>
 								</ul>
-						</section>				 
+						</section>
 				 <!-- 我的投注 -->
 		</div>
-		<!-- main -->		
-	</view-box>		
+		<!-- main -->
+	</view-box>
 </template>
 
 <script>
-import { ViewBox, XHeader, Group, CellBox, Cell } from "vux";
-import {bettingDetails} from "@/api/index.js";
+import { ViewBox, XHeader, Group, CellBox, Cell } from 'vux';
+import { bettingDetails } from '@/api/index.js';
 export default {
   data() {
     return {
-			req:{
-				id: "" || this.$route.query.id, // id
-			},
-			detailsList:[]  // 详情列表
-		};
+      req: {
+        id: '' || this.$route.query.id // id
+      },
+      detailsList: [] // 详情列表
+    };
   },
   components: {
     ViewBox,
@@ -67,21 +67,20 @@ export default {
     Cell
   },
   created() {
-		// 注单详情
-		this.getData()		
-	},
+    // 注单详情
+    this.getData();
+  },
   methods: {
-		// 数据请求
-		// 注单详情
-		getData(){
+    // 数据请求
+    // 注单详情
+    getData() {
       bettingDetails(this.req).then(response => {
-				console.log(response)
-				this.detailsList = response;
-
-			})
-		}
-		// 事件操作
-	}
+        console.log(response);
+        this.detailsList = response;
+      });
+    }
+    // 事件操作
+  }
 };
 </script>
 
@@ -99,23 +98,23 @@ export default {
 
 // 我的投注
 .section-detail {
-	h3{
-		margin: 0 20px;
-		font-size: 18px;
-		color: #333;
-		font-weight: 400;
-	}
+  h3 {
+    margin: 0 20px;
+    font-size: 18px;
+    color: #333;
+    font-weight: 400;
+  }
   ul {
-    background-image: url("../../assets/images/agentCenter/paper.png");
+    background-image: url('../../assets/images/agentCenter/paper.png');
     background-repeat: no-repeat;
-		background-size: 100% 100%;
-		height: 120px;
-		li{
-			margin: 0 30px;
-			color: #bbb;
-      border-bottom: 1px solid #d0d0d0;/*px*/
-			line-height: 30px;
-		}
+    background-size: 100% 100%;
+    height: 120px;
+    li {
+      margin: 0 30px;
+      color: #bbb;
+      border-bottom: 1px solid #d0d0d0; /*px*/
+      line-height: 30px;
+    }
   }
 }
 </style>

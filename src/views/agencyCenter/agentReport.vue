@@ -3,9 +3,9 @@
     <x-header slot="header" style="width:100%;position:absolute;left:0;top:0;z-index:100;">
       <span>{{$route.meta.pageTitle}}</span>
       <!-- 日期选择 -->
-        <group class="group-select-data" slot="right">
-          <popup-picker :data="dataList" v-model="selectDate" @on-change="hanleChangeDate"></popup-picker>
-        </group>
+      <group slot="right" class="group-select-data">
+        <popup-picker :data="dataList" v-model="selectDate" @on-change="hanleChangeDate"></popup-picker>
+      </group>
       <!-- 日期选择 -->
     </x-header>
     <div class="main main-padding-top">
@@ -53,25 +53,25 @@
             <h3>{{item.rechargeAmount}}</h3>
             <span>充值金额</span>
             </div>
-          </flexbox-item>    
+          </flexbox-item>
           <flexbox-item :span="1/3">
           <div class="flex-item">
             <h3>{{item.putForwardAmount}}</h3>
             <span>提现金额</span>
             </div>
-          </flexbox-item> 
+          </flexbox-item>
           <flexbox-item :span="1/3">
           <div class="flex-item">
             <h3>{{item.firstPeople}}</h3>
             <span>首冲人数</span>
             </div>
-          </flexbox-item>  
+          </flexbox-item>
           <flexbox-item :span="1/3">
           <div class="flex-item">
             <h3>{{item.registerPeople}}</h3>
             <span>注册人数</span>
             </div>
-          </flexbox-item>  
+          </flexbox-item>
           <flexbox-item :span="1/3">
           <div class="flex-item">
             <h3>{{item.bettingPeople}}</h3>
@@ -83,31 +83,31 @@
             <h3>{{item.lowerPeople}}</h3>
             <span>下级人数</span>
             </div>
-          </flexbox-item>  
+          </flexbox-item>
           <flexbox-item :span="1/3">
           <div class="flex-item">
             <h3>{{item.teamBalance}}</h3>
             <span>团队余额</span>
             </div>
-          </flexbox-item>  
+          </flexbox-item>
            <flexbox-item :span="1/3">
           <div class="flex-item">
             <h3>{{item.agentRebate}}</h3>
             <span>代理返点</span>
             </div>
-          </flexbox-item>  
+          </flexbox-item>
           <flexbox-item :span="1/3">
           <div class="flex-item">
             <h3>{{item.agencyWages}}</h3>
             <span>代理工资</span>
             </div>
-          </flexbox-item>  
+          </flexbox-item>
           <flexbox-item :span="1/3">
           <div class="flex-item">
             <h3>{{item.proxyBonus}}</h3>
             <span>代理分红</span>
             </div>
-          </flexbox-item>                                                                                                                                                    
+          </flexbox-item>
         </flexbox>
         <!-- 搜索列表 -->
     </div>
@@ -116,23 +116,13 @@
 
 <script>
 // common 通用模版
-import common from "../mixin/common.mixin.js";
+import common from '../mixin/common.mixin.js';
 // 接口请求
-import { agentReport } from "@/api/index.js";
-import {
-  ViewBox,
-  XHeader,
-  Group,
-  CellBox,
-  XInput,
-  XButton,
-  Flexbox,
-  FlexboxItem,
-  PopupPicker
-} from "vux";
+import { agentReport } from '@/api/index.js';
+import { ViewBox, XHeader, Group, CellBox, XInput, XButton, Flexbox, FlexboxItem, PopupPicker } from 'vux';
 
 export default {
-  name: "agentReport",
+  name: 'agentReport',
   mixins: [common],
   components: {
     ViewBox,
@@ -149,8 +139,8 @@ export default {
     return {
       agentReportList: [], // 代理列表
       req: {
-        switchingDate: "today", // 日期
-        search: "" || this.$route.query.account, // 搜索内容
+        switchingDate: 'today', // 日期
+        search: '' || this.$route.query.account // 搜索内容
       }
     };
   },
@@ -195,8 +185,8 @@ export default {
     // 搜索
     hanleSearch() {
       this.agentReportList = [];
-      this.req.page = 0;  
-      // 获取列表数据               
+      this.req.page = 0;
+      // 获取列表数据
       this.getData();
     }
   }
