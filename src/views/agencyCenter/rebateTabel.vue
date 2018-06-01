@@ -3,11 +3,9 @@
     <x-header slot="header" style="width:100%;position:absolute;left:0;top:0;z-index:100;" v-bind:title="$route.meta.pageTitle">
       <span>{{$route.meta.pageTitle}}</span>
 			<!-- 彩票选择 -->
-      <div slot="right">
-        <group class="group-select-data">
+        <group class="group-select-data" slot="right">
         	<popup-picker :data="lotteryList" v-model="selectLottery" @on-change="hanleChangeLottery"></popup-picker>
-        </group>
-      </div>  
+        </group> 
       <!-- 彩票选择 -->			
 		</x-header>
     <div class="main main-padding-top">

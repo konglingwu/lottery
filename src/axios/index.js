@@ -1,8 +1,6 @@
 import axios from "axios";
 import Vue from "vue";
-import { LoadingPlugin } from "vux";
-import { AlertPlugin } from "vux";
-import { ToastPlugin } from "vux";
+import { LoadingPlugin,AlertPlugin,ToastPlugin } from "vux";
 Vue.use(LoadingPlugin);
 Vue.use(AlertPlugin);
 Vue.use(ToastPlugin);
@@ -34,16 +32,8 @@ axios.interceptors.response.use(
     // 全屏Loading结束
     Vue.$vux.loading.hide();
     // const res = response.data;
-    if (code == -1) {
+    if (code != 0) {
       // 失败
-      Vue.$vux.toast.text(msg, "top");
-      return Promise.reject(msg);
-    } else if (code == 401) {
-      // 无权限
-      Vue.$vux.toast.text(msg, "top");
-      return Promise.reject(msg);
-    }else if (code == 500) {
-      // 服务器异常
       Vue.$vux.toast.text(msg, "top");
       return Promise.reject(msg);
     } else {
