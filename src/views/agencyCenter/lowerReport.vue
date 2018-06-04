@@ -86,6 +86,7 @@ export default {
       loadCompletion: false, // 显示加载完成
       dataCache: {}, // 数据缓存集合
       lowerNames: [], //缓存账号集合
+      total:0,        // 总页数
       levelTotal: 1, // 代理层级
       req: {
         switchingDate: 'today', // 日期
@@ -119,7 +120,8 @@ export default {
         };
         // 添加缓存
         // 判断是否已经是最后一页
-        if (this.req.page == response.total) {
+          this.total = response.total
+        if (this.req.page == this.total && this.total > 0) {
           this.loadCompletion = true;
         }
         // response 空时候不请求

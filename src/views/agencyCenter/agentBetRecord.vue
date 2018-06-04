@@ -85,6 +85,7 @@ export default {
       list: ['全部', '已中奖', '未中奖', '等待开奖'], // 列表选项
       bettingList: [], // 投注明细
       busy: false, // 是否滚动加载
+      total: 0, // 总页数      
       loadCompletion: false, // 显示加载完成
       req: {
         switchingDate: 'today', // 日期
@@ -113,7 +114,8 @@ export default {
         this.bettingList = this.bettingList.concat(response.data);
         // response 空时候不请求
         // 判断是否已经是最后一页
-        if (this.req.page == response.total) {
+        this.total = response.total;
+        if (this.req.page == this.total && this.total > 0) {
           this.loadCompletion = true;
         }
         if (!(0 in response.data)) {

@@ -88,6 +88,7 @@ export default {
       memberList: [], // 会员列表
       popupOption: {}, // 弹出选项
       busy: false, // 是否滚动加载
+      total:0,        // 总页数      
       loadCompletion: false, // 显示加载完成
       req: {
         page: 0, // 分页
@@ -115,7 +116,8 @@ export default {
         this.memberList = this.memberList.concat(response.data);
         this.busy = false;
         // 判断是否已经是最后一页
-        if (this.req.page == response.total) {
+        this.total = response.total
+        if (this.req.page == this.total && this.total > 0) {
           this.loadCompletion = true;
         }
         // response 空时候不请求

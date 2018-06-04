@@ -107,7 +107,7 @@ export default {
             sumSysPoint.push(sum.toFixed(3)); // 过滤点集合
           });
           let sqlItem = {};
-          sqlItem.rebate = i / 10; // 返点
+          sqlItem.rebate = (i / 10).toFixed(1); // 返点
           sqlItem.interestRate = sumSysPoint; // 返点利率
           this.rateList.push(sqlItem);
         }

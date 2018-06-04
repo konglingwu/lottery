@@ -86,6 +86,7 @@ export default {
       select: '', // 选中
       transactionList: [], // 投注明细
       busy: false, // 是否滚动加载
+      total: 0, // 总页数
       loadCompletion: false, // 显示加载完成
       req: {
         switchingDate: 'today', // 日期
@@ -114,7 +115,8 @@ export default {
           this.busy = false;
           this.transactionList = this.transactionList.concat(response.data);
           // 判断是否已经是最后一页
-          if (this.req.page == response.total) {
+          this.total = response.total;
+          if (this.req.page == this.total && this.total > 0) {
             this.loadCompletion = true;
           }
           // response 空时候不请求
