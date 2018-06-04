@@ -97,7 +97,7 @@ export default {
         let sysPoint = Response.data.sysPoint; // 赋值总代理返点
         let selfReturn = sysPoint * 10;
         this.breadth = selfReturn * 132; // 计算列表总宽度
-        this.lotteryName = Response.data.lotteryType; // 赋值彩票类型
+        this.lotteryName = Response.data.title; // 赋值彩票类型
         // 循环计算利率表
         for (let i = selfReturn; i >= 0; i--) {
           let sumSysPoint = [];
