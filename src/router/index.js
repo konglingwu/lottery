@@ -116,6 +116,7 @@ export default new Router({
 		// 注单详情结束																	
 		 {
 			path: '*',
-			redirect: '/demo'
-		}]
+			component: resolve => require(['@/views/Demo'], resolve)
+		}
+	]
 })

@@ -1,6 +1,6 @@
 <template>
-  <view-box ref="viewBox" class="weui-panel-bottom">
-    <x-header slot="header" style="width:100%;position:absolute;left:0;top:0;z-index:100;" v-bind:title="$route.meta.pageTitle">
+  <div class="weui-panel-bottom">
+    <x-header slot="header" style="width:100%;position: fixed;left:0;top:0;z-index:100;" v-bind:title="$route.meta.pageTitle">
       <span>{{$route.meta.pageTitle}}</span>
 			<!-- 彩票选择 -->
       <group slot="right" class="group-select-data">
@@ -38,12 +38,12 @@
 				</div>
 				<!-- 表格 -->
     </div>
-  </view-box>
+  </div>
 </template>
 
 <script>
 // 接口请求
-import { rebateDes, lotteryList } from '@/api/index.js';
+import { rebateDes, lotteryList, agentRebate } from '@/api/index.js';
 // common 通用模版
 import common from '../mixin/common.mixin.js';
 import { ViewBox, XHeader, Group, PopupPicker } from 'vux';
@@ -62,7 +62,7 @@ export default {
       lotteryName: '', // 当前彩票名称
       rebateDesLaws: [], // 赋值彩票玩法
       rateList: [], //赔率表
-      breadth: 100, // 汇率表宽度
+      breadth: null, // 汇率表宽度
       lotteryList: [], // 彩票选项列表
       selectLottery: [], // 彩票选项
       req: {
@@ -74,8 +74,14 @@ export default {
   created() {
     // 彩票列表
     this.getLottery();
-    // 返点赔率
-    this.getData();
+    let res = localStorage.getItem('rebateList');
+    if (res == null || res == '' || res == 'undefined') {
+      this.getRebate();      
+    }else{
+      // 返点赔率
+      this.getData();
+    }
+
   },
   methods: {
     /* 数据请求 */
@@ -87,7 +93,16 @@ export default {
         this.selectLottery.push(data[0].name);
       });
     },
-
+    // 下级用户-获取返点
+    getRebate() {
+      agentRebate(this.req).then(response => {
+        let res = response.data;
+        const obj = JSON.stringify(res); //  转成字符串格式
+        localStorage.setItem('rebateList', obj); // 存储到localStorage
+        // 返点赔率
+        this.getData();
+      });
+    },
     // 返点赔率
     getData() {
       this.rebateDesLaws = [];
@@ -95,10 +110,20 @@ export default {
       rebateDes(this.req).then(Response => {
         let contents = Response.data.content; // 赋值彩票玩法
         let sysPoint = Response.data.sysPoint; // 赋值总代理返点
-        let selfReturn = sysPoint * 10;
-        this.breadth = selfReturn * 132; // 计算列表总宽度
+        let selfReturn = null;
         this.lotteryName = Response.data.title; // 赋值彩票类型
+
+        // 获取自身返点
+          let list = JSON.parse(localStorage.getItem('rebateList')); // 读取localStorage数据
+          list.forEach(item => {
+            if (item.id == Response.data.id) {
+              selfReturn = item.maxPoint * 10;
+            }
+          });
+        // 获取自身返点
+        this.breadth = selfReturn * 132; // 计算列表总宽度
         // 循环计算利率表
+        console.log(selfReturn, 'selfReturn');
         for (let i = selfReturn; i >= 0; i--) {
           let sumSysPoint = [];
           contents.forEach(element => {

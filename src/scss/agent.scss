@@ -104,21 +104,34 @@
   }
 }
 // 返点赔率表
+.fix:before,
+.fix:after {
+  content: "";
+  display: table;
+}
+  .fix:after {
+    clear: both;
+    overflow: hidden;
+}
 .rebate-items{
   height: 100%;/*px*/
-  overflow: scroll; 
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch; 
+  @extend .fix;
   padding-top: 50px;
   .rebate-title{
     position: relative;
     z-index: 1;
     box-shadow: 0.5em 0 0.5em #d5d5d5;
   }
+  .rebate-content > div {
+    @extend .fix;
+  }
   // 左侧标题和右侧内容 
   .rebate-title,.rebate-content-item{
     background: white;
     width: 260px;
     float: left;
-    overflow: hidden;
     li:nth-child(2n+1){
      background: #eee;
     }
@@ -151,7 +164,7 @@
   .rebate-content{
     width: 490px;
     float: left;
-    overflow: scroll;
+    overflow: auto;
   }
 }
 //

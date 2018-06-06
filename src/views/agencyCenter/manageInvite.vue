@@ -207,8 +207,8 @@ export default {
 
           this.selfReturn.push(element.maxPoint);
         });
-        const selfPoint = JSON.stringify(this.selfReturn); //  转成字符串格式
-        localStorage.setItem('selfReturn', selfPoint); // 存储自身返点
+        // const selfPoint = JSON.stringify(this.selfReturn); //  转成字符串格式
+        // localStorage.setItem('selfReturn', selfPoint); // 存储自身返点
 
         const obj = JSON.stringify(this.rebateList); //  转成字符串格式
         localStorage.setItem('rebateList', obj); // 存储到localStorage
