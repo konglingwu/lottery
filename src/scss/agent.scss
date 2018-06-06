@@ -122,6 +122,7 @@
   .rebate-title{
     position: relative;
     z-index: 1;
+    width: 35%;
     box-shadow: 0.5em 0 0.5em #d5d5d5;
   }
   .rebate-content > div {
@@ -130,7 +131,6 @@
   // 左侧标题和右侧内容 
   .rebate-title,.rebate-content-item{
     background: white;
-    width: 260px;
     float: left;
     li:nth-child(2n+1){
      background: #eee;
@@ -144,7 +144,7 @@
       overflow: hidden;
       white-space: normal;
       text-overflow: ellipsis;      
-      font-size: 14px;/*px*/
+      font-size: 12px;/*px*/
       label{
         position: absolute;
         left: 30px;
@@ -160,9 +160,12 @@
     }
     
   }
+  .rebate-content-item{
+    width: 110px;/*px*/
+  }
   // 右侧内容
   .rebate-content{
-    width: 490px;
+    width: 65%;
     float: left;
     overflow: auto;
   }

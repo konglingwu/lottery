@@ -121,7 +121,7 @@ export default {
             }
           });
         // 获取自身返点
-        this.breadth = selfReturn * 132; // 计算列表总宽度
+        this.breadth = (selfReturn+1) * 110; // 计算列表总宽度
         // 循环计算利率表
         console.log(selfReturn, 'selfReturn');
         for (let i = selfReturn; i >= 0; i--) {
