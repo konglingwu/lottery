@@ -35,35 +35,6 @@ try {
 	document.body.classList.add('tool-fixed')
 }
 
-// Vue.http.interceptors.response.use(res => {
-// 	const data = res.data,
-// 		url = res.config.url;
-// 	if (data.code == 401) {
-// 		store.commit(USER.SWITCH, {
-// 			status: true,
-// 			notReload: ~url.indexOf('lottery')
-// 		})
-// 		return Promise.reject()
-// 	}
-// 	return res
-// }, err => {
-// 	if (err.response) {
-// 		switch (err.response.status) {
-// 			case 401:
-// 				let notReload = err.response.config.url.indexOf('lottery') > -1
-// 				store.commit(USER.SWITCH, {
-// 					status: true,
-// 					notReload: notReload
-// 				})
-// 				break;
-// 			default:
-// 				break;
-// 		}
-// 	}
-// 	return Promise.reject(err)
-// })
-
-
 function log() {
 	if (__DEV__ && console && console.log) {
 		let args = Array.prototype.slice.call(arguments)
